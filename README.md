@@ -1,2 +1,2 @@
-# endeavor-website-redesign
-proposed redesign for endeavor ai's main website.
+# Endeavor Website Redesign
+Proposed redesign for endeavor ai's main website.
