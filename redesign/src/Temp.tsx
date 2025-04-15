@@ -9,63 +9,63 @@ const Animation = ({
 }) => {
   const visibility = {
     0: {
-      excelLogo: { state: "hidden"},
-      phoneLogo: { state: "hidden"},
-      emailLogo: { state: "hidden"},
-      pdfLogo: { state: "hidden"},
+      excelLogo: { visible: true },
+      phoneLogo: { visible: true },
+      emailLogo: { visible: true },
+      pdfLogo: { visible: true },
     },
     1: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
+      excelLogo: { visible: true },
+      phoneLogo: { visible: true },
+      emailLogo: { visible: true },
+      pdfLogo: { visible: true },
     },
     2: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
-      excelLine: { state: "visible"},
-      phoneLine: { state: "visible"},
-      emailLine: { state: "visible"},
-      pdfLine: { state: "visible"},
-      endeavorLogo: { state: "startState"},
+      excelLogo: { visible: true },
+      phoneLogo: { visible: true },
+      emailLogo: { visible: true },
+      pdfLogo: { visible: true },
+      excelLine: { visible: true },
+      phoneLine: { visible: true },
+      emailLine: { visible: true },
+      pdfLine: { visible: true },
+      endeavorLogo: { visible: true },
     },
     3: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
-      excelLine: { state: "visible"},
-      phoneLine: { state: "visible"},
-      emailLine: { state: "visible"},
-      pdfLine: { state: "visible"},
-      endeavorLogo: { state: "startState"},
+      excelLogo: { visible: true },
+      phoneLogo: { visible: true },
+      emailLogo: { visible: true },
+      pdfLogo: { visible: true },
+      excelLine: { visible: true },
+      phoneLine: { visible: true },
+      emailLine: { visible: true },
+      pdfLine: { visible: true },
+      endeavorLogo: { visible: true },
     },
     4: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { visible: true },
     },
     5: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { visible: true },
     },
     6: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { visible: true },
     },
     7: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { visible: true },
     },
     8: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { visible: true },
     },
     9: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { visible: true },
     },
   };
   
   const currentVisibility = activeIndex !== null ? visibility[activeIndex] ?? {} : {};
   
-  const getState = (id: string) => currentVisibility[id]?.state;
-  // const getProps = (id: string) => currentVisibility[id]?.props ?? {};
+  const getVisibility = (id: string) => currentVisibility[id]?.visible ?? false;
+  const getProps = (id: string) => currentVisibility[id]?.props ?? {};
 
   
   
@@ -140,7 +140,7 @@ const Animation = ({
         stroke="#DFDFDF"
         strokeWidth="2.5"
         initial="hidden"
-        animate={getState("emailLine")}
+        animate={getVisibility("excelLine") ? "visible" : "hidden"}
         variants={lineVariants}
       />
 
@@ -151,7 +151,7 @@ const Animation = ({
         stroke="#DFDFDF"
         strokeWidth="2.5"
         initial="hidden"
-        animate={getState("phoneLine")}
+        animate={getVisibility("phoneLine") ? "visible" : "hidden"}
         variants={lineVariants}
       />
 
@@ -162,7 +162,7 @@ const Animation = ({
         stroke="#DFDFDF"
         strokeWidth="2.5"
         initial="hidden"
-        animate={getState("excelLine")}
+        animate={getVisibility("excelLine") ? "visible" : "hidden"}
         variants={lineVariants}
       />
 
@@ -173,15 +173,16 @@ const Animation = ({
         stroke="#DFDFDF"
         strokeWidth="2.5"
         initial="hidden"
-        animate={getState("pdfLine")}
+        animate={getVisibility("pdfLine") ? "visible" : "hidden"}
         variants={lineVariants}
       />
 
       {/* Excel Logo */}
+      
       <motion.g
         id="excelLogo"
         initial="hidden"
-        animate={getState("excelLogo")}
+        animate={getVisibility("excelLogo") ? "visible" : "hidden"}
         variants={logoVariants}
         custom={0}
       >
@@ -202,7 +203,7 @@ const Animation = ({
       <motion.g
         id="pdfLogo"
         initial="hidden"
-        animate={getState("pdfLogo")}
+        animate={getVisibility("pdfLogo") ? "visible" : "hidden"}
         variants={logoVariants}
         custom={1}
       >
@@ -221,7 +222,7 @@ const Animation = ({
       <motion.g
         id="phoneLogo"
         initial="hidden"
-        animate={getState("phoneLogo")}
+        animate={getVisibility("phoneLogo") ? "visible" : "hidden"}
         variants={logoVariants}
         custom={2}
       >
@@ -236,7 +237,7 @@ const Animation = ({
       <motion.g
         id="emailLogo"
         initial="hidden"
-        animate={getState("emailLogo")}
+        animate={getVisibility("emailLogo") ? "visible" : "hidden"}
         variants={logoVariants}
         custom={3}
       >
@@ -252,9 +253,13 @@ const Animation = ({
 
       {/* Endeavor Logo */}
       <EndeavorContainer
-        state={getState("endeavorLogo")}
+        visibility={getVisibility("endeavorLogo")}
+        x={228}
+        y={698}
+        width={173}
       />
       
+
       <defs>
         <filter id="filter0_d_0_1" x="86.3" y="0.3" width="199.4" height="197.4" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
           <feFlood floodOpacity="0" result="BackgroundImageFix" />
