@@ -52,19 +52,43 @@ const Animation = ({
       endeavorLogo: { state: "basicState"},
     },
     6: {
+      endeavorLogo: { state: "basicState"},
+    },
+    7: { 
       endeavorLogo: { state: "basicShrunkState"},
     },
-    7: {
-      endeavorLogo: { state: "processingState"},
-    },
-    8: {
-      endeavorLogo: { state: "processingState"},
+    8: { 
+      endeavorLogo: { state: "basicShrunkState"},
     },
     9: {
       endeavorLogo: { state: "processingState"},
     },
     10: {
       endeavorLogo: { state: "processingState"},
+    },
+    11: {
+      endeavorLogo: { state: "itemExtractionState"},
+    },
+    12: {
+      endeavorLogo: { state: "itemExtractionState"},
+    },
+    13: {
+      endeavorLogo: { state: "extractedOne"},
+    },
+    14: {
+      endeavorLogo: { state: "extractedOne"},
+    },
+    15: {
+      endeavorLogo: { state: "extractedTwo"},
+    },
+    16: {
+      endeavorLogo: { state: "extractedTwo"},
+    },
+    17: {
+      endeavorLogo: { state: "extractedThree"},
+    },
+    18: {
+      endeavorLogo: { state: "extractedThree"},
     },
   };
   
