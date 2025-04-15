@@ -4,17 +4,24 @@ import { useEffect } from 'react';
 export const EndeavorContainer = ({
   state,
 }: {
-  state: "hidden" | "startState" | "pulsatingState";
+  state: "hidden" | "startState" | "pulsatingState" | "textState";
 }) => {
-  const width = 173;
-  const height = 170;
 
   const containerVariants = {
     hidden: { opacity: 0, x: 310, y: 800 },
     startState: { opacity: 1, x: 310, y: 800, transition: { duration: 0.6, ease: "easeOut" } },
     pulsatingState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    textState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
-
+  
+  const height = 170;
+  const width = {
+    hidden: 173,
+    startState: 173,
+    pulsatingState: 173,
+    textState: 500,
+  }[state] ?? 173;
+  
   useEffect(() => {
     if (state) {
       console.log(state)
@@ -27,11 +34,17 @@ export const EndeavorContainer = ({
       animate={state}
       variants={containerVariants}
     >
-      <rect
-    x={-width/2}
-    y={-height/2}
-    width={width}
-    height={height}
+      <motion.rect
+        initial={{
+          width: width,
+          x: -width / 2,
+        }}
+        animate={{
+          width: width,
+          x: -width / 2,
+        }}
+        height={height}
+        y={-height / 2}
         rx={20}
         fill="white"
         filter="url(#softShadow)"

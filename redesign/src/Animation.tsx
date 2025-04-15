@@ -15,21 +15,16 @@ const Animation = ({
       pdfLogo: { state: "hidden"},
     },
     1: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
+      excelLogo: { state: "hidden"},
+      phoneLogo: { state: "hidden"},
+      emailLogo: { state: "hidden"},
+      pdfLogo: { state: "hidden"},
     },
     2: {
       excelLogo: { state: "visible"},
       phoneLogo: { state: "visible"},
       emailLogo: { state: "visible"},
       pdfLogo: { state: "visible"},
-      excelLine: { state: "visible"},
-      phoneLine: { state: "visible"},
-      emailLine: { state: "visible"},
-      pdfLine: { state: "visible"},
-      endeavorLogo: { state: "startState"},
     },
     3: {
       excelLogo: { state: "visible"},
@@ -43,13 +38,21 @@ const Animation = ({
       endeavorLogo: { state: "startState"},
     },
     4: {
-      endeavorLogo: { state: "pulsatingState"},
+      excelLogo: { state: "visible"},
+      phoneLogo: { state: "visible"},
+      emailLogo: { state: "visible"},
+      pdfLogo: { state: "visible"},
+      excelLine: { state: "visible"},
+      phoneLine: { state: "visible"},
+      emailLine: { state: "visible"},
+      pdfLine: { state: "visible"},
+      endeavorLogo: { state: "startState"},
     },
     5: {
       endeavorLogo: { state: "pulsatingState"},
     },
     6: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { state: "textState"},
     },
     7: {
       endeavorLogo: { state: "pulsatingState"},
@@ -58,6 +61,9 @@ const Animation = ({
       endeavorLogo: { state: "pulsatingState"},
     },
     9: {
+      endeavorLogo: { state: "pulsatingState"},
+    },
+    10: {
       endeavorLogo: { state: "pulsatingState"},
     },
   };
