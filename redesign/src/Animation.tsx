@@ -49,22 +49,22 @@ const Animation = ({
       endeavorLogo: { state: "startState"},
     },
     5: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { state: "basicState"},
     },
     6: {
-      endeavorLogo: { state: "textState"},
+      endeavorLogo: { state: "basicShrunkState"},
     },
     7: {
-      endeavorLogo: { state: "textState"},
+      endeavorLogo: { state: "processingState"},
     },
     8: {
-      endeavorLogo: { state: "textState"},
+      endeavorLogo: { state: "processingState"},
     },
     9: {
-      endeavorLogo: { state: "textState"},
+      endeavorLogo: { state: "processingState"},
     },
     10: {
-      endeavorLogo: { state: "textState"},
+      endeavorLogo: { state: "processingState"},
     },
   };
   

@@ -4,22 +4,31 @@ import { useEffect } from 'react';
 export const EndeavorContainer = ({
   state,
 }: {
-  state: "hidden" | "startState" | "pulsatingState" | "textState";
+  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "processingState";
 }) => {
 
   const containerVariants = {
     hidden: { opacity: 0, x: 310, y: 800 },
     startState: { opacity: 1, x: 310, y: 800, transition: { duration: 0.6, ease: "easeOut" } },
-    pulsatingState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    textState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    basicState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    basicShrunkState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    processingState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
   
-  const height = 170;
-  const width = {
+  const rectangleHeightByState = {
+    hidden: 170,
+    startState: 170,
+    basicState: 170,
+    basicShrunkState: 150,
+    processingState: 150,
+  }[state] ?? 170;
+  
+  const rectangleWidthByState = {
     hidden: 173,
     startState: 173,
-    pulsatingState: 173,
-    textState: 500,
+    basicState: 173,
+    basicShrunkState: 173,
+    processingState: 550,
   }[state] ?? 173;
   
   useEffect(() => {
@@ -32,12 +41,39 @@ export const EndeavorContainer = ({
   const logoX = {
     hidden: -317.5,
     startState: -317.5,
-    pulsatingState: -317.5,
-    textState: -480,
+    basicState: -317.5,
+    basicShrunkState: -317.5,
+    processingState: -500,
   }[state] ?? -317.5;
   
   const logoY = -785; 
+  
+  const textX = {
+    hidden: rectangleWidthByState / 2 - 325,
+    startState: rectangleWidthByState / 2 - 325,
+    basicState: rectangleWidthByState / 2 - 325,
+    basicShrunkState: rectangleWidthByState / 2 - 380,
+    processingState: rectangleWidthByState / 2 - 380,
+  }[state] ?? rectangleWidthByState / 2 - 325;
 
+  const textY = 0;
+
+  const textByState = {
+    hidden: "",
+    startState: "",
+    basicState: "",
+    basicShrunkState: "",
+    processingState: "Processing Order...",
+  }[state] ?? "";
+
+  const logoScaleByState = {
+    hidden: 1,
+    startState: 1,
+    basicState: 1,
+    basicShrunkState: 0.85,
+    processingState: 0.85,
+  }[state] ?? 1;
+  
   return (
     <motion.g
       initial="hidden"
@@ -46,19 +82,19 @@ export const EndeavorContainer = ({
     >
       <motion.rect
         initial={{
-          width: width,
-          x: -width / 2,
+          width: rectangleWidthByState,
+          x: -rectangleWidthByState / 2,
         }}
         animate={{
-          width: width,
-          x: -width / 2,
+          width: rectangleWidthByState,
+          x: -rectangleWidthByState / 2,
         }}
         transition={{
           width: { duration: 0.5, ease: "easeInOut" },
           x: { duration: 0.5, ease: "easeInOut" }
         }}
-        height={height}
-        y={-height / 2}
+        height={rectangleHeightByState}
+        y={-rectangleHeightByState / 2}
         rx={20}
         fill="white"
         filter="url(#softShadow)"
@@ -66,8 +102,8 @@ export const EndeavorContainer = ({
 
       {/* Endeavor Icon */}
       <motion.g
-        animate={{ x: logoX, y: logoY }}
-        transition={{ x: { duration: 0.5, ease: "easeInOut" } }}
+        animate={{ x: logoX, y: logoY, scale: logoScaleByState }}
+        transition={{ x: { duration: 0.5, ease: "easeInOut" }, scale: { duration: 0.5, ease: "easeInOut" } }}
       >
         <path
           fillRule="evenodd"
@@ -88,6 +124,22 @@ export const EndeavorContainer = ({
           fill="black"
         />
       </motion.g>
+
+      {textByState && (
+        <motion.text
+          x={textX} // This puts the text near the right edge of the rectangle
+          y={textY} 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ x: { duration: 0.5, ease: "easeInOut" }, opacity: { duration: 0.4, delay: 0.3 } }}
+          fill="black"
+          fontSize="40"
+          fontWeight="bold"
+          alignmentBaseline="middle"
+          >
+          {textByState}
+        </motion.text>
+      )}
 
         <defs>
           <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
