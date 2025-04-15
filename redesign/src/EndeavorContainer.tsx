@@ -19,16 +19,16 @@ export const EndeavorContainer = ({
     hidden: 170,
     startState: 170,
     basicState: 170,
-    basicShrunkState: 150,
-    processingState: 150,
+    basicShrunkState: 130,
+    processingState: 130,
   }[state] ?? 170;
   
   const rectangleWidthByState = {
     hidden: 173,
     startState: 173,
     basicState: 173,
-    basicShrunkState: 173,
-    processingState: 550,
+    basicShrunkState: 140,
+    processingState: 540,
   }[state] ?? 173;
   
   useEffect(() => {
@@ -53,7 +53,7 @@ export const EndeavorContainer = ({
     startState: rectangleWidthByState / 2 - 325,
     basicState: rectangleWidthByState / 2 - 325,
     basicShrunkState: rectangleWidthByState / 2 - 380,
-    processingState: rectangleWidthByState / 2 - 380,
+    processingState: rectangleWidthByState / 2 - 400,
   }[state] ?? rectangleWidthByState / 2 - 325;
 
   const textY = 0;
@@ -70,8 +70,8 @@ export const EndeavorContainer = ({
     hidden: 1,
     startState: 1,
     basicState: 1,
-    basicShrunkState: 0.85,
-    processingState: 0.85,
+    basicShrunkState: 0.7,
+    processingState: 0.7,
   }[state] ?? 1;
   
   return (
