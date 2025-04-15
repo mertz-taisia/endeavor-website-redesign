@@ -55,16 +55,16 @@ const Animation = ({
       endeavorLogo: { state: "textState"},
     },
     7: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { state: "textState"},
     },
     8: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { state: "textState"},
     },
     9: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { state: "textState"},
     },
     10: {
-      endeavorLogo: { state: "pulsatingState"},
+      endeavorLogo: { state: "textState"},
     },
   };
   
@@ -117,25 +117,7 @@ const Animation = ({
       transition: { duration: 0.4 }
     }
   };
-
-  // Endeavor logo animation variants
-  const endeavorVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.95,
-      y: 734 
-    },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      y: 200,
-      transition: {
-        opacity: { duration: 0.5 },
-        scale: { duration: 0.5 },
-        y: { duration: 1.2, ease: "easeOut" }
-      }
-    }
-  };
+  
 
   return (
     <svg viewBox="0 0 639 886" fill="none" xmlns="http://www.w3.org/2000/svg">
