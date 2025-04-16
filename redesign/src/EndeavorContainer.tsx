@@ -64,7 +64,7 @@ export const EndeavorContainer = ({
     }
   }, [state]);
 
-  const logoLoading = state === "processingState";
+  const logoLoading = state === "processingState" || state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree";
 
   // const [textLoadingDots, setTextLoadingDots] = useState(".");
 
