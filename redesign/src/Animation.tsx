@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {EndeavorContainer} from './EndeavorContainer';
+import {Catalog} from './Catalog';
+
 
 const Animation = ({
   activeIndex
@@ -51,44 +53,55 @@ const Animation = ({
     5: {
       endeavorLogo: { state: "basicState"},
     },
-    6: {
-      endeavorLogo: { state: "basicState"},
-    },
-    7: { 
+    6: { 
       endeavorLogo: { state: "basicShrunkState"},
     },
-    8: { 
-      endeavorLogo: { state: "basicShrunkState"},
+    7: {
+      endeavorLogo: { state: "processingState"},
+    },
+    8: {
+      endeavorLogo: { state: "itemExtractionState"},
     },
     9: {
-      endeavorLogo: { state: "processingState"},
+      endeavorLogo: { state: "extractedOne"},
     },
     10: {
-      endeavorLogo: { state: "processingState"},
+      endeavorLogo: { state: "extractedTwo"},
     },
     11: {
-      endeavorLogo: { state: "itemExtractionState"},
+      endeavorLogo: { state: "extractedThree"},
     },
     12: {
-      endeavorLogo: { state: "itemExtractionState"},
+      catalog: { state: "hidden"},
+      endeavorLogo: { state: "extractedThree"},
     },
     13: {
-      endeavorLogo: { state: "extractedOne"},
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch"},
     },
     14: {
-      endeavorLogo: { state: "extractedOne"},
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch"},
     },
     15: {
-      endeavorLogo: { state: "extractedTwo"},
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch2"},
     },
     16: {
-      endeavorLogo: { state: "extractedTwo"},
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch2"},
     },
     17: {
-      endeavorLogo: { state: "extractedThree"},
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch3"},
     },
     18: {
-      endeavorLogo: { state: "extractedThree"},
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch4"},
+    },
+    19: {
+      catalog: { state: "basicState"},
+      endeavorLogo: { state: "catalogMatch"},
     },
   };
   
@@ -266,6 +279,11 @@ const Animation = ({
       {/* Endeavor Logo */}
       <EndeavorContainer
         state={getState("endeavorLogo")}
+      />
+
+      {/* Catalog */}
+      <Catalog
+        state={getState("catalog")}
       />
       
       <defs>

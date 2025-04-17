@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import ItemContainer from './ItemContainer';
+import Item from './Item';
+
 
 export const EndeavorContainer = ({
   state,
 }: {
-  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "processingState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree";
+  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "processingState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "catalogMatch";
 }) => {
 
   const endeavorVariants = {
@@ -15,26 +17,17 @@ export const EndeavorContainer = ({
     basicShrunkState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     processingState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     itemExtractionState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedOne: { opacity: 1, x: 310, y: 300, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedTwo: { opacity: 1, x: 310, y: 300, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedThree: { opacity: 1, x: 310, y: 300, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedOne: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedTwo: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedThree: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogMatch: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogMatch2: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogMatch3: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogMatch4: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogMatch5: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  const logoLoading = state === "processingState" || state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree";
-
-  // Helper function to get state for each item
-  const getItemContainerState = (containerIndex: 1 | 2 | 3) => {
-    switch (state) {
-      case "extractedOne":
-        return containerIndex === 1 ? "blank" : "hidden";
-      case "extractedTwo":
-        return containerIndex <= 2 ? "blank" : "hidden";
-      case "extractedThree":
-        return "blank";
-      default:
-        return "hidden";
-    }
-  };
+  const logoLoading = state === "processingState" || state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "catalogMatch";
   
   const rectangleCoordsByState = {
     hidden: { x1: -80, x2: 80, y1: -80, y2: 80 },
@@ -43,10 +36,16 @@ export const EndeavorContainer = ({
     basicShrunkState: { x1: -60, x2: 60, y1: -60, y2: 60 },
     processingState: { x1: -250, x2: 250, y1: -60, y2: 60 },
     itemExtractionState: { x1: -250, x2: 250, y1: -60, y2: 60 },
-    extractedOne: { x1: -250, x2: 250, y1: -60, y2: 60 },
-    extractedTwo: { x1: -250, x2: 250, y1: -60, y2: 60 },
-    extractedThree: { x1: -250, x2: 250, y1: -60, y2: 60 },
+    extractedOne: { x1: -250, x2: 250, y1: -60, y2: 130 },
+    extractedTwo: { x1: -250, x2: 250, y1: -60, y2: 210 },
+    extractedThree: { x1: -250, x2: 250, y1: -60, y2: 290 },
+    catalogMatch: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogMatch2: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogMatch3: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogMatch4: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogMatch5: { x1: -150, x2: 150, y1: -108, y2: 95 },
   };
+
 
   const currentCoords = rectangleCoordsByState[state] || rectangleCoordsByState.hidden;
 
@@ -59,8 +58,13 @@ export const EndeavorContainer = ({
     processingState: { x: -500, y: -785, scale: 0.7 },
     itemExtractionState: { x: -500, y: -785, scale: 0.7 },
     extractedOne: { x: -500, y: -785, scale: 0.7 },
-    extractedTwo: { x: -500, y: -870, scale: 0.7 },
-    extractedThree: { x: -500, y: -870, scale: 0.7 },
+    extractedTwo: { x: -500, y: -785, scale: 0.7 },
+    extractedThree: { x: -500, y: -785, scale: 0.7 },
+    catalogMatch: { x: -437, y: -860, scale: 0.3 },
+    catalogMatch2: { x: -437, y: -860, scale: 0.3 },
+    catalogMatch3: { x: -437, y: -860, scale: 0.3 },
+    catalogMatch4: { x: -437, y: -860, scale: 0.3 },
+    catalogMatch5: { x: -437, y: -860, scale: 0.3 },
   }[state] ?? { x: -317.5, y: -785, scale: 1 };
 
   const logoX = logoByState.x;
@@ -68,27 +72,104 @@ export const EndeavorContainer = ({
   const logoScale = logoByState.scale;
 
   const textByState = {
-    hidden: { x: currentCoords.x1 + 120, y: 0, text: "" },
-    startState: { x: currentCoords.x1 + 120, y: 0, text: "" },
-    basicState: { x: currentCoords.x1 + 120, y: 0, text: "" },
-    basicShrunkState: { x: currentCoords.x1 + 120, y: 0, text: "" },
-    processingState: { x: currentCoords.x1 + 120, y: 0, text: "Processing Order..." },
-    itemExtractionState: { x: currentCoords.x1 + 120, y: 0, text: "Extracting Items..." },
-    extractedOne: { x: currentCoords.x1 + 120, y: -80, text: "Extracting Items..." },
-    extractedTwo: { x: currentCoords.x1 + 120, y: -80, text: "Extracting Items..." },
-    extractedThree: { x: currentCoords.x1 + 120, y: -80, text: "Extracting Items..." },
-  }[state] ?? { x: currentCoords.x1 - 10, y: 0, text: "" };
+    hidden: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
+    startState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
+    basicState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
+    basicShrunkState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
+    processingState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Processing Order..." },
+    itemExtractionState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
+    extractedOne: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
+    extractedTwo: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
+    extractedThree: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracted Items." },
+    catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
+    catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
+    catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
+    catalogMatch4: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
+    catalogMatch5: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
+  }[state] ?? { x: currentCoords.x1 - 10, y: 0, textSize: 40, text: "" };
+
 
   const textX = textByState.x;
   const textY = textByState.y;
+  const textSize = textByState.textSize;
   const text = textByState.text;
 
+  const defaultItem = { state: "hidden", rectWidth: 330, rectHeight: 24, iconX: -105, iconY: 0, iconScale: 1 };
+  const baseItem = { state: "base", x:0, y:0, rectWidth: 330, rectHeight: 24, iconX: -105, iconY: 0, iconScale: 1 };
+  const catalog = { state: "base", x:0, y:0, rectWidth: 200, rectHeight: 16, iconX: -65, iconY: 0, iconScale: 0.6 };
+
+  const createItemState = (itemOne = defaultItem, itemTwo = defaultItem, itemThree = defaultItem) => ({
+    itemOne,
+    itemTwo,
+    itemThree,
+  });
+  
+  const itemStates = {
+    hidden: createItemState(),
+    startState: createItemState(),
+    basicState: createItemState(),
+    basicShrunkState: createItemState(),
+    processingState: createItemState(),
+    itemExtractionState: createItemState(
+      {...defaultItem, x: 20, y: 85 },
+      {...defaultItem, x: 20, y: 140 },
+      {...defaultItem, x: 20, y: 230 }
+    ),
+    extractedOne: createItemState(
+      { ...baseItem, x: 20, y: 80 },
+      {...defaultItem, x:20, y:150 },
+      {...defaultItem, x:20, y:220 }
+    ),
+    extractedTwo: createItemState(
+      { ...baseItem, x: 20, y: 90}, 
+      { ...baseItem, x: 20, y: 160}, 
+      {...defaultItem, x: 20, y: 230 }
+    ),
+    extractedThree: createItemState(
+        { ...baseItem, x: 20, y: 90}, 
+        { ...baseItem, x: 20, y: 155}, 
+        { ...baseItem, x: 20, y: 220}
+        ),
+    catalogMatch: createItemState(
+      {...catalog, x: 10, y: -30, state: "focused" }, 
+      {...catalog, x: 10, y: 10 }, 
+      {...catalog, x: 10, y: 50 }
+    ),
+    catalogMatch2: createItemState(
+      {...catalog, x: 10, y: -30 }, 
+      {...catalog, x: 10, y: 10, state: "focused"  }, 
+      {...catalog, x: 10, y: 50 }
+    ),
+    catalogMatch3: createItemState(
+      {...catalog, x: 10, y: -30 }, 
+      {...catalog, x: 10, y: 10 }, 
+      {...catalog, x: 10, y: 50, state: "focused"  }
+    ),
+    catalogMatch4: createItemState(
+      {...catalog, x: 10, y: -30 }, 
+      {...catalog, x: 10, y: 10 }, 
+      {...catalog, x: 10, y: 50 }
+    ),
+    catalogMatch5: createItemState(
+      {...catalog, x: 10, y: -30 }, 
+      {...catalog, x: 10, y: 10 }, 
+      {...catalog, x: 10, y: 50 }
+    ),
+  };
+  
+  const itemByState = itemStates[state] ?? createItemState();
+  
+  const itemOne = itemByState.itemOne;
+  const itemTwo = itemByState.itemTwo;
+  const itemThree = itemByState.itemThree;
+  
   return (
     <motion.g
       initial="hidden"
       animate={state}
       variants={endeavorVariants}
     >
+
       <motion.rect
         initial={{
           width: currentCoords.x2 - currentCoords.x1,
@@ -103,13 +184,13 @@ export const EndeavorContainer = ({
           height: currentCoords.y2 - currentCoords.y1
         }}
         transition={{
-          width: { duration: 0.5, ease: "easeInOut" },
-          x: { duration: 0.5, ease: "easeInOut" },
-          height: { duration: 0.5, ease: "easeInOut" },
+          width: { duration: 0.6, ease: "easeInOut" },
+          x: { duration: 0.6, ease: "easeInOut" },
+          height: { duration: 0.6, ease: "easeInOut" },
         }}
 
         rx={20}
-        fill="red"
+        fill="white"
         filter="url(#softShadow)"
       />
 
@@ -121,11 +202,11 @@ export const EndeavorContainer = ({
           scale: logoLoading ? [logoScale, logoScale * 0.9, logoScale] : logoScale,
         }}
         transition={{
-          x: { duration: 0.5, ease: "easeInOut" },
-          y: { duration: 0.5, ease: "easeInOut" },
+          x: { duration: 0.6, ease: "easeInOut" },
+          y: { duration: 0.6, ease: "easeInOut" },
           scale: logoLoading
             ? { repeat: Infinity, duration: 1, ease: "easeInOut" }
-            : { duration: 0.5, ease: "easeInOut" },
+            : { duration: 0.6, ease: "easeInOut" },
         }}
       >
         <path
@@ -150,15 +231,15 @@ export const EndeavorContainer = ({
 
       {text && (
         <motion.text
-          initial={{ opacity: 0, x: 0, y: 0 }}
+          initial={{ opacity: 0, x: 0, y: 0, fontSize: textSize }}
           animate={{
             opacity: 1,
             x: textX,
-            y: textY
+            y: textY,
+            fontSize: textSize
           }}
-          transition={{ x: { duration: 0.5, ease: "easeInOut" }, y: { duration: 0.5, ease: "easeInOut" }, opacity: { duration: 0.4, delay: 0.5 } }}
+          transition={{ x: { duration: 0.5, ease: "easeInOut" }, y: { duration: 0.6, ease: "easeInOut" }, opacity: { duration: 0.6, ease: "easeInOut" }, fontSize: { duration: 0.6, ease: "easeInOut" } }}
           fill="black"
-          fontSize="40"
           fontWeight="bold"
           alignmentBaseline="middle"
         >
@@ -166,9 +247,64 @@ export const EndeavorContainer = ({
         </motion.text>
       )}
 
-      <ItemContainer state={getItemContainerState(1)} item="itemOne" />
-      <ItemContainer state={getItemContainerState(2)} item="itemTwo" />
-      <ItemContainer state={getItemContainerState(3)} item="itemThree" />
+
+      {/* <ItemContainer state={itemOneState} />
+      <ItemContainer state={itemTwoState} />
+      <ItemContainer state={itemThreeState} /> */}
+
+      <Item 
+        state={itemOne.state}
+        x={itemOne.x}
+        y={itemOne.y}
+        text="ITEM TEXT"
+        icon="circle"
+        showRectangle={true}
+        rectWidth={itemOne.rectWidth} 
+        rectHeight={itemOne.rectHeight} 
+        iconX={itemOne.iconX}
+        iconY={itemOne.iconY}
+        iconScale={itemOne.iconScale}
+        scale={1}
+      />
+      
+      <Item 
+        state={itemTwo.state}
+        x={itemTwo.x}
+        y={itemTwo.y}
+        text="ITEM TEXT"
+        icon="circle"
+        showRectangle={true}
+        rectWidth={itemTwo.rectWidth} 
+        rectHeight={itemTwo.rectHeight} 
+        iconX={itemTwo.iconX}
+        iconY={itemTwo.iconY}
+        iconScale={itemTwo.iconScale}
+        scale={1}
+      />
+
+      <Item 
+        state={itemThree.state}
+        x={itemThree.x}
+        y={itemThree.y}
+        text="ITEM TEXT"
+        icon="circle"
+        showRectangle={true}
+        rectWidth={itemThree.rectWidth} 
+        rectHeight={itemThree.rectHeight} 
+        iconX={itemThree.iconX}
+        iconY={itemThree.iconY}
+        iconScale={itemThree.iconScale}
+        scale={1}
+      />
+      
+
+      
+      {/* <motion.rect 
+      initial = {{x: -5, y: -5, width: 10, height: 10}}
+      animate = {{x: -5, y: -5, width: 10, height: 10}}
+      fill="red"
+      rx={10}
+      ></motion.rect> */}
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">

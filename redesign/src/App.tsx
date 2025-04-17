@@ -40,68 +40,162 @@ function App() {
   }, []);
 
   const sectionText = [
-    'Section 1 – Some long scrollable text content here.',
-    'Section 2 – Maybe more info or narrative below.',
-    'Section 3 – Even more info to test scrolling...',
-    'Section 4 – More text.',
-    'Section 5 – More text.',
-    'Section 6 – More text.',
-    'Section 7 – More text.',
-    'Section 8 – More text.',
-    'Section 9 – More text.',
-    'Section 10 – More text.',
-    'Section 11 – More text.',
-    'Section 12 – More text.',
-    'Section 13 – More text.',
-    'Section 14 – More text.',
-    'Section 15 – More text.',
-    'Section 16 – More text.',
-    'Section 17 – More text.',
-    'Section 18 – More text.',
-    'Section 19 – More text.',
-    'Section 20 – More text.',
-    'Section 21 – More text.',
-    'Section 22 – More text.',
-    'Section 23 – More text.',
-    'Section 24 – More text.',
-    'Section 25 – More text.',
-    'Section 26 – More text.',
-    'Section 27 – More text.',
-    'Section 28 – More text.',
-    'Section 29 – More text.',
-    'Section 30 – End section of text.',
+    ["Order Intake", "Purchase orders are received through various channels and must be processed for entry."],
+    ["Format Recognition & Extraction", "Our AI Agent identifies and learns each client’s unique purchase order (PO) format, automatically extracting the relevant data."],
+    ["Validation", "The AI Agent validates the extracted items against a comprehensive knowledge base of part numbers and product descriptions, also cross-referencing the customer’s historical sales data for accuracy."],
+    ["Custom Business Logic", "Tailored to your operations, the AI Agent applies custom business rules such as volume-based discounts, order splitting, and other specialized workflows."],
+    ["ERP Integration", "The AI Agent seamlessly enters the processed order into your ERP system or flags discrepancies for human review when needed."],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
+    ["", ""],
   ];
 
+
   return (
-    <div className="App">
-      <div style={{ width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
-        <div className="flex flex-row items-start justify-center  relative">
+      <div className="flex flex-row justify-center w-full">
+        <div className="flex flex-row w-3/4 items-start justify-center relative">
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">
             <div className="space-y-20">
               {sectionText.map((text, idx) => (
-                <p
+                <div 
                   key={idx}
                   ref={el => (sectionsRef.current[idx] = el!)}
                   data-index={idx}
-                  className="min-h-[40vh]"
-                >
-                  {text}
-                </p>
+                  className="min-h-[40vh] flex flex-col gap-12">
+                  <p className="text-2xl font-bold text-blue-500">
+                    {text[0]}
+                  </p>
+                  <p className="text-5xl font-bold">
+                    {text[1]}
+                  </p>
+                  <p className="text-2xl text-gray-400">
+                    {text[1]}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
 
           {/* Sticky/fixed animation on the right */}
-          <div className="w-1/2 sticky top-1/2 transform -translate-y-1/2">
+          <div className="w-1/2 sticky top-1/2 transform -translate-y-1/2 ">
             <Animation
-            activeIndex={activeIndex}
-          />
+              activeIndex={activeIndex}
+            />
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
 export default App;
+
+// import { useRef, useEffect, useState } from 'react';
+// import Animation from './Animation';
+
+
+// function App() {
+//   const sectionsRef = useRef<HTMLDivElement[]>([]);
+//   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver(
+//       entries => {
+//         entries.forEach(entry => {
+//           const index = Number(entry.target.getAttribute('data-index'));
+//           if (entry.isIntersecting) {
+//             setActiveIndex(index);
+//           }
+//         });
+//       },
+//       {
+//         threshold: 0.6,
+//       }
+//     );
+
+//     sectionsRef.current.forEach(el => el && observer.observe(el));
+//     return () => observer.disconnect();
+//   }, []);
+
+//   const sectionText = [
+//     ["Order Intake", "Purchase orders are received through various channels and must be processed for entry."],
+//     ["Format Recognition & Extraction", "Our AI Agent identifies and learns each client’s unique purchase order (PO) format, automatically extracting the relevant data."],
+//     ["Validation", "The AI Agent validates the extracted items against a comprehensive knowledge base of part numbers and product descriptions, also cross-referencing the customer’s historical sales data for accuracy."],
+//     ["Custom Business Logic", "Tailored to your operations, the AI Agent applies custom business rules such as volume-based discounts, order splitting, and other specialized workflows."],
+//     ["ERP Integration", "The AI Agent seamlessly enters the processed order into your ERP system or flags discrepancies for human review when needed."],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//     ["", ""],
+//   ];
+
+//   return (
+//       <div className="flex flex-row justify-center w-full">
+//         <div className="flex flex-row w-5/6 items-start justify-center relative bg-blue-500">
+//           {/* Scrollable text column */}
+//           <div className="w-1/2 pr-8 z-10">
+//             <div className="space-y-20">
+//               {sectionText.map((text, idx) => (
+//                 <div 
+//                   key={idx}
+//                   ref={el => (sectionsRef.current[idx] = el!)}
+//                   data-index={idx}
+//                   className="min-h-[40vh]">
+//                   <p>
+//                     {text[0]}
+//                   </p>
+//                   <p>
+//                     {text[1]}
+//                   </p>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* Sticky/fixed animation on the right */}
+//           <div className="w-1/2 sticky top-1/2 transform -translate-y-1/2 bg-red-100">
+//             <Animation
+//             activeIndex={activeIndex}
+//           />
+//           </div>
+//         </div>
+//       </div>
+//   );
+// }
+
+// export default App;
