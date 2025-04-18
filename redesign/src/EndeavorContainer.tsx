@@ -30,7 +30,7 @@ export const EndeavorContainer = ({
   
   const rectangleCoordsByState = {
     hidden: { x1: -80, x2: 80, y1: -80, y2: 80 },
-    startState: { x1: -80, x2: 80, y1: -80, y2: 80 },
+    startState: { x1: -80, x2: 80, y1: -130, y2: 30 },
     basicState: { x1: -80, x2: 80, y1: -80, y2: 80 },
     basicShrunkState: { x1: -60, x2: 60, y1: -60, y2: 60 },
     itemExtractionState: { x1: -250, x2: 250, y1: -60, y2: 60 },
@@ -51,7 +51,7 @@ export const EndeavorContainer = ({
 
   const logoByState = {
     hidden: { x: -317.5, y: -785, scale: 1 },
-    startState: { x: -317.5, y: -785, scale: 1 },
+    startState: { x: -317.5, y: -835, scale: 1 },
     basicState: { x: -317.5, y: -785, scale: 1 },
     basicShrunkState: { x: -317.5, y: -785, scale: 0.7 },
     itemExtractionState: { x: -500, y: -785, scale: 0.7 },

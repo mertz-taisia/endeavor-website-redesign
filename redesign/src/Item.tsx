@@ -108,8 +108,8 @@ export default function Item({
 
         return (
             <motion.g
-                initial={{ opacity: 0, scale, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
-                animate={{ opacity: 1, scale, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                animate={{ opacity: 1, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
                 transition={{
                     opacity: { duration: 0.6, ease: "easeInOut" },
                     scale: { duration: 0.6, ease: "easeInOut" },
@@ -119,9 +119,6 @@ export default function Item({
                     scaleY: { duration: 0.6, ease: "easeInOut" }
                 }}
                 style={{ transformOrigin: 'center center' }}
-                fontSize={fontSize}
-                fontWeight={fontWeight}
-                fill={color}
             >
                 {iconElement}
             </motion.g>
