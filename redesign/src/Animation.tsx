@@ -69,10 +69,7 @@ const Animation = ({
       },
       // Extracted three
       6: {
-        endeavorLogo: { state: "extractedThree" }
-      },
-      7: {
-        endeavorLogo: { state: "extractedAll" },
+        endeavorLogo: { state: "extractedThree" },
         catalog: { state: "hidden" }
       }
     },
@@ -98,9 +95,9 @@ const Animation = ({
 
   const sectionStepThresholds = {
     section0: [0, 0, 0.8],
-    section1: [0, 0, 0.8],
-    section2: [0, 0, 0.9],
-    section3: [0, 0, 0.9],
+    section1: [0.7, 0, 0.8],
+    section2: [0.7, 0, 0.9],
+    section3: [0.7, 0, 0.9],
   };
 
   const sectionMap = {

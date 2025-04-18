@@ -65,7 +65,8 @@ export const Logo = ({
           width: currentCoords.width,
           height: currentCoords.height,
           x: currentCoords.x,
-          y: currentCoords.y
+          y: currentCoords.y,
+          opacity: isVisible ? 1 : 0
         }}
         animate={{
           width: currentCoords.width,
@@ -89,15 +90,6 @@ export const Logo = ({
       {/* Render the icon */}
       {renderIcon()}
 
-      {/* Center indicator - small red dot at exact center (for debugging) */}
-      {false && (
-        <motion.circle
-          cx={0}
-          cy={0}
-          r={3}
-          fill="red"
-        />
-      )}
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">

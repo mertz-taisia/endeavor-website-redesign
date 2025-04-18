@@ -15,10 +15,9 @@ export const EndeavorContainer = ({
     basicState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     basicShrunkState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     itemExtractionState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedOne: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedTwo: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedThree: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
-    extractedAll: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedOne: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedTwo: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedThree: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch2: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch3: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
@@ -34,10 +33,11 @@ export const EndeavorContainer = ({
     basicState: { x1: -80, x2: 80, y1: -80, y2: 80 },
     basicShrunkState: { x1: -60, x2: 60, y1: -60, y2: 60 },
     itemExtractionState: { x1: -250, x2: 250, y1: -60, y2: 60 },
-    extractedOne: { x1: -250, x2: 250, y1: -60, y2: 130 },
-    extractedTwo: { x1: -250, x2: 250, y1: -60, y2: 210 },
-    extractedThree: { x1: -250, x2: 250, y1: -60, y2: 290 },
-    extractedAll: { x1: -250, x2: 250, y1: -60, y2: 290 },
+
+    extractedOne: { x1: -250, x2: 250, y1: -190/2, y2: 190/2 },
+    extractedTwo: { x1: -250, x2: 250, y1: -270/2, y2: 270/2 },
+    extractedThree: { x1: -250, x2: 250, y1: -350/2, y2: 350/2 },
+
     catalogMatch: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch2: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch3: { x1: -150, x2: 150, y1: -108, y2: 95 },
@@ -55,10 +55,9 @@ export const EndeavorContainer = ({
     basicState: { x: -317.5, y: -785, scale: 1 },
     basicShrunkState: { x: -317.5, y: -785, scale: 0.7 },
     itemExtractionState: { x: -500, y: -785, scale: 0.7 },
-    extractedOne: { x: -500, y: -785, scale: 0.7 },
-    extractedTwo: { x: -500, y: -785, scale: 0.7 },
-    extractedThree: { x: -500, y: -785, scale: 0.7 },
-    extractedAll: { x: -500, y: -785, scale: 0.7 },
+    extractedOne: { x: -500, y: -820, scale: 0.7 },
+    extractedTwo: { x: -500, y: -860, scale: 0.7 },
+    extractedThree: { x: -500, y: -900, scale: 0.7 },
     catalogMatch: { x: -437, y: -860, scale: 0.3 },
     catalogMatch2: { x: -437, y: -860, scale: 0.3 },
     catalogMatch3: { x: -437, y: -860, scale: 0.3 },
@@ -75,12 +74,10 @@ export const EndeavorContainer = ({
     startState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     basicState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     basicShrunkState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
-    // processingState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Processing Order..." },
-    itemExtractionState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
-    extractedOne: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
-    extractedTwo: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
-    extractedThree: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
-    extractedAll: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracted Items" },
+    itemExtractionState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Data..." },
+    extractedOne: { x: currentCoords.x1 + 120, y: -30, textSize: 40, text: "Extracting Data..." },
+    extractedTwo: { x: currentCoords.x1 + 120, y: -70, textSize: 40, text: "Extracting Data..." },
+    extractedThree: { x: currentCoords.x1 + 120, y: -110, textSize: 40, text: "Extracting Data..." },
     catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
     catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
     catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
@@ -116,25 +113,20 @@ export const EndeavorContainer = ({
       {...defaultItem, x: 20, y: 230 }
     ),
     extractedOne: createItemState(
-      { ...baseItem, x: 20, y: 80 },
-      {...defaultItem, x:20, y:150 },
-      {...defaultItem, x:20, y:220 }
+      { ...baseItem, x: 20, y: 50 },
+      {...defaultItem, x:20, y: 70 },
+      {...defaultItem, x:20, y: 110 }
     ),
     extractedTwo: createItemState(
-      { ...baseItem, x: 20, y: 90}, 
-      { ...baseItem, x: 20, y: 160}, 
-      {...defaultItem, x: 20, y: 230 }
+      { ...baseItem, x: 20, y: 0}, 
+      { ...baseItem, x: 20, y: 70}, 
+      {...defaultItem, x: 20, y: 110 }
     ),
     extractedThree: createItemState(
-        { ...baseItem, x: 20, y: 90}, 
-        { ...baseItem, x: 20, y: 155}, 
-        { ...baseItem, x: 20, y: 220}
+        { ...baseItem, x: 20, y: -30}, 
+        { ...baseItem, x: 20, y: 40}, 
+        { ...baseItem, x: 20, y: 110}
         ),
-    extractedAll: createItemState(
-      { ...baseItem, x: 20, y: 90}, 
-      { ...baseItem, x: 20, y: 155}, 
-      { ...baseItem, x: 20, y: 220}
-    ),
     catalogMatch: createItemState(
       {...catalog, x: 10, y: -30, state: "focused" }, 
       {...catalog, x: 10, y: 10 }, 
@@ -178,20 +170,23 @@ export const EndeavorContainer = ({
       <motion.rect
         initial={{
           width: currentCoords.x2 - currentCoords.x1,
-          x: currentCoords.x1,
-          y: currentCoords.y1,
-          height: currentCoords.y2 - currentCoords.y1
+          height: currentCoords.y2 - currentCoords.y1,
+          // Calculate center position
+          x: (currentCoords.x1 + currentCoords.x2) / 2 - (currentCoords.x2 - currentCoords.x1) / 2,
+          y: (currentCoords.y1 + currentCoords.y2) / 2 - (currentCoords.y2 - currentCoords.y1) / 2
         }}
         animate={{
           width: currentCoords.x2 - currentCoords.x1,
-          x: currentCoords.x1,
-          y: currentCoords.y1,
-          height: currentCoords.y2 - currentCoords.y1
+          height: currentCoords.y2 - currentCoords.y1,
+          // Calculate center position
+          x: (currentCoords.x1 + currentCoords.x2) / 2 - (currentCoords.x2 - currentCoords.x1) / 2,
+          y: (currentCoords.y1 + currentCoords.y2) / 2 - (currentCoords.y2 - currentCoords.y1) / 2
         }}
         transition={{
           width: { duration: 0.6, ease: "easeInOut" },
-          x: { duration: 0.6, ease: "easeInOut" },
           height: { duration: 0.6, ease: "easeInOut" },
+          x: { duration: 0.6, ease: "easeInOut" },
+          y: { duration: 0.6, ease: "easeInOut" }
         }}
 
         rx={20}
@@ -274,7 +269,6 @@ export const EndeavorContainer = ({
         y={itemTwo.y}
         text="ITEM TEXT"
         icon="circle"
-        showRectangle={true}
         rectWidth={itemTwo.rectWidth} 
         rectHeight={itemTwo.rectHeight} 
         iconX={itemTwo.iconX}
@@ -289,7 +283,6 @@ export const EndeavorContainer = ({
         y={itemThree.y}
         text="ITEM TEXT"
         icon="circle"
-        showRectangle={true}
         rectWidth={itemThree.rectWidth} 
         rectHeight={itemThree.rectHeight} 
         iconX={itemThree.iconX}
@@ -300,12 +293,12 @@ export const EndeavorContainer = ({
       
 
       
-      {/* <motion.rect 
+      <motion.rect 
       initial = {{x: -5, y: -5, width: 10, height: 10}}
       animate = {{x: -5, y: -5, width: 10, height: 10}}
       fill="red"
       rx={10}
-      ></motion.rect> */}
+      ></motion.rect>
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">

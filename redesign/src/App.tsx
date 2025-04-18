@@ -33,7 +33,7 @@ function App() {
         });
       },
       {
-        threshold: 0.6,
+        threshold: 0.3,
       }
     );
 
@@ -43,18 +43,19 @@ function App() {
 
   const sectionText = [
     ["", ""],
-    ["Order Intake", "Purchase orders are received through various channels and must be processed for entry."],
-    ["Format Recognition & Extraction", "Our AI Agent identifies and learns each client’s unique purchase order (PO) format, automatically extracting the relevant data."],
-    ["Validation", "The AI Agent validates the extracted items against a comprehensive knowledge base of part numbers and product descriptions, also cross-referencing the customer’s historical sales data for accuracy."],
-    ["Custom Business Logic", "Tailored to your operations, the AI Agent applies custom business rules such as volume-based discounts, order splitting, and other specialized workflows."],
-    ["ERP Integration", "The AI Agent seamlessly enters the processed order into your ERP system or flags discrepancies for human review when needed."],
+    ["Order Intake", "Receive and process purchase orders efficiently", "Eliminate manual data entry with Endeavor's AI assistant that handles purchase orders from all channels - Excel, PDFs, emails, and more. Configurable for any file format, our solution reduces errors and saves your team valuable time.", "Start with Order Intake"],
+    ["Format Recognition & Extraction", "Automate data capture from any document format", "Our AI Agent identifies and learns each client's unique purchase order (PO) format, automatically extracting the relevant data.", "Start with Format Recognition"],
+    ["Validation", "Ensure accuracy with intelligent data verification", "The AI Agent validates the extracted items against a comprehensive knowledge base of part numbers and product descriptions, also cross-referencing the customer's historical sales data for accuracy.", "Start with Validation"],
+    ["Custom Business Logic", "Apply tailored business rules to every order", "Tailored to your operations, the AI Agent applies custom business rules such as volume-based discounts, order splitting, and other specialized workflows.", "Start with Custom Business Logic"],
+    ["ERP Integration", "Connect seamlessly with your existing systems", "The AI Agent seamlessly enters the processed order into your ERP system or flags discrepancies for human review when needed.", "Start with ERP Integration"],
     ["", ""]
   ];
 
+  const highlightColor = "[#0682CC]";
 
   return (
       <div className="flex flex-row justify-center w-full">
-        <div className="flex flex-row w-3/4 items-start justify-center relative">
+        <div className="flex flex-row w-7/10 items-start justify-between relative">
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">
             <div className="space-y-20">
@@ -63,16 +64,17 @@ function App() {
                   key={idx}
                   ref={el => (sectionsRef.current[idx] = el!)}
                   data-index={idx}
-                  className="min-h-[80vh] flex flex-col gap-12 justify-center">
-                  <p className="text-2xl font-bold text-blue-500">
+                  className="min-h-[80vh] flex flex-col gap-8 justify-center">
+                  <p className="text-2xl font-semibold text-[#0682CC]">
                     {text[0]}
                   </p>
-                  <p className="text-5xl font-bold">
+                  <p className="text-5xl font-bold leading-[5rem]">
                     {text[1]}
                   </p>
-                  <p className="text-2xl text-gray-400">
-                    {text[1]}
+                  <p className="text-2xl text-gray-400 leading-[2.5rem]">
+                    {text[2]}
                   </p>
+                  <button type="button" className="w-fit bg-[var(--color-primary)] text-white text-xl font-semibold px-4 py-2 rounded-2xl">{text[3]}</button>
                 </div>
               ))}
             </div>

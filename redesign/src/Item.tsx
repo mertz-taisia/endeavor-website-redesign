@@ -37,14 +37,13 @@ export default function Item({
     // Position and size
     x,
     y,
-    scale,
+    scale = 1,
 
     // Content props
     text,
     icon, // Can be a function that returns JSX
 
     // Styling props
-    textColor,
     fontSize,
     fontWeight,
     textX,
@@ -59,7 +58,6 @@ export default function Item({
 
     // Other props
     focus = false,
-    // populated = false,
 
     children = null
 }: ItemProps) {
@@ -88,12 +86,12 @@ export default function Item({
                     initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
                     animate={{ opacity: 1,  x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
                     transition={{
-                        opacity: { duration: 0.6, ease: "easeInOut" },
-                        scale: { duration: 0.6, ease: "easeInOut" },
-                        x: { duration: 0.6, ease: "easeInOut" },
-                        y: { duration: 0.6, ease: "easeInOut" },
-                        scaleX: { duration: 0.6, ease: "easeInOut" },
-                        scaleY: { duration: 0.6, ease: "easeInOut" }
+                        opacity: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
+                        scale: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
+                        x: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
+                        y: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
+                        scaleX: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
+                        scaleY: { duration: 0.6, ease: "easeInOut", delay: 0.2 }
                     }}
                     cx={iconX}
                     cy={iconY}
@@ -116,7 +114,8 @@ export default function Item({
                     x: { duration: 0.6, ease: "easeInOut" },
                     y: { duration: 0.6, ease: "easeInOut" },
                     scaleX: { duration: 0.6, ease: "easeInOut" },
-                    scaleY: { duration: 0.6, ease: "easeInOut" }
+                    scaleY: { duration: 0.6, ease: "easeInOut" },
+                    delay: 0.2
                 }}
                 style={{ transformOrigin: 'center center' }}
             >
@@ -151,6 +150,7 @@ export default function Item({
                         opacity: { duration: 0.6, ease: "easeInOut" },
                         width: { duration: 0.6, ease: "easeInOut" },
                         height: { duration: 0.6, ease: "easeInOut" },
+                        delay: 0.2
                     }}
                 />
             );
@@ -160,7 +160,7 @@ export default function Item({
                 <motion.text
                     initial={{ opacity: 0, x: textX, y: 0 }}
                     animate={{ opacity: 1, x: textX, y: 0 }}
-                    transition={{ opacity: { duration: 0.6 }, x: { duration: 0.6 }, y: { duration: 0.6 } }}
+                    transition={{ opacity: { duration: 0.6 }, x: { duration: 0.6 }, y: { duration: 0.6 }, delay: 0.2 }}
                     fill={"#000000"}
                     fontSize={fontSize}
                     fontWeight={fontWeight}
@@ -179,20 +179,17 @@ export default function Item({
         <motion.g
             initial={{ x, y, opacity: 0, scale }}
             animate={variants[state]}
+            transition={{
+                opacity: { duration: 0.6, ease: "easeInOut" },
+                scale: { duration: 0.6, ease: "easeInOut" },
+                x: { duration: 0.6, ease: "easeInOut" },
+                y: { duration: 0.6, ease: "easeInOut" },
+                delay: 0.2
+            }}
         >
             {renderIcon()}
             {renderContent()}
             {children}
-
-            {/* Debug marker - can be removed or made conditional */}
-            {/* {process.env.NODE_ENV === 'development' && (
-                <motion.rect
-                    initial={{ x: -5, y: -5, width: 10, height: 10 }}
-                    animate={{ x: -5, y: -5, width: 10, height: 10 }}
-                    fill="pink"
-                    rx={10}
-                />
-            )} */}
         </motion.g>
     );
 }
