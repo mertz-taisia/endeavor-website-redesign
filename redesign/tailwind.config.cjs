@@ -12,7 +12,8 @@ export default {
 
       colors: {
         primary: "var(--color-primary)",
-        testColor: "var(--color-bermuda)"
+        largeText: "var(--color-large-text)",
+        smallText: "var(--color-small-text)",
       },
     },
   },

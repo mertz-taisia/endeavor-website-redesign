@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import Animation from './Animation';
+import { FiArrowRight } from 'react-icons/fi';
 
 const visibilityByIndex = {
   1: { showIcons: true, showLines: false, showEndeavor: false },
@@ -51,10 +52,8 @@ function App() {
     ["", ""]
   ];
 
-  const highlightColor = "[#0682CC]";
-
   return (
-      <div className="flex flex-row justify-center w-full">
+      <div className="flex flex-row justify-center w-full bg-[#f4f6f8]">
         <div className="flex flex-row w-7/10 items-start justify-between relative">
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">
@@ -64,17 +63,22 @@ function App() {
                   key={idx}
                   ref={el => (sectionsRef.current[idx] = el!)}
                   data-index={idx}
-                  className="min-h-[80vh] flex flex-col gap-8 justify-center">
-                  <p className="text-2xl font-semibold text-[#0682CC]">
+                  className="min-h-[80vh] flex flex-col gap-8 justify-center w-5/6">
+                  <p className="text-xl font-semibold text-[#0682CC]">
                     {text[0]}
                   </p>
-                  <p className="text-5xl font-bold leading-[5rem]">
+                  <p className="text-4xl font-bold leading-[3rem] text-[var(--color-large-text)]">
                     {text[1]}
                   </p>
-                  <p className="text-2xl text-gray-400 leading-[2.5rem]">
+                  <p className="text-lg leading-[1.75rem] text-[var(--color-small-text)]">
                     {text[2]}
                   </p>
-                  <button type="button" className="w-fit bg-[var(--color-primary)] text-white text-xl font-semibold px-4 py-2 rounded-2xl">{text[3]}</button>
+                  <button 
+                    type="button" 
+                    className="flex items-center justify-center gap-2 w-fit bg-[var(--color-primary)] text-white text-base font-semibold px-4 py-2 rounded-4xl transition-all duration-300 hover:bg-[var(--color-primary-dark)] group cursor-pointer">
+                    {text[3]}
+                    <FiArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
                 </div>
               ))}
             </div>

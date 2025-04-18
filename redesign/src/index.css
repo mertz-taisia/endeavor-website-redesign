@@ -5,6 +5,9 @@
 @layer base {
   :root {
     --color-primary: #0682CC;
+    --color-primary-dark: #0569a3; /* Darker shade of primary color for hover states */
+    --color-large-text: #0A2540;
+    --color-small-text: #425466;
   }
 }
 
