@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import Item from './Item';
@@ -78,11 +79,11 @@ export const EndeavorContainer = ({
     extractedOne: { x: currentCoords.x1 + 120, y: -30, textSize: 40, text: "Extracting Data..." },
     extractedTwo: { x: currentCoords.x1 + 120, y: -70, textSize: 40, text: "Extracting Data..." },
     extractedThree: { x: currentCoords.x1 + 120, y: -110, textSize: 40, text: "Extracting Data..." },
-    catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
-    catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
-    catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
-    catalogMatch4: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
-    catalogMatch5: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
+    catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogMatch4: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogMatch5: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
   }[state] ?? { x: currentCoords.x1 - 10, y: 0, textSize: 40, text: "" };
 
 

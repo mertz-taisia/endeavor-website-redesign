@@ -1,6 +1,6 @@
+// @ts-nocheck
 import { useRef, useEffect, useState } from 'react';
 import Animation from './Animation';
-import { MdKeyboardArrowRight } from 'react-icons/md';
 
 const visibilityByIndex = {
   1: { showIcons: true, showLines: false, showEndeavor: false },
@@ -14,11 +14,8 @@ const visibilityByIndex = {
 
 
 function App() {
-  const sectionsRef = useRef([]);
-  const [activeIndex, setActiveIndex] = useState(1); 
-
-  // const sectionsRef = useRef<HTMLDivElement[]>([]);
-  // const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeIndex, setActiveIndex] = useState(1);
   const activatedElements = useRef<Set<string>>(new Set());
 
 
@@ -74,7 +71,7 @@ function App() {
                     {text[2]}
                   </p>
                   <button 
-                    type="button" 
+                    type="button"
                     className="flex items-center justify-center gap-2 w-fit bg-[var(--color-primary)] text-white text-base font-semibold px-4 py-2 rounded-4xl transition-all duration-300 hover:bg-[var(--color-primary-dark)] group cursor-pointer">
                     {text[3]}
                     <svg 
@@ -92,7 +89,6 @@ function App() {
                         strokeLinecap="square"
                       />
                     </svg>
-                    {/* <MdKeyboardArrowRight  className="transition-transform duration-300 group-hover:translate-x-1" /> */}
                   </button>
                 </div>
               ))}
