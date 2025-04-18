@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import {EndeavorContainer} from './EndeavorContainer';
-import {Catalog} from './Catalog';
+import { EndeavorContainer } from './EndeavorContainer';
+import { Catalog } from './Catalog';
 
 
 const Animation = ({
@@ -9,117 +9,183 @@ const Animation = ({
 }: {
   activeIndex: number | null;
 }) => {
+  const sectionsRef = useRef<HTMLElement[]>([]);
   const visibility = {
-    0: {
-      excelLogo: { state: "hidden"},
-      phoneLogo: { state: "hidden"},
-      emailLogo: { state: "hidden"},
-      pdfLogo: { state: "hidden"},
+    section0: {
+      1: {
+        excelLogo: { state: "hidden" },
+        phoneLogo: { state: "hidden" },
+        emailLogo: { state: "hidden" },
+        pdfLogo: { state: "hidden" }
+      }
     },
-    1: {
-      excelLogo: { state: "hidden"},
-      phoneLogo: { state: "hidden"},
-      emailLogo: { state: "hidden"},
-      pdfLogo: { state: "hidden"},
+    section1: {
+      // Initial hidden
+      1: {
+        excelLogo: { state: "hidden" },
+        phoneLogo: { state: "hidden" },
+        emailLogo: { state: "hidden" },
+        pdfLogo: { state: "hidden" }
+      },
+      // Make input types logos visible
+      2: {
+        excelLogo: { state: "visible" },
+        phoneLogo: { state: "visible" },
+        emailLogo: { state: "visible" },
+        pdfLogo: { state: "visible" }
+      },
+      // Make lines visible and endeavor logo visible
+      3: {
+        excelLogo: { state: "visible" },
+        phoneLogo: { state: "visible" },
+        emailLogo: { state: "visible" },
+        pdfLogo: { state: "visible" },
+        excelLine: { state: "visible" },
+        phoneLine: { state: "visible" },
+        emailLine: { state: "visible" },
+        pdfLine: { state: "visible" },
+        endeavorLogo: { state: "startState" }
+      }
     },
-    2: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
+    section2: {
+      1: {
+        endeavorLogo: { state: "basicState" }
+      },
+      // Shrink logo
+      2: {
+        endeavorLogo: { state: "basicShrunkState" }
+      },
+      3: {
+        endeavorLogo: { state: "itemExtractionState" }
+      },
+      // Extracted one
+      4: {
+        endeavorLogo: { state: "extractedOne" }
+      },
+      // Extracted two
+      5: {
+        endeavorLogo: { state: "extractedTwo" }
+      },
+      // Extracted three
+      6: {
+        endeavorLogo: { state: "extractedThree" }
+      },
+      7: {
+        endeavorLogo: { state: "extractedAll" },
+        catalog: { state: "hidden" }
+      }
     },
-    3: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
-      excelLine: { state: "visible"},
-      phoneLine: { state: "visible"},
-      emailLine: { state: "visible"},
-      pdfLine: { state: "visible"},
-      endeavorLogo: { state: "startState"},
-    },
-    4: {
-      excelLogo: { state: "visible"},
-      phoneLogo: { state: "visible"},
-      emailLogo: { state: "visible"},
-      pdfLogo: { state: "visible"},
-      excelLine: { state: "visible"},
-      phoneLine: { state: "visible"},
-      emailLine: { state: "visible"},
-      pdfLine: { state: "visible"},
-      endeavorLogo: { state: "startState"},
-    },
-    5: {
-      endeavorLogo: { state: "basicState"},
-    },
-    6: { 
-      endeavorLogo: { state: "basicShrunkState"},
-    },
-    7: {
-      endeavorLogo: { state: "processingState"},
-    },
-    8: {
-      endeavorLogo: { state: "itemExtractionState"},
-    },
-    9: {
-      endeavorLogo: { state: "extractedOne"},
-    },
-    10: {
-      endeavorLogo: { state: "extractedTwo"},
-    },
-    11: {
-      endeavorLogo: { state: "extractedThree"},
-    },
-    12: {
-      catalog: { state: "hidden"},
-      endeavorLogo: { state: "extractedThree"},
-    },
-    13: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch"},
-    },
-    14: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch"},
-    },
-    15: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch2"},
-    },
-    16: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch2"},
-    },
-    17: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch3"},
-    },
-    18: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch4"},
-    },
-    19: {
-      catalog: { state: "basicState"},
-      endeavorLogo: { state: "catalogMatch"},
-    },
+    section3: {
+      1: {
+        catalog: { state: "basicState" },
+        endeavorLogo: { state: "catalogMatch" }
+      },
+      2: {
+        catalog: { state: "basicState" },
+        endeavorLogo: { state: "catalogMatch2" },
+      },
+      3: {
+        catalog: { state: "basicState" },
+        endeavorLogo: { state: "catalogMatch3" },
+      },
+      4: {
+        catalog: { state: "basicState" },
+        endeavorLogo: { state: "catalogMatch4" },
+      }
+    }
   };
-  
-  const currentVisibility = activeIndex !== null ? visibility[activeIndex] ?? {} : {};
-  
-  const getState = (id: string) => currentVisibility[id]?.state;
-  // const getProps = (id: string) => currentVisibility[id]?.props ?? {};
 
-  
-  
+  const sectionStepThresholds = {
+    section0: [0, 0, 0.8],
+    section1: [0, 0, 0.8],
+    section2: [0, 0, 0.9],
+    section3: [0, 0, 0.9],
+  };
+
+  const sectionMap = {
+    0: "section0",
+    1: "section1",
+    2: "section2",
+    3: "section3",
+    4: "section3",
+    5: "section3",
+    6: "section3",
+    7: "section3",
+  };
+
+  const [currentStep, setCurrentStep] = useState(1);
+  const [sectionKey, setSectionKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    const newSection = sectionMap[activeIndex ?? -1];
+
+    if (!newSection) return;
+
+    setSectionKey(newSection);
+    setCurrentStep(1); // reset animation
+  }, [activeIndex]);
+
+  useEffect(() => {
+    if (!sectionKey) return;
+
+    const maxStep = Object.keys(visibility[sectionKey]).length;
+    const interval = setInterval(() => {
+      setCurrentStep(prev => (prev < maxStep ? prev + 1 : prev));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [sectionKey]);
+
+
+
+  const currentVisibility = visibility[sectionKey ?? "section1"]?.[currentStep] || {};
+
+
+  const getState = (id: string) => currentVisibility[id]?.state;
+
+  function getScrollProgress(sectionEl) {
+    const rect = sectionEl.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const sectionHeight = rect.height;
+
+    // How much of the section is above the viewport (negative if section top is in view)
+    const scrollY = Math.max(0, windowHeight - rect.top);
+    // Clamp between 0 and sectionHeight
+    const progress = Math.min(Math.max(scrollY / sectionHeight, 0), 1);
+
+    return progress; // 0 (top), 1 (bottom)
+  }
+
+  useEffect(() => {
+    function handleScroll() {
+      const sectionEl = sectionsRef.current[activeIndex];
+      if (!sectionEl) return;
+      const progress = getScrollProgress(sectionEl);
+      const thresholds = sectionStepThresholds[`section${activeIndex}`] || [];
+
+      // Find the highest step whose threshold is <= progress
+      let step = 1;
+      for (let i = 0; i < thresholds.length; i++) {
+        if (progress >= thresholds[i]) step = i + 1;
+      }
+      setCurrentStep(step);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeIndex]);
+
+
+
+
   // Line animation variants
   const lineVariants = {
     hidden: { pathLength: 0, opacity: 0 },
-    visible: { 
-      pathLength: 1, 
+    visible: {
+      pathLength: 1,
       opacity: 1,
-      transition: { 
-        pathLength: { duration: 0.6, ease: "easeInOut" },
+      transition: {
+        pathLength: { duration: 0.5, ease: "easeInOut" },
         opacity: { duration: 0.3 }
       }
     }
@@ -154,7 +220,7 @@ const Animation = ({
       transition: { duration: 0.4 }
     }
   };
-  
+
 
   return (
     <svg viewBox="0 0 639 886" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -285,7 +351,7 @@ const Animation = ({
       <Catalog
         state={getState("catalog")}
       />
-      
+
       <defs>
         <filter id="filter0_d_0_1" x="86.3" y="0.3" width="199.4" height="197.4" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
           <feFlood floodOpacity="0" result="BackgroundImageFix" />

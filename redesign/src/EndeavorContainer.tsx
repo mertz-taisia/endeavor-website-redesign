@@ -1,13 +1,12 @@
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-import ItemContainer from './ItemContainer';
 import Item from './Item';
 
 
 export const EndeavorContainer = ({
   state,
 }: {
-  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "processingState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "catalogMatch";
+  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "catalogMatch";
 }) => {
 
   const endeavorVariants = {
@@ -15,11 +14,11 @@ export const EndeavorContainer = ({
     startState: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
     basicState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     basicShrunkState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    processingState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     itemExtractionState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedOne: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
     extractedTwo: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
     extractedThree: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
+    extractedAll: { opacity: 1, x: 310, y: 250, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch2: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch3: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
@@ -27,18 +26,18 @@ export const EndeavorContainer = ({
     catalogMatch5: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  const logoLoading = state === "processingState" || state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "catalogMatch";
+  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "catalogMatch";
   
   const rectangleCoordsByState = {
     hidden: { x1: -80, x2: 80, y1: -80, y2: 80 },
     startState: { x1: -80, x2: 80, y1: -80, y2: 80 },
     basicState: { x1: -80, x2: 80, y1: -80, y2: 80 },
     basicShrunkState: { x1: -60, x2: 60, y1: -60, y2: 60 },
-    processingState: { x1: -250, x2: 250, y1: -60, y2: 60 },
     itemExtractionState: { x1: -250, x2: 250, y1: -60, y2: 60 },
     extractedOne: { x1: -250, x2: 250, y1: -60, y2: 130 },
     extractedTwo: { x1: -250, x2: 250, y1: -60, y2: 210 },
     extractedThree: { x1: -250, x2: 250, y1: -60, y2: 290 },
+    extractedAll: { x1: -250, x2: 250, y1: -60, y2: 290 },
     catalogMatch: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch2: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch3: { x1: -150, x2: 150, y1: -108, y2: 95 },
@@ -55,11 +54,11 @@ export const EndeavorContainer = ({
     startState: { x: -317.5, y: -785, scale: 1 },
     basicState: { x: -317.5, y: -785, scale: 1 },
     basicShrunkState: { x: -317.5, y: -785, scale: 0.7 },
-    processingState: { x: -500, y: -785, scale: 0.7 },
     itemExtractionState: { x: -500, y: -785, scale: 0.7 },
     extractedOne: { x: -500, y: -785, scale: 0.7 },
     extractedTwo: { x: -500, y: -785, scale: 0.7 },
     extractedThree: { x: -500, y: -785, scale: 0.7 },
+    extractedAll: { x: -500, y: -785, scale: 0.7 },
     catalogMatch: { x: -437, y: -860, scale: 0.3 },
     catalogMatch2: { x: -437, y: -860, scale: 0.3 },
     catalogMatch3: { x: -437, y: -860, scale: 0.3 },
@@ -76,11 +75,12 @@ export const EndeavorContainer = ({
     startState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     basicState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     basicShrunkState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
-    processingState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Processing Order..." },
+    // processingState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Processing Order..." },
     itemExtractionState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
     extractedOne: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
     extractedTwo: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
-    extractedThree: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracted Items." },
+    extractedThree: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Items..." },
+    extractedAll: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracted Items" },
     catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
     catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
     catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 22, text: "Matching to catalog..." },
@@ -109,7 +109,7 @@ export const EndeavorContainer = ({
     startState: createItemState(),
     basicState: createItemState(),
     basicShrunkState: createItemState(),
-    processingState: createItemState(),
+    // processingState: createItemState(),
     itemExtractionState: createItemState(
       {...defaultItem, x: 20, y: 85 },
       {...defaultItem, x: 20, y: 140 },
@@ -130,6 +130,11 @@ export const EndeavorContainer = ({
         { ...baseItem, x: 20, y: 155}, 
         { ...baseItem, x: 20, y: 220}
         ),
+    extractedAll: createItemState(
+      { ...baseItem, x: 20, y: 90}, 
+      { ...baseItem, x: 20, y: 155}, 
+      { ...baseItem, x: 20, y: 220}
+    ),
     catalogMatch: createItemState(
       {...catalog, x: 10, y: -30, state: "focused" }, 
       {...catalog, x: 10, y: 10 }, 
@@ -248,9 +253,6 @@ export const EndeavorContainer = ({
       )}
 
 
-      {/* <ItemContainer state={itemOneState} />
-      <ItemContainer state={itemTwoState} />
-      <ItemContainer state={itemThreeState} /> */}
 
       <Item 
         state={itemOne.state}
@@ -258,7 +260,6 @@ export const EndeavorContainer = ({
         y={itemOne.y}
         text="ITEM TEXT"
         icon="circle"
-        showRectangle={true}
         rectWidth={itemOne.rectWidth} 
         rectHeight={itemOne.rectHeight} 
         iconX={itemOne.iconX}

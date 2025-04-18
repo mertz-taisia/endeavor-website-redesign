@@ -10,12 +10,14 @@ interface ItemProps {
 
     // Content props
     text?: string;
-    icon?: React.ReactNode | (() => JSX.Element);
+    icon?: React.ReactNode | ((scale: number, iconX: number, iconY: number) => React.ReactNode);
+  
 
     // Styling props
     textColor?: string;
     fontSize?: number | string;
     fontWeight?: number | string;
+    textX?: number;
 
     // Container props
     rectWidth?: number;
@@ -27,7 +29,6 @@ interface ItemProps {
 
     // Other props
     focus?: boolean;
-    populated?: boolean;
     children?: React.ReactNode;
 }
 
@@ -46,6 +47,7 @@ export default function Item({
     textColor,
     fontSize,
     fontWeight,
+    textX,
 
     // Container props
     rectWidth,
@@ -57,7 +59,7 @@ export default function Item({
 
     // Other props
     focus = false,
-    populated = false,
+    // populated = false,
 
     children = null
 }: ItemProps) {
@@ -80,31 +82,11 @@ export default function Item({
     const renderIcon = () => {
         if (icon === null) return null;
 
-        // If icon is a function, call it to get the JSX
-        if (typeof icon === 'function') {
-            return (
-                <motion.g
-                    initial={{ opacity: 0, scale, x: iconX, y: iconY }}
-                    animate={{ opacity: 1, scale, x: iconX, y: iconY }}
-                    transition={{
-                        opacity: { duration: 0.6, ease: "easeInOut" },
-                        scale: { duration: 0.6, ease: "easeInOut" },
-                        x: { duration: 0.6, ease: "easeInOut" },
-                        y: { duration: 0.6, ease: "easeInOut" }
-                    }}
-                    style={{ transformOrigin: 'center center' }}
-                >
-                    {icon()}
-                </motion.g>
-            );
-        }
-
-        // Default icon if string is provided (e.g., 'circle')
         if (icon === 'circle') {
             return (
                 <motion.circle
-                    initial={{ opacity: 0, scale, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
-                    animate={{ opacity: 1, scale, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                    initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                    animate={{ opacity: 1,  x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
                     transition={{
                         opacity: { duration: 0.6, ease: "easeInOut" },
                         scale: { duration: 0.6, ease: "easeInOut" },
@@ -122,26 +104,35 @@ export default function Item({
         }
 
         // Return the icon as is if it's an element
+        let iconElement = typeof icon === 'function' ? icon() : icon;
+
         return (
             <motion.g
-                initial={{ opacity: 0, scale }}
-                animate={{ opacity: 1, scale }}
+                initial={{ opacity: 0, scale, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                animate={{ opacity: 1, scale, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
                 transition={{
                     opacity: { duration: 0.6, ease: "easeInOut" },
-                    scale: { duration: 0.6, ease: "easeInOut" }
+                    scale: { duration: 0.6, ease: "easeInOut" },
+                    x: { duration: 0.6, ease: "easeInOut" },
+                    y: { duration: 0.6, ease: "easeInOut" },
+                    scaleX: { duration: 0.6, ease: "easeInOut" },
+                    scaleY: { duration: 0.6, ease: "easeInOut" }
                 }}
                 style={{ transformOrigin: 'center center' }}
+                fontSize={fontSize}
+                fontWeight={fontWeight}
+                fill={color}
             >
-                {icon}
+                {iconElement}
             </motion.g>
         );
     };
 
     // Render the text or rectangle
     const renderContent = () => {
-        if (!text && populated) return null;
+        if (state === "hidden") return null;
 
-        if (!populated) {
+        if (state === "base" || state === "focused") {
             return (
                 <motion.rect
                     fill={color}
@@ -167,18 +158,17 @@ export default function Item({
                 />
             );
         }
-
-        if (text) {
+        else if (state === "populated") {
             return (
                 <motion.text
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ opacity: { duration: 0.6 } }}
-                    fill={textColor}
+                    initial={{ opacity: 0, x: textX, y: 0 }}
+                    animate={{ opacity: 1, x: textX, y: 0 }}
+                    transition={{ opacity: { duration: 0.6 }, x: { duration: 0.6 }, y: { duration: 0.6 } }}
+                    fill={"#000000"}
                     fontSize={fontSize}
                     fontWeight={fontWeight}
-                    textAnchor="middle"
-                    alignmentBaseline="middle"
+                    textAnchor="center"
+                    dominantBaseline="middle"
                 >
                     {text}
                 </motion.text>
@@ -198,14 +188,14 @@ export default function Item({
             {children}
 
             {/* Debug marker - can be removed or made conditional */}
-            {process.env.NODE_ENV === 'development' && (
+            {/* {process.env.NODE_ENV === 'development' && (
                 <motion.rect
                     initial={{ x: -5, y: -5, width: 10, height: 10 }}
                     animate={{ x: -5, y: -5, width: 10, height: 10 }}
                     fill="pink"
                     rx={10}
                 />
-            )}
+            )} */}
         </motion.g>
     );
 }
