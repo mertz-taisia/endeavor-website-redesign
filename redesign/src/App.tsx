@@ -3,13 +3,13 @@ import { useRef, useEffect, useState } from 'react';
 import Animation from './Animation';
 
 const visibilityByIndex = {
-  1: { showIcons: true, showLines: false, showEndeavor: false },
-  2: { showIcons: true, showLines: true, showEndeavor: true },
+  0: { showIcons: true, showLines: false, showEndeavor: false },
+  1: { showIcons: true, showLines: true, showEndeavor: true },
+  2: { showIcons: false, showLines: false, showEndeavor: true },
   3: { showIcons: false, showLines: false, showEndeavor: true },
   4: { showIcons: false, showLines: false, showEndeavor: true },
   5: { showIcons: false, showLines: false, showEndeavor: true },
   6: { showIcons: false, showLines: false, showEndeavor: true },
-  7: { showIcons: false, showLines: false, showEndeavor: true },
 };
 
 
@@ -40,17 +40,16 @@ function App() {
   }, []);
 
   const sectionText = [
-    ["", ""],
     ["Order Intake", "Receive and process purchase orders efficiently", "Eliminate manual data entry with Endeavor's AI assistant that handles purchase orders from all channels - Excel, PDFs, emails, and more. Configurable for any file format, our solution reduces errors and saves your team valuable time.", "Start with Order Intake"],
     ["Format Recognition & Extraction", "Automate data capture from any document format", "Our AI Agent identifies and learns each client's unique purchase order (PO) format, automatically extracting the relevant data.", "Start with Format Recognition"],
     ["Validation", "Ensure accuracy with intelligent data verification", "The AI Agent validates the extracted items against a comprehensive knowledge base of part numbers and product descriptions, also cross-referencing the customer's historical sales data for accuracy.", "Start with Validation"],
     ["Custom Business Logic", "Apply tailored business rules to every order", "Tailored to your operations, the AI Agent applies custom business rules such as volume-based discounts, order splitting, and other specialized workflows.", "Start with Custom Business Logic"],
     ["ERP Integration", "Connect seamlessly with your existing systems", "The AI Agent seamlessly enters the processed order into your ERP system or flags discrepancies for human review when needed.", "Start with ERP Integration"],
-    ["", ""]
   ];
 
   return (
-      <div className="flex flex-row justify-center w-full bg-[#f4f6f8]">
+      <div className="flex flex-col justify-center items-center w-full bg-[#f4f6f8]">
+        <div className="w-full h-[100vh] bg-[#ffffff] text-center items-center justify-center">hero section</div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">
@@ -96,7 +95,7 @@ function App() {
           </div>
 
           {/* Sticky/fixed animation on the right */}
-          <div className="w-1/2 sticky top-1/2 transform -translate-y-1/2 ">
+          <div className="w-1/2 sticky top-8 self-start">
             <Animation
               activeIndex={activeIndex}
             />

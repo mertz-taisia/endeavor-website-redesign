@@ -7,6 +7,8 @@ interface ItemProps {
     // Position and size
     x: number;
     y: number;
+    rx?: number;
+    ry?: number;
     scale?: number;
 
     // Content props
@@ -38,6 +40,8 @@ export default function Item({
     // Position and size
     x,
     y,
+    rx,
+    ry,
     scale = 1,
 
     // Content props
@@ -81,22 +85,23 @@ export default function Item({
     const renderIcon = () => {
         if (icon === null) return null;
 
-        if (icon === 'circle') {
+        if (icon === 'rectangle') {
             return (
-                <motion.circle
-                    initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
-                    animate={{ opacity: 1,  x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                <motion.rect
+                    initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}
+                    animate={{ opacity: 1,  x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}
                     transition={{
-                        opacity: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
-                        scale: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
-                        x: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
-                        y: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
-                        scaleX: { duration: 0.6, ease: "easeInOut", delay: 0.2 },
-                        scaleY: { duration: 0.6, ease: "easeInOut", delay: 0.2 }
+                        opacity: { duration: 0.6, ease: "easeInOut" },
+                        scale: { duration: 0.6, ease: "easeInOut" },
+                        x: { duration: 0.6, ease: "easeInOut" },
+                        y: { duration: 0.6, ease: "easeInOut" },
+                        scaleX: { duration: 0.6, ease: "easeInOut" },
+                        scaleY: { duration: 0.6, ease: "easeInOut" },
+                        rx: { duration: 0.6, ease: "easeInOut" },
+                        ry: { duration: 0.6, ease: "easeInOut" }
                     }}
-                    cx={iconX}
-                    cy={iconY}
-                    r={27}
+                    width={30}
+                    height={30}
                     fill={color}
                 />
             );
@@ -115,8 +120,7 @@ export default function Item({
                     x: { duration: 0.6, ease: "easeInOut" },
                     y: { duration: 0.6, ease: "easeInOut" },
                     scaleX: { duration: 0.6, ease: "easeInOut" },
-                    scaleY: { duration: 0.6, ease: "easeInOut" },
-                    delay: 0.2
+                    scaleY: { duration: 0.6, ease: "easeInOut" }
                 }}
                 style={{ transformOrigin: 'center center' }}
             >
@@ -139,6 +143,8 @@ export default function Item({
                         height: rectHeight,
                         x: -rectWidth / 2,
                         y: -rectHeight / 2,
+                        rx: rx,
+                        ry: ry
                     }}
                     animate={{
                         opacity: 1,
@@ -146,12 +152,17 @@ export default function Item({
                         height: rectHeight,
                         x: -rectWidth / 2,
                         y: -rectHeight / 2,
+                        rx: rx,
+                        ry: ry
                     }}
                     transition={{
                         opacity: { duration: 0.6, ease: "easeInOut" },
                         width: { duration: 0.6, ease: "easeInOut" },
                         height: { duration: 0.6, ease: "easeInOut" },
-                        delay: 0.2
+                        x: { duration: 0.6, ease: "easeInOut" },
+                        y: { duration: 0.6, ease: "easeInOut" },
+                        rx: { duration: 0.6, ease: "easeInOut" },
+                        ry: { duration: 0.6, ease: "easeInOut" }
                     }}
                 />
             );
@@ -161,7 +172,7 @@ export default function Item({
                 <motion.text
                     initial={{ opacity: 0, x: textX, y: 0 }}
                     animate={{ opacity: 1, x: textX, y: 0 }}
-                    transition={{ opacity: { duration: 0.6 }, x: { duration: 0.6 }, y: { duration: 0.6 }, delay: 0.2 }}
+                    transition={{ opacity: { duration: 0.6 }, x: { duration: 0.6 }, y: { duration: 0.6 } }}
                     fill={"#000000"}
                     fontSize={fontSize}
                     fontWeight={fontWeight}
@@ -185,12 +196,18 @@ export default function Item({
                 scale: { duration: 0.6, ease: "easeInOut" },
                 x: { duration: 0.6, ease: "easeInOut" },
                 y: { duration: 0.6, ease: "easeInOut" },
-                delay: 0.2
             }}
         >
             {renderIcon()}
             {renderContent()}
             {children}
+            
+            {/* <motion.rect 
+                initial = {{x: -5, y: -5, width: 10, height: 10}}
+                animate = {{x: -5, y: -5, width: 10, height: 10}}
+                fill="yellow"
+                rx={10}
+            ></motion.rect> */}
         </motion.g>
     );
 }

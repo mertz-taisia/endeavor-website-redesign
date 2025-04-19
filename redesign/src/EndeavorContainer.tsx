@@ -7,9 +7,10 @@ import Item from './Item';
 export const EndeavorContainer = ({
   state,
 }: {
-  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "catalogMatch";
+  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree" | "catalogMatch";
 }) => {
 
+  // Endeavor variants for each state
   const endeavorVariants = {
     hidden: { opacity: 0, x: 310, y: 800 },
     startState: { opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
@@ -17,8 +18,13 @@ export const EndeavorContainer = ({
     basicShrunkState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     itemExtractionState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedOne: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    
+    
     extractedTwo: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedThree: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    
+    catalogShrunk: { opacity: 1, x: 310, y: 400, transition: { duration: 0.2, ease: "easeOut" } },
+    
     catalogMatch: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch2: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogMatch3: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
@@ -26,19 +32,24 @@ export const EndeavorContainer = ({
     catalogMatch5: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "catalogMatch";
+  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogMatch";
   
+  // Rectangle coords for each state (defined by x1, x2, y1, y2)
   const rectangleCoordsByState = {
     hidden: { x1: -80, x2: 80, y1: -80, y2: 80 },
     startState: { x1: -80, x2: 80, y1: -130, y2: 30 },
     basicState: { x1: -80, x2: 80, y1: -80, y2: 80 },
-    basicShrunkState: { x1: -60, x2: 60, y1: -60, y2: 60 },
-    itemExtractionState: { x1: -250, x2: 250, y1: -60, y2: 60 },
+    basicShrunkState: { x1: -60, x2: 60, y1: -55, y2: 55 },
+    itemExtractionState: { x1: -265, x2: 265, y1: -55, y2: 55 },
 
-    extractedOne: { x1: -250, x2: 250, y1: -190/2, y2: 190/2 },
-    extractedTwo: { x1: -250, x2: 250, y1: -270/2, y2: 270/2 },
-    extractedThree: { x1: -250, x2: 250, y1: -350/2, y2: 350/2 },
+    extractedOne: { x1: -265, x2: 265, y1: -89, y2: 89 },
+    extractedTwo: { x1: -265, x2: 265, y1: -122, y2: 122 },
+    extractedThree: { x1: -265, x2: 265, y1: -155, y2: 155 },
 
+
+
+
+    catalogShrunk: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch2: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogMatch3: { x1: -150, x2: 150, y1: -108, y2: 95 },
@@ -50,15 +61,22 @@ export const EndeavorContainer = ({
   const currentCoords = rectangleCoordsByState[state] || rectangleCoordsByState.hidden;
 
 
+  // Endeavor Logo coords for each state (defined by x, y, scale)
   const logoByState = {
     hidden: { x: -317.5, y: -785, scale: 1 },
     startState: { x: -317.5, y: -835, scale: 1 },
     basicState: { x: -317.5, y: -785, scale: 1 },
-    basicShrunkState: { x: -317.5, y: -785, scale: 0.7 },
-    itemExtractionState: { x: -500, y: -785, scale: 0.7 },
-    extractedOne: { x: -500, y: -820, scale: 0.7 },
-    extractedTwo: { x: -500, y: -860, scale: 0.7 },
-    extractedThree: { x: -500, y: -900, scale: 0.7 },
+    basicShrunkState: { x: -317.5, y: -785, scale: 0.6 },
+    itemExtractionState: { x: -515, y: -785, scale: 0.6 },
+    extractedOne: { x: -515, y: -820, scale: 0.6 },
+    extractedTwo: { x: -515, y: -860, scale: 0.6 },
+
+
+
+    extractedThree: { x: -515, y: -890, scale: 0.5 },
+
+
+    catalogShrunk: { x: -437, y: -860, scale: 0.3 },
     catalogMatch: { x: -437, y: -860, scale: 0.3 },
     catalogMatch2: { x: -437, y: -860, scale: 0.3 },
     catalogMatch3: { x: -437, y: -860, scale: 0.3 },
@@ -74,11 +92,17 @@ export const EndeavorContainer = ({
     hidden: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     startState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     basicState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
-    basicShrunkState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
-    itemExtractionState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "Extracting Data..." },
-    extractedOne: { x: currentCoords.x1 + 120, y: -30, textSize: 40, text: "Extracting Data..." },
-    extractedTwo: { x: currentCoords.x1 + 120, y: -70, textSize: 40, text: "Extracting Data..." },
-    extractedThree: { x: currentCoords.x1 + 120, y: -110, textSize: 40, text: "Extracting Data..." },
+    basicShrunkState: { x: currentCoords.x1 + 110, y: 0, textSize: 40, text: "" },
+    itemExtractionState: { x: currentCoords.x1 + 110, y: 0, textSize: 32, text: "Extracting Data..." },
+    extractedOne: { x: currentCoords.x1 + 110, y: -30, textSize: 32, text: "Extracting Data..." },
+    extractedTwo: { x: currentCoords.x1 + 110, y: -70, textSize: 32, text: "Extracting Data..." },
+    
+    
+    
+    extractedThree: { x: currentCoords.x1 + 110, y: -100, textSize: 32, text: "Extracting Data..." },
+    
+    
+    catalogShrunk: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
@@ -92,9 +116,9 @@ export const EndeavorContainer = ({
   const textSize = textByState.textSize;
   const text = textByState.text;
 
-  const defaultItem = { state: "hidden", rectWidth: 330, rectHeight: 24, iconX: -105, iconY: 0, iconScale: 1 };
-  const baseItem = { state: "base", x:0, y:0, rectWidth: 330, rectHeight: 24, iconX: -105, iconY: 0, iconScale: 1 };
-  const catalog = { state: "base", x:0, y:0, rectWidth: 200, rectHeight: 16, iconX: -65, iconY: 0, iconScale: 0.6 };
+  const defaultItem = { state: "hidden", x:0, y:0, rectWidth: 330, rectHeight: 24, iconX: -240, iconY: -15, iconScale: 1, rx: 3, ry: 3 };
+  const baseItem = { state: "base", x:0, y:0, rectWidth: 350, rectHeight: 24, iconX: -240, iconY: -15, iconScale: 1, rx: 3, ry: 3 };
+  const catalog = { state: "base", x:0, y:0, rectWidth: 200, rectHeight: 16, iconX: -140, iconY: -15, iconScale: 0.6, rx: 2, ry: 2 };
 
   const createItemState = (itemOne = defaultItem, itemTwo = defaultItem, itemThree = defaultItem) => ({
     itemOne,
@@ -107,27 +131,31 @@ export const EndeavorContainer = ({
     startState: createItemState(),
     basicState: createItemState(),
     basicShrunkState: createItemState(),
-    // processingState: createItemState(),
     itemExtractionState: createItemState(
-      {...defaultItem, x: 20, y: 85 },
-      {...defaultItem, x: 20, y: 140 },
-      {...defaultItem, x: 20, y: 230 }
+      {...defaultItem, x: 20, y: 30 },
+      {...defaultItem, x: 20, y: 70 },
+      {...defaultItem, x: 20, y: 90 }
     ),
     extractedOne: createItemState(
-      { ...baseItem, x: 20, y: 50 },
-      {...defaultItem, x:20, y: 70 },
-      {...defaultItem, x:20, y: 110 }
+      { ...baseItem, x: 20, y: 30 },
+      {...defaultItem, x:20, y: 60 },
+      {...defaultItem, x:20, y: 90 }
     ),
     extractedTwo: createItemState(
       { ...baseItem, x: 20, y: 0}, 
-      { ...baseItem, x: 20, y: 70}, 
-      {...defaultItem, x: 20, y: 110 }
+      { ...baseItem, x: 20, y: 60}, 
+      {...defaultItem, x: 20, y: 90 }
     ),
     extractedThree: createItemState(
         { ...baseItem, x: 20, y: -30}, 
-        { ...baseItem, x: 20, y: 40}, 
-        { ...baseItem, x: 20, y: 110}
+        { ...baseItem, x: 20, y: 30}, 
+        { ...baseItem, x: 20, y: 90}
         ),
+    catalogShrunk: createItemState(
+      {...catalog, x: 10, y: -30 }, 
+      {...catalog, x: 10, y: 10 }, 
+      {...catalog, x: 10, y: 50 }
+    ),
     catalogMatch: createItemState(
       {...catalog, x: 10, y: -30, state: "focused" }, 
       {...catalog, x: 10, y: 10 }, 
@@ -141,7 +169,7 @@ export const EndeavorContainer = ({
     catalogMatch3: createItemState(
       {...catalog, x: 10, y: -30 }, 
       {...catalog, x: 10, y: 10 }, 
-      {...catalog, x: 10, y: 50, state: "focused"  }
+      {...catalog, x: 10, y: 50, state: "focused" }
     ),
     catalogMatch4: createItemState(
       {...catalog, x: 10, y: -30 }, 
@@ -255,13 +283,15 @@ export const EndeavorContainer = ({
         x={itemOne.x}
         y={itemOne.y}
         text="ITEM TEXT"
-        icon="circle"
+        icon="rectangle"
         rectWidth={itemOne.rectWidth} 
         rectHeight={itemOne.rectHeight} 
         iconX={itemOne.iconX}
         iconY={itemOne.iconY}
         iconScale={itemOne.iconScale}
         scale={1}
+        rx={itemOne.rx}
+        ry={itemOne.ry}
       />
       
       <Item 
@@ -269,13 +299,15 @@ export const EndeavorContainer = ({
         x={itemTwo.x}
         y={itemTwo.y}
         text="ITEM TEXT"
-        icon="circle"
+        icon="rectangle"
         rectWidth={itemTwo.rectWidth} 
         rectHeight={itemTwo.rectHeight} 
         iconX={itemTwo.iconX}
         iconY={itemTwo.iconY}
         iconScale={itemTwo.iconScale}
         scale={1}
+        rx={itemTwo.rx}
+        ry={itemTwo.ry}
       />
 
       <Item 
@@ -283,13 +315,15 @@ export const EndeavorContainer = ({
         x={itemThree.x}
         y={itemThree.y}
         text="ITEM TEXT"
-        icon="circle"
+        icon="rectangle"
         rectWidth={itemThree.rectWidth} 
         rectHeight={itemThree.rectHeight} 
         iconX={itemThree.iconX}
         iconY={itemThree.iconY}
         iconScale={itemThree.iconScale}
         scale={1}
+        rx={itemThree.rx}
+        ry={itemThree.ry}
       />
       
 

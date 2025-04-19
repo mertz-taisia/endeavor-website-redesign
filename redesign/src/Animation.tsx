@@ -14,14 +14,6 @@ const Animation = ({
   const sectionsRef = useRef<HTMLElement[]>([]);
   const visibility = {
     section0: {
-      1: {
-        excelLogo: { state: "hidden" },
-        phoneLogo: { state: "hidden" },
-        emailLogo: { state: "hidden" },
-        pdfLogo: { state: "hidden" }
-      }
-    },
-    section1: {
       // Initial hidden
       1: {
         excelLogo: { state: "hidden" },
@@ -49,7 +41,7 @@ const Animation = ({
         endeavorLogo: { state: "startState" }
       }
     },
-    section2: {
+    section1: {
       1: {
         endeavorLogo: { state: "basicState" }
       },
@@ -60,7 +52,6 @@ const Animation = ({
       3: {
         endeavorLogo: { state: "itemExtractionState" }
       },
-      // Extracted one
       4: {
         endeavorLogo: { state: "extractedOne" }
       },
@@ -71,45 +62,40 @@ const Animation = ({
       // Extracted three
       6: {
         endeavorLogo: { state: "extractedThree" },
-        catalog: { state: "hidden" }
       }
     },
-    section3: {
+    section2: {
       1: {
-        catalog: { state: "basicState" },
-        endeavorLogo: { state: "catalogMatch" }
+        endeavorLogo: { state: "catalogShrunk" },
+        catalog: { state: "hidden" }
       },
       2: {
-        catalog: { state: "basicState" },
-        endeavorLogo: { state: "catalogMatch2" },
+        endeavorLogo: { state: "catalogMatch" },
+        catalog: { state: "basicState" }
       },
       3: {
         catalog: { state: "basicState" },
-        endeavorLogo: { state: "catalogMatch3" },
+        endeavorLogo: { state: "catalogMatch2" }
       },
       4: {
+        catalog: { state: "basicState" },
+        endeavorLogo: { state: "catalogMatch3" }
+      },
+      5: {
         catalog: { state: "basicState" },
         endeavorLogo: { state: "catalogMatch4" },
       }
     }
   };
 
-  const sectionStepThresholds = {
-    section0: [0, 0, 0.8],
-    section1: [0.7, 0, 0.8],
-    section2: [0.7, 0, 0.9],
-    section3: [0.7, 0, 0.9],
-  };
+  // sectionStepThresholds removed. Now using only activeIndex from props to control animation state.
 
   const sectionMap = {
     0: "section0",
     1: "section1",
     2: "section2",
-    3: "section3",
-    4: "section3",
-    5: "section3",
-    6: "section3",
-    7: "section3",
+    3: "section2",
+    4: "section2",
   };
 
   const [currentStep, setCurrentStep] = useState(1);
