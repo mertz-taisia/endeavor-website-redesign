@@ -84,16 +84,20 @@ const Animation = ({
       },
       5: {
         endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "scrollToItem", activeItem: 6 }
-      }, 
-      6: {
-        endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "scrollToItem", activeItem: 7 }
-      },
-      7: {
-        endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "scrollToItem", activeItem: 8 }
-      },
+        catalog: { state: "pullOutItem", activeItem: 5 }
+      }
+      // 5: {
+      //   endeavorLogo: { state: "catalogMatch" },
+      //   catalog: { state: "scrollToItem", activeItem: 6 }
+      // }, 
+      // 6: {
+      //   endeavorLogo: { state: "catalogMatch" },
+      //   catalog: { state: "scrollToItem", activeItem: 7 }
+      // },
+      // 7: {
+      //   endeavorLogo: { state: "catalogMatch" },
+      //   catalog: { state: "scrollToItem", activeItem: 8 }
+      // },
     }
   };
 
