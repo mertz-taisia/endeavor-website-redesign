@@ -66,7 +66,8 @@ const Animation = ({
     },
     section2: {
       1: {
-        endeavorLogo: { state: "catalogShrunk" },
+        // endeavorLogo: { state: "catalogShrunk" },
+        endeavorLogo: { state: "catalogMatch" },
         catalog: { state: "hidden" }
       },
       2: {

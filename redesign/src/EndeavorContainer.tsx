@@ -73,7 +73,7 @@ export const EndeavorContainer = ({
 
 
 
-    extractedThree: { x: -515, y: -890, scale: 0.5 },
+    extractedThree: { x: -515, y: -890, scale: 0.6 },
 
 
     catalogShrunk: { x: -437, y: -860, scale: 0.3 },
@@ -328,12 +328,12 @@ export const EndeavorContainer = ({
       
 
       
-      <motion.rect 
+      {/* <motion.rect 
       initial = {{x: -5, y: -5, width: 10, height: 10}}
       animate = {{x: -5, y: -5, width: 10, height: 10}}
       fill="red"
       rx={10}
-      ></motion.rect>
+      ></motion.rect> */}
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
