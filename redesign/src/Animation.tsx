@@ -72,20 +72,28 @@ const Animation = ({
       },
       2: {
         endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "basicState" }
+        catalog: { state: "scrollToItem", activeItem: 3 }
       },
       3: {
-        catalog: { state: "basicState" },
-        endeavorLogo: { state: "catalogMatch2" }
+        endeavorLogo: { state: "catalogMatch" },
+        catalog: { state: "scrollToItem", activeItem: 4 }
       },
       4: {
-        catalog: { state: "basicState" },
-        endeavorLogo: { state: "catalogMatch3" }
+        endeavorLogo: { state: "catalogMatch" },
+        catalog: { state: "scrollToItem", activeItem: 5 }
       },
       5: {
-        catalog: { state: "basicState" },
-        endeavorLogo: { state: "catalogMatch4" },
-      }
+        endeavorLogo: { state: "catalogMatch" },
+        catalog: { state: "scrollToItem", activeItem: 6 }
+      }, 
+      6: {
+        endeavorLogo: { state: "catalogMatch" },
+        catalog: { state: "scrollToItem", activeItem: 7 }
+      },
+      7: {
+        endeavorLogo: { state: "catalogMatch" },
+        catalog: { state: "scrollToItem", activeItem: 8 }
+      },
     }
   };
 
@@ -128,6 +136,7 @@ const Animation = ({
 
 
   const getState = (id: string) => currentVisibility[id]?.state;
+  const getActiveItem = (id: string) => currentVisibility[id]?.activeItem;
 
   function getScrollProgress(sectionEl) {
     const rect = sectionEl.getBoundingClientRect();
@@ -291,6 +300,7 @@ const Animation = ({
       {getState("catalog") && (
         <Catalog
           state={getState("catalog")}
+          activeItem={getActiveItem("catalog")}
         />
       )}
 

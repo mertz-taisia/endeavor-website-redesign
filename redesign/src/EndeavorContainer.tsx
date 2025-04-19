@@ -70,12 +70,7 @@ export const EndeavorContainer = ({
     itemExtractionState: { x: -515, y: -785, scale: 0.6 },
     extractedOne: { x: -515, y: -820, scale: 0.6 },
     extractedTwo: { x: -515, y: -860, scale: 0.6 },
-
-
-
     extractedThree: { x: -515, y: -890, scale: 0.6 },
-
-
     catalogShrunk: { x: -437, y: -860, scale: 0.3 },
     catalogMatch: { x: -437, y: -860, scale: 0.3 },
     catalogMatch2: { x: -437, y: -860, scale: 0.3 },
@@ -223,7 +218,7 @@ export const EndeavorContainer = ({
         filter="url(#softShadow)"
       />
 
-      {/* Endeavor Icon */}
+      {/* Endeavor Logo */}
       <motion.g
         animate={{
           x: logoX,

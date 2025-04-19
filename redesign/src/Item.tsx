@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { JSX, useEffect } from 'react';
 
 interface ItemProps {
@@ -70,12 +70,13 @@ export default function Item({
         console.log("ItemContainer state:", state);
     }, [state]);
 
-    // You can define state-specific animations here
+    // Define state-specific animations including exit animations
     const variants = {
-        hidden: { opacity: 0, color: '#EFEFEF', x, y },             // nothing visible
-        base: { opacity: 1, color: '#EFEFEF', x, y },      // default
-        focused: { opacity: 1, color: '#E3E3E3', x, y },   // highlighted
-        populated: { opacity: 1, x, y },   // highlighted
+        hidden: { opacity: 0, color: '#EFEFEF', x, y },  // nothing visible
+        base: { opacity: 1, color: '#EFEFEF', x, y },                // default
+        focused: { opacity: 1, color: '#E3E3E3', x, y },             // highlighted
+        populated: { opacity: 1, x, y },                             // highlighted
+        exit: { opacity: 0, scale: 0.8 },                 // exit animation
         // Add more states as needed
     };
 
@@ -90,6 +91,7 @@ export default function Item({
                 <motion.rect
                     initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}
                     animate={{ opacity: 1,  x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}
+                    exit={{ opacity: 0, scale: 0.95 }}
                     transition={{
                         opacity: { duration: 0.6, ease: "easeInOut" },
                         scale: { duration: 0.6, ease: "easeInOut" },
@@ -114,6 +116,7 @@ export default function Item({
             <motion.g
                 initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
                 animate={{ opacity: 1, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{
                     opacity: { duration: 0.6, ease: "easeInOut" },
                     scale: { duration: 0.6, ease: "easeInOut" },
@@ -131,8 +134,7 @@ export default function Item({
 
     // Render the text or rectangle
     const renderContent = () => {
-        if (state === "hidden") return null;
-
+        // For base or focused states, render a rectangle
         if (state === "base" || state === "focused") {
             return (
                 <motion.rect
@@ -155,6 +157,10 @@ export default function Item({
                         rx: rx,
                         ry: ry
                     }}
+                    exit={{
+                        opacity: 0,
+                        scale: 0.95
+                    }}
                     transition={{
                         opacity: { duration: 0.6, ease: "easeInOut" },
                         width: { duration: 0.6, ease: "easeInOut" },
@@ -162,17 +168,35 @@ export default function Item({
                         x: { duration: 0.6, ease: "easeInOut" },
                         y: { duration: 0.6, ease: "easeInOut" },
                         rx: { duration: 0.6, ease: "easeInOut" },
-                        ry: { duration: 0.6, ease: "easeInOut" }
+                        ry: { duration: 0.6, ease: "easeInOut" },
+                        scale: { duration: 0.6, ease: "easeInOut" }
                     }}
                 />
             );
         }
-        else if (state === "populated") {
+        // For populated or hidden states, render text with appropriate opacity
+        else {
+            // Only render text if we have text content
+            if (!text) return null;
+            
             return (
                 <motion.text
                     initial={{ opacity: 0, x: textX, y: 0 }}
-                    animate={{ opacity: 1, x: textX, y: 0 }}
-                    transition={{ opacity: { duration: 0.6 }, x: { duration: 0.6 }, y: { duration: 0.6 } }}
+                    animate={{ 
+                        opacity: state === "populated" ? 1 : 0,
+                        x: textX, 
+                        y: 0 
+                    }}
+                    exit={{ 
+                        opacity: 0,
+                        scale: 0.95
+                    }}
+                    transition={{ 
+                        opacity: { duration: 0.6, ease: "easeInOut" }, 
+                        x: { duration: 0.6, ease: "easeInOut" }, 
+                        y: { duration: 0.6, ease: "easeInOut" },
+                        scale: { duration: 0.6, ease: "easeInOut" }
+                    }}
                     fill={"#000000"}
                     fontSize={fontSize}
                     fontWeight={fontWeight}
@@ -191,6 +215,7 @@ export default function Item({
         <motion.g
             initial={{ x, y, opacity: 0, scale }}
             animate={variants[state]}
+            exit={variants.exit}
             transition={{
                 opacity: { duration: 0.6, ease: "easeInOut" },
                 scale: { duration: 0.6, ease: "easeInOut" },
