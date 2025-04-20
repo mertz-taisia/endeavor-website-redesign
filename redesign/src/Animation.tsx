@@ -85,7 +85,11 @@ const Animation = ({
       5: {
         endeavorLogo: { state: "catalogMatch" },
         catalog: { state: "pullOutItem", activeItem: 5 }
-      }
+      },
+      // 6: {
+      //   endeavorLogo: { state: "catalogMatch2" },
+      //   catalog: { state: "pullOutItem", activeItem: 6 }
+      // },
       // 5: {
       //   endeavorLogo: { state: "catalogMatch" },
       //   catalog: { state: "scrollToItem", activeItem: 6 }

@@ -157,25 +157,30 @@ export const EndeavorContainer = ({
       {...catalog, x: 10, y: 50 }
     ),
     catalogMatch2: createItemState(
-      {...catalog, x: 10, y: -30 }, 
-      {...catalog, x: 10, y: 10, state: "focused"  }, 
-      {...catalog, x: 10, y: 50 }
-    ),
-    catalogMatch3: createItemState(
-      {...catalog, x: 10, y: -30 }, 
-      {...catalog, x: 10, y: 10 }, 
-      {...catalog, x: 10, y: 50, state: "focused" }
-    ),
-    catalogMatch4: createItemState(
-      {...catalog, x: 10, y: -30 }, 
+      {...catalog, x: 10, y: -30, state: "hidden" }, 
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
     ),
-    catalogMatch5: createItemState(
-      {...catalog, x: 10, y: -30 }, 
-      {...catalog, x: 10, y: 10 }, 
-      {...catalog, x: 10, y: 50 }
-    ),
+    // catalogMatch2: createItemState(
+    //   {...catalog, x: 10, y: -30 }, 
+    //   {...catalog, x: 10, y: 10, state: "focused"  }, 
+    //   {...catalog, x: 10, y: 50 }
+    // ),
+    // catalogMatch3: createItemState(
+    //   {...catalog, x: 10, y: -30 }, 
+    //   {...catalog, x: 10, y: 10 }, 
+    //   {...catalog, x: 10, y: 50, state: "focused" }
+    // ),
+    // catalogMatch4: createItemState(
+    //   {...catalog, x: 10, y: -30 }, 
+    //   {...catalog, x: 10, y: 10 }, 
+    //   {...catalog, x: 10, y: 50 }
+    // ),
+    // catalogMatch5: createItemState(
+    //   {...catalog, x: 10, y: -30 }, 
+    //   {...catalog, x: 10, y: 10 }, 
+    //   {...catalog, x: 10, y: 50 }
+    // ),
   };
   
   const itemByState = itemStates[state] ?? createItemState();
