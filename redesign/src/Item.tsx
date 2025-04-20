@@ -86,7 +86,7 @@ export default function Item({
     const renderIcon = () => {
         if (icon === null) return null;
 
-        if (icon === 'rectangle') {
+        if (state === "base" || state === "focused") {
             return (
                 <motion.rect
                     initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}

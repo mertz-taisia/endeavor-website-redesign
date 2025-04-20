@@ -86,10 +86,10 @@ const Animation = ({
         endeavorLogo: { state: "catalogMatch" },
         catalog: { state: "pullOutItem", activeItem: 5 }
       },
-      // 6: {
-      //   endeavorLogo: { state: "catalogMatch2" },
-      //   catalog: { state: "pullOutItem", activeItem: 6 }
-      // },
+      6: {
+        endeavorLogo: { state: "catalogMatch2" },
+        catalog: { state: "scrollToItem", activeItem: 6 }
+      },
       // 5: {
       //   endeavorLogo: { state: "catalogMatch" },
       //   catalog: { state: "scrollToItem", activeItem: 6 }
@@ -111,7 +111,7 @@ const Animation = ({
     0: "section0",
     1: "section1",
     2: "section2",
-    3: "section2",
+    3: "section3",
     4: "section2",
   };
 
@@ -127,16 +127,59 @@ const Animation = ({
     setCurrentStep(1); // reset animation
   }, [activeIndex]);
 
+  // Define custom durations for each animation step (in milliseconds)
+  const stepDurations = {
+    section0: {
+      1: 750,  // Step 1 to 2: 750ms
+      2: 750,  // Step 2 to 3: 750ms
+      3: 750,  // Step 3 to 4: 750ms
+      // Add more steps as needed
+    },
+    section1: {
+      1: 750,  // Step 1 to 2: 750ms
+      2: 750,  // Step 2 to 3: 750ms
+      3: 750,  // Step 3 to 4: 750ms
+      4: 750,  // Step 4 to 5: 750ms
+      5: 750,  // Step 5 to 6: 750ms
+      6: 750,  // Step 6 to 7: 750ms
+      // Add more steps as needed
+    },
+    section2: {
+      1: 750,  // Step 1 to 2: 750ms
+      2: 750,  // Step 2 to 3: 750ms
+      3: 750,  // Step 3 to 4: 750ms
+      4: 750,  // Step 4 to 5: 750ms
+      5: 3500,  // Step 5 to 6: 3000ms (longer for pullOutItem animation)
+      6: 750,  // Step 6 to 7: 750ms
+      // Add more steps as needed
+    },
+    // Add more sections as needed
+  };
+
   useEffect(() => {
     if (!sectionKey) return;
 
     const maxStep = Object.keys(visibility[sectionKey]).length;
-    const interval = setInterval(() => {
-      setCurrentStep(prev => (prev < maxStep ? prev + 1 : prev));
-    }, 750);
+    let timeoutId: NodeJS.Timeout;
 
-    return () => clearInterval(interval);
-  }, [sectionKey]);
+    const scheduleNextStep = (currentStep: number) => {
+      if (currentStep >= maxStep) return;
+      
+      // Get the duration for this step (or default to 750ms)
+      const duration = stepDurations[sectionKey as keyof typeof stepDurations]?.[currentStep as keyof typeof stepDurations[keyof typeof stepDurations]] || 750;
+      
+      timeoutId = setTimeout(() => {
+        setCurrentStep(currentStep + 1);
+        scheduleNextStep(currentStep + 1);
+      }, duration);
+    };
+
+    // Start the sequence
+    scheduleNextStep(currentStep);
+
+    return () => clearTimeout(timeoutId);
+  }, [sectionKey, currentStep]);
+  
 
 
 
@@ -439,3 +482,4 @@ const PDFIcon = () => (
     </g>
   </g>
 );
+
