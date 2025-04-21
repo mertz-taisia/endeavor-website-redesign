@@ -1,13 +1,17 @@
 // @ts-nocheck
-import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import Item from './Item';
 
 
 export const EndeavorContainer = ({
   state,
+  activeItem = 3, // Index of the active item in catalog
+  catalogState = "hidden", // State of the catalog to determine when to show sliding item
 }: {
-  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree" | "catalogEmpty";
+  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree" | "catalogEmpty" | "pullOutItemOne" | "pullOutItemTwo" | "pullOutItemThree" | "catalogSelectingOne" | "catalogSelectingTwo" | "catalogSelectingThree" | "allSelected";
+  activeItem?: number;
+  catalogState?: "hidden" | "basicState" | "scrollToItemOne" | "scrollToItemTwo" | "scrollToItemThree" | "pullOutItemOne" | "pullOutItemTwo" | "pullOutItemThree";
 }) => {
 
   // Endeavor variants for each state
@@ -18,23 +22,25 @@ export const EndeavorContainer = ({
     basicShrunkState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     itemExtractionState: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedOne: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    
+    pullOutItemOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     
     extractedTwo: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedThree: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     
     catalogShrunk: { opacity: 1, x: 310, y: 400, transition: { duration: 0.2, ease: "easeOut" } },
-    
     catalogEmpty: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    
     catalogSelectingOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogSelectingTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogSelectingThree: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogSelectedOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogSelectedTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogSelectedThree: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    
+    pullOutItemOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    pullOutItemTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    pullOutItemThree: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    allSelected: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogEmpty";
+  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogEmpty" || state === "catalogShrunk" || state === "catalogSelectingOne" || state === "catalogSelectingTwo" || state === "catalogSelectingThree" || state === "catalogSelectingThree" || state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree" || state === "allSelected" ;
   
   // Rectangle coords for each state (defined by x1, x2, y1, y2)
   const rectangleCoordsByState = {
@@ -43,7 +49,7 @@ export const EndeavorContainer = ({
     basicState: { x1: -80, x2: 80, y1: -80, y2: 80 },
     basicShrunkState: { x1: -60, x2: 60, y1: -55, y2: 55 },
     itemExtractionState: { x1: -265, x2: 265, y1: -55, y2: 55 },
-
+    pullOutItemOne: { x1: -265, x2: 265, y1: -89, y2: 89 },
     extractedOne: { x1: -265, x2: 265, y1: -89, y2: 89 },
     extractedTwo: { x1: -265, x2: 265, y1: -122, y2: 122 },
     extractedThree: { x1: -265, x2: 265, y1: -155, y2: 155 },
@@ -56,9 +62,10 @@ export const EndeavorContainer = ({
     catalogSelectingOne: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogSelectingTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogSelectingThree: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogSelectedOne: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogSelectedTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogSelectedThree: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    pullOutItemOne: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    pullOutItemTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    pullOutItemThree: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    allSelected: { x1: -150, x2: 150, y1: -108, y2: 95 },
   };
 
 
@@ -84,9 +91,10 @@ export const EndeavorContainer = ({
     catalogSelectingOne: { x: -437, y: -860, scale: 0.3 },
     catalogSelectingTwo: { x: -437, y: -860, scale: 0.3 },
     catalogSelectingThree: { x: -437, y: -860, scale: 0.3 },
-    catalogSelectedOne: { x: -437, y: -860, scale: 0.3 },
-    catalogSelectedTwo: { x: -437, y: -860, scale: 0.3 },
-    catalogSelectedThree: { x: -437, y: -860, scale: 0.3 },
+    pullOutItemOne: { x: -437, y: -860, scale: 0.3 },
+    pullOutItemTwo: { x: -437, y: -860, scale: 0.3 },
+    pullOutItemThree: { x: -437, y: -860, scale: 0.3 },
+    allSelected: { x: -437, y: -860, scale: 0.3 },
 
   }[state] ?? { x: -317.5, y: -785, scale: 1 };
 
@@ -110,9 +118,10 @@ export const EndeavorContainer = ({
     catalogSelectingOne: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogSelectingTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogSelectingThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogSelectedOne: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogSelectedTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogSelectedThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    pullOutItemOne: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    pullOutItemTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    pullOutItemThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    allSelected: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
   }[state] ?? { x: currentCoords.x1 - 10, y: 0, textSize: 40, text: "" };
 
 
@@ -166,28 +175,33 @@ export const EndeavorContainer = ({
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
     ),
-    catalogSelectedOne: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+    pullOutItemOne: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.8, iconX: -118, iconY: 2, textX: -89 }, 
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
     ),
     catalogSelectingTwo: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.8, iconX: -118, iconY: 2, textX: -89 }, 
       {...catalog, x: 10, y: 10, state: "focused" }, 
       {...catalog, x: 10, y: 50 }
     ),
-    catalogSelectedTwo: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+    pullOutItemTwo: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.79, iconX: -118, iconY: 2, textX: -89 }, 
       {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 50 }
     ),
     catalogSelectingThree: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.79, iconX: -118, iconY: 3, textX: -89 }, 
       {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 50, state: "focused" }
     ),
-    catalogSelectedThree: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+    pullOutItemThree: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.79, iconX: -118, iconY: 3, textX: -89 }, 
+      {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 50, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }
+    ),
+    allSelected: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.79, iconX: -118, iconY: 3, textX: -89 }, 
       {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 50, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }
     )
@@ -199,6 +213,8 @@ export const EndeavorContainer = ({
   const itemTwo = itemByState.itemTwo;
   const itemThree = itemByState.itemThree;
   
+  // Sliding item variants for each catalog state - removed as we'll use the original animation
+
   return (
     <motion.g
       initial="hidden"
@@ -292,7 +308,7 @@ export const EndeavorContainer = ({
         state={itemOne.state}
         x={itemOne.x}
         y={itemOne.y}
-        text='1 1/4" x 1/4" Cold Rolled...'
+        text= '1/2" x 10 ft Copper Type ...'
         icon={<Pipes/>}
         rectWidth={itemOne.rectWidth} 
         rectHeight={itemOne.rectHeight} 
@@ -303,7 +319,7 @@ export const EndeavorContainer = ({
         textX={itemOne.textX}
         rx={itemOne.rx}
         ry={itemOne.ry}
-        stateChangeDelay={state === "catalogSelectedOne" ? 3 : 0} // Add 3.4s delay when transitioning to catalogMatch2
+        stateChangeDelay={state === "pullOutItemOne" ? 1.5 : 0} // Add 3.4s delay when transitioning to catalogMatch2
       />
       
       <Item 
@@ -320,15 +336,15 @@ export const EndeavorContainer = ({
         textX={itemTwo.textX}
         rx={itemTwo.rx}
         ry={itemTwo.ry}
-        stateChangeDelay={state === "catalogSelectedTwo" ? 3 : 0}// Add 3.4s delay when transitioning to catalogMatch2
+        stateChangeDelay={state === "pullOutItemTwo" ? 1.5 : 0}// Add 3s delay when transitioning to catalogMatch2
       />
 
       <Item 
         state={itemThree.state}
         x={itemThree.x}
         y={itemThree.y}
-        text='3" x 1 1/2" x 0.188" Stainle..'
-        icon={<SheetMetalIcon/>}
+        text='2" x 1" x 0.125" Stainless S...'
+        icon={<ConcreteIcon/>}
         rectWidth={itemThree.rectWidth} 
         rectHeight={itemThree.rectHeight} 
         iconX={itemThree.iconX}
@@ -338,9 +354,158 @@ export const EndeavorContainer = ({
         rx={itemThree.rx}
         ry={itemThree.ry}
         textX={itemThree.textX}
-        stateChangeDelay={state === "catalogSelectedThree" ? 3 : 0} // Add 3.4s delay when transitioning to catalogMatch2
+        stateChangeDelay={state === "pullOutItemThree" ? 1.5 : 0} // Add 3.4s delay when transitioning to catalogMatch2
       />
       
+
+      {/* Render the sliding item from catalog when in pullOutItem state */}
+      {(catalogState === "pullOutItemOne" || catalogState === "pullOutItemTwo" || catalogState === "pullOutItemThree") && (
+        <motion.g
+          initial={{ opacity: 0, x: 315, y: 0, scale: 1.03 }}
+          animate={[
+            // First animation: pop out and increase size
+            { 
+              opacity: 1, 
+              x: 325, 
+              y: 0, 
+              scale: 1.2,
+              transition: {
+                duration: 0.6,
+                ease: "easeOut",
+              }
+            },
+            // Second animation: slide with spring
+            { 
+              x: 0,
+              transition: {
+                type: "spring",
+                stiffness: 70,  // Lower stiffness for slower movement
+                damping: 15,    // Lower damping for more bounce
+                mass: 1.5,      // Higher mass for slower movement
+                delay: 0.6      // Longer delay before sliding
+              }
+            },
+            // Third animation: shrink into place
+            { 
+              scale: 1,
+              transition: {
+                duration: 0.8,   // Longer duration for slower shrinking
+                ease: "easeOut",
+                delay: 0.6       // Longer delay before shrinking
+              }
+            }
+          ]}
+        >
+          {/* White container/background for each extracted item */}
+          {catalogState === "pullOutItemOne" && (
+            <motion.rect
+              width={255}
+              height={40}
+              x={-135}
+              y={-53}
+              rx={10}
+              ry={10}
+              fill="white"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ opacity: { delay: 0.2, duration: 0.4, ease: "easeInOut" } }}
+              style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+            />
+          )}
+          
+          {catalogState === "pullOutItemTwo" && (
+            <motion.rect
+              width={255}
+              height={40}
+              x={-135}
+              y={-10}
+              rx={10}
+              ry={10}
+              fill="white"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ opacity: { delay: 0.2, duration: 0.4, ease: "easeInOut" } }}
+              style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+            />
+          )}
+          
+          {catalogState === "pullOutItemThree" && (
+            <motion.rect
+              width={255}
+              height={40}
+              x={-135}
+              y={30}
+              rx={10}
+              ry={10}
+              fill="white"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ opacity: { delay: 0.2, duration: 0.4, ease: "easeInOut" } }}
+              style={{ boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+            />
+          )}
+
+          {/* First sliding item */}
+          {catalogState === "pullOutItemOne" && (
+            <Item
+              state="populated"
+              x={itemOne.x}
+              y={itemOne.y}
+              rectWidth={itemOne.rectWidth}
+              rectHeight={itemOne.rectHeight}
+              rx={itemOne.rx}
+              ry={itemOne.ry}
+              text= '1/2" x 10 ft Copper Type ...'
+              icon={<Pipes/>}
+              textX={itemOne.textX}
+              iconX={itemOne.iconX}
+              iconY={itemOne.iconY}
+              iconScale={itemOne.iconScale}
+              scale={1}
+            />
+          )}
+
+          {/* Second sliding item */}
+          {catalogState === "pullOutItemTwo" && (
+            <Item
+              state="populated"
+              x={itemTwo.x}
+              y={itemTwo.y}
+              rectWidth={itemTwo.rectWidth}
+              rectHeight={itemTwo.rectHeight}
+              rx={itemTwo.rx}
+              ry={itemTwo.ry}
+              text='60" x 36" Polycarbonate ...'
+              icon={<SheetMetalIcon/>}
+              textX={itemTwo.textX}
+              iconX={itemTwo.iconX}
+              iconY={itemTwo.iconY}
+              iconScale={itemTwo.iconScale}
+              scale={1}
+            />
+          )}
+
+          {/* Third sliding item */}
+          {catalogState === "pullOutItemThree" && (
+            <Item
+              state="populated"
+              x={itemThree.x}
+              y={itemThree.y}
+              rectWidth={itemThree.rectWidth}
+              rectHeight={itemThree.rectHeight}
+              rx={itemThree.rx}
+              ry={itemThree.ry}
+              text='2" x 1" x 0.125" Stainless S...'
+              icon={<ConcreteIcon/>}
+              textX={itemThree.textX}
+              iconX={itemThree.iconX}
+              iconY={itemThree.iconY}
+              iconScale={itemThree.iconScale}
+              scale={1}
+            />
+          )}
+        </motion.g>
+      )}
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -357,6 +522,12 @@ const Pipes = () => (
   </g>
 );
 
+const Screw = () => (
+  <g transform="translate(-24, -24) scale(0.8)">
+    <path fill="#777777" stroke="#777777" d="M 32.595703 1 A 1.50015 1.50015 0 0 0 31.556641 1.4394531 L 29.041016 3.9550781 C 27.431441 5.5646528 27.288465 8.378312 29.095703 10.185547 L 29.386719 10.476562 C 29.12446 11.021837 28.674061 11.770741 27.707031 12.738281 C 26.964165 13.481148 4.2753906 36.175781 4.2753906 36.175781 A 1.50015 1.50015 0 0 0 3.9179688 36.75 L 1.0820312 45.013672 A 1.50015 1.50015 0 0 0 2.9863281 46.917969 L 11.248047 44.083984 A 1.50015 1.50015 0 0 0 11.822266 43.726562 C 11.822266 43.726562 34.363275 21.181647 35.248047 20.296875 C 36.09103 19.45432 36.880914 18.999073 37.439453 18.751953 C 37.557638 18.699663 37.514713 18.729203 37.603516 18.695312 L 37.923828 19.015625 C 38.852194 19.943991 40.088483 20.352915 41.201172 20.273438 C 42.31386 20.193957 43.303581 19.699123 44.042969 18.958984 L 46.560547 16.441406 A 1.50015 1.50015 0 0 0 46.560547 14.320312 L 33.677734 1.4394531 A 1.50015 1.50015 0 0 0 32.595703 1 z M 32.617188 4.6210938 L 43.378906 15.380859 C 42.845286 15.914197 42.492723 16.267042 41.921875 16.837891 A 1.50015 1.50015 0 0 0 41.919922 16.837891 C 41.67431 17.083752 41.307093 17.258478 40.988281 17.28125 C 40.66947 17.30402 40.399556 17.24721 40.044922 16.892578 C 38.762249 15.609854 32.453083 9.298786 31.216797 8.0625 C 30.552032 7.3977347 30.715684 6.5225972 31.162109 6.0761719 L 32.617188 4.6210938 z M 31.488281 12.609375 L 35.4375 16.558594 C 34.712682 16.957132 33.966783 17.334425 33.126953 18.173828 C 32.640844 18.659937 26.507505 24.795825 20.289062 31.015625 L 18.695312 25.996094 C 24.170088 20.519897 29.477881 15.209619 29.828125 14.859375 C 30.63918 14.047891 31.064008 13.31232 31.488281 12.609375 z M 16.306641 28.384766 L 17.900391 33.404297 C 17.123228 34.181631 16.823531 34.48296 16.144531 35.162109 L 14.548828 30.142578 C 15.327935 29.363267 15.465816 29.22581 16.306641 28.384766 z M 12.160156 32.53125 L 13.753906 37.550781 C 13.230452 38.074351 12.166883 39.139691 11.861328 39.445312 L 10.267578 34.425781 C 10.77496 33.918266 11.476301 33.215285 12.160156 32.53125 z M 7.8789062 36.814453 L 9.3847656 41.554688 L 4.9121094 43.087891 L 6.6425781 38.050781 C 6.6674651 38.025891 7.7368558 36.956541 7.8789062 36.814453 z"></path>
+  </g>
+);
+
 
 const SheetMetalIcon = () => (
   <g transform="translate(-24, -24) scale(0.85)">
@@ -366,3 +537,10 @@ const SheetMetalIcon = () => (
     </g>
   </g>
 );
+
+
+const ConcreteIcon = () => (
+  <g transform="translate(-24, -24) scale(0.75)">
+    <path stroke="#777777" fill="#777777" d="M 17 7.90625 L 17 14.90625 L 14 14.90625 L 14 16.90625 L 17 16.90625 L 17 23.90625 L 19 23.90625 L 19 16.90625 L 24 16.90625 L 24 23.90625 L 26 23.90625 L 26 16.90625 L 31 16.90625 L 31 23.90625 L 33 23.90625 L 33 16.90625 L 36 16.90625 L 36 14.90625 L 33 14.90625 L 33 7.90625 L 31 7.90625 L 31 14.90625 L 26 14.90625 L 26 7.90625 L 24 7.90625 L 24 14.90625 L 19 14.90625 L 19 7.90625 L 17 7.90625 z M 8.3398438 18.90625 L 5 26.701172 L 5 44.90625 L 45 44.90625 L 45 26.669922 L 41.617188 19.90625 L 35 19.90625 L 35 21.90625 L 40.382812 21.90625 L 42.382812 25.90625 L 7.5175781 25.90625 L 9.6601562 20.90625 L 15 20.90625 L 15 18.90625 L 8.3398438 18.90625 z M 7 27.90625 L 43 27.90625 L 43 42.90625 L 7 42.90625 L 7 27.90625 z"></path>
+  </g>
+)

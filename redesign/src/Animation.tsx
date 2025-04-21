@@ -82,7 +82,7 @@ const Animation = ({
         catalog: { state: "scrollToItemOne", activeItem: 5 }
       },
       5: {
-        endeavorLogo: { state: "catalogSelectedOne" },
+        endeavorLogo: { state: "pullOutItemOne" },
         catalog: { state: "pullOutItemOne", activeItem: 5 }
       },
       6: {
@@ -94,46 +94,37 @@ const Animation = ({
         catalog: { state: "scrollToItemTwo", activeItem: 7 }
       },
       8: {
-        endeavorLogo: { state: "catalogSelectedTwo" },
-        catalog: { state: "pullOutItemTwo", activeItem: 7 }
+        endeavorLogo: { state: "catalogSelectingTwo" },
+        catalog: { state: "scrollToItemTwo", activeItem: 8 }
       },
       9: {
-        endeavorLogo: { state: "catalogSelectingThree" },
-        catalog: { state: "scrollToItemThree", activeItem: 9 }
+        endeavorLogo: { state: "pullOutItemTwo" },
+        catalog: { state: "pullOutItemTwo", activeItem: 8 }
       },
       10: {
         endeavorLogo: { state: "catalogSelectingThree" },
-        catalog: { state: "scrollToItemThree", activeItem: 10 }
+        catalog: { state: "scrollToItemThree", activeItem: 9 }
       },
       11: {
         endeavorLogo: { state: "catalogSelectingThree" },
-        catalog: { state: "scrollToItemThree", activeItem: 11 }
+        catalog: { state: "scrollToItemThree", activeItem: 10 }
       },
       12: {
         endeavorLogo: { state: "catalogSelectingThree" },
-        catalog: { state: "scrollToItemThree", activeItem: 12 }
+        catalog: { state: "scrollToItemThree", activeItem: 11 }
       },
       13: {
-        endeavorLogo: { state: "catalogSelectedThree" },
-        catalog: { state: "pullOutItemThree", activeItem: 12 }
+        endeavorLogo: { state: "catalogSelectingThree" },
+        catalog: { state: "scrollToItemThree", activeItem: 12 }
       },
       14: {
-        endeavorLogo: { state: "catalogSelectedThree" },
-        catalog: { state: "scrollToItemThree", activeItem: 13 }
+        endeavorLogo: { state: "pullOutItemThree" },
+        catalog: { state: "pullOutItemThree", activeItem: 12 }
+      },
+      15: {
+        endeavorLogo: { state: "allSelected" },
+        catalog: { state: "hideen", activeItem: 13 }
       }
-
-      // 5: {
-      //   endeavorLogo: { state: "catalogMatch" },
-      //   catalog: { state: "scrollToItem", activeItem: 6 }
-      // }, 
-      // 6: {
-      //   endeavorLogo: { state: "catalogMatch" },
-      //   catalog: { state: "scrollToItem", activeItem: 7 }
-      // },
-      // 7: {
-      //   endeavorLogo: { state: "catalogMatch" },
-      //   catalog: { state: "scrollToItem", activeItem: 8 }
-      // },
     }
   };
 
@@ -181,15 +172,16 @@ const Animation = ({
       2: 750,  // Step 2 to 3: 750ms
       3: 750,  // Step 3 to 4: 750ms
       4: 750,  // Step 4 to 5: 750ms
-      5: 3500,  // Step 5 to 6: 3000ms (longer for pullOutItem animation)
+      5: 2000,  // Step 5 to 6: 3000ms (longer for pullOutItem animation)
       6: 750,  // Step 6 to 7: 750ms
       7: 750,  // Step 7 to 8: 750ms
-      8: 3500,  // Step 8 to 9: 3000ms (longer for pullOutItem animation)
-      9: 750,  // Step 9 to 10: 750ms
+      8: 750,  // Step 8 to 9: 3000ms (longer for pullOutItem animation)
+      9: 2000,  // Step 9 to 10: 750ms
       10: 750,  // Step 10 to 11: 750ms
       11: 750,  // Step 11 to 12: 750ms
       12: 750,  // Step 12 to 13: 750ms
-      13: 3500,  // Step 13 to 14: 3000ms (longer for pullOutItem animation)
+      13: 750,  // Step 13 to 14: 750ms
+      14: 2000,  // Step 14 to 15: 3000ms (longer for pullOutItem animation)
       // Add more steps as needed
     },
     // Add more sections as needed
@@ -380,12 +372,7 @@ const Animation = ({
         icon={<PDFIcon />}
         isVisible={getState("pdfLogo") === "visible"}
       />
-
-      {/* Endeavor Logo */}
-      <EndeavorContainer
-        state={getState("endeavorLogo")}
-      />
-
+      
       {/* Catalog */}
       {getState("catalog") && (
         <Catalog
@@ -393,6 +380,14 @@ const Animation = ({
           activeItem={getActiveItem("catalog")}
         />
       )}
+
+      {/* Endeavor Logo */}
+      <EndeavorContainer
+        state={getState("endeavorLogo")}
+        activeItem={getActiveItem("catalog")}
+        catalogState={getState("catalog")}
+      />
+
 
       <defs>
         <filter id="filter0_d_0_1" x="86.3" y="0.3" width="199.4" height="197.4" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
