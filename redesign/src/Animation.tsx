@@ -66,30 +66,62 @@ const Animation = ({
     },
     section2: {
       1: {
-        // endeavorLogo: { state: "catalogShrunk" },
-        endeavorLogo: { state: "catalogMatch" },
+        endeavorLogo: { state: "catalogEmpty" },
         catalog: { state: "hidden" }
       },
       2: {
-        endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "scrollToItem", activeItem: 3 }
+        endeavorLogo: { state: "catalogSelectingOne" },
+        catalog: { state: "scrollToItemOne", activeItem: 3 }
       },
       3: {
-        endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "scrollToItem", activeItem: 4 }
+        endeavorLogo: { state: "catalogSelectingOne" },
+        catalog: { state: "scrollToItemOne", activeItem: 4 }
       },
       4: {
-        endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "scrollToItem", activeItem: 5 }
+        endeavorLogo: { state: "catalogSelectingOne" },
+        catalog: { state: "scrollToItemOne", activeItem: 5 }
       },
       5: {
-        endeavorLogo: { state: "catalogMatch" },
-        catalog: { state: "pullOutItem", activeItem: 5 }
+        endeavorLogo: { state: "catalogSelectedOne" },
+        catalog: { state: "pullOutItemOne", activeItem: 5 }
       },
       6: {
-        endeavorLogo: { state: "catalogMatch2" },
-        catalog: { state: "scrollToItem", activeItem: 6 }
+        endeavorLogo: { state: "catalogSelectingTwo" },
+        catalog: { state: "scrollToItemTwo", activeItem: 6 }
       },
+      7: {
+        endeavorLogo: { state: "catalogSelectingTwo" },
+        catalog: { state: "scrollToItemTwo", activeItem: 7 }
+      },
+      8: {
+        endeavorLogo: { state: "catalogSelectedTwo" },
+        catalog: { state: "pullOutItemTwo", activeItem: 7 }
+      },
+      9: {
+        endeavorLogo: { state: "catalogSelectingThree" },
+        catalog: { state: "scrollToItemThree", activeItem: 9 }
+      },
+      10: {
+        endeavorLogo: { state: "catalogSelectingThree" },
+        catalog: { state: "scrollToItemThree", activeItem: 10 }
+      },
+      11: {
+        endeavorLogo: { state: "catalogSelectingThree" },
+        catalog: { state: "scrollToItemThree", activeItem: 11 }
+      },
+      12: {
+        endeavorLogo: { state: "catalogSelectingThree" },
+        catalog: { state: "scrollToItemThree", activeItem: 12 }
+      },
+      13: {
+        endeavorLogo: { state: "catalogSelectedThree" },
+        catalog: { state: "pullOutItemThree", activeItem: 12 }
+      },
+      14: {
+        endeavorLogo: { state: "catalogSelectedThree" },
+        catalog: { state: "scrollToItemThree", activeItem: 13 }
+      }
+
       // 5: {
       //   endeavorLogo: { state: "catalogMatch" },
       //   catalog: { state: "scrollToItem", activeItem: 6 }
@@ -111,7 +143,7 @@ const Animation = ({
     0: "section0",
     1: "section1",
     2: "section2",
-    3: "section3",
+    3: "section2",
     4: "section2",
   };
 
@@ -151,6 +183,13 @@ const Animation = ({
       4: 750,  // Step 4 to 5: 750ms
       5: 3500,  // Step 5 to 6: 3000ms (longer for pullOutItem animation)
       6: 750,  // Step 6 to 7: 750ms
+      7: 750,  // Step 7 to 8: 750ms
+      8: 3500,  // Step 8 to 9: 3000ms (longer for pullOutItem animation)
+      9: 750,  // Step 9 to 10: 750ms
+      10: 750,  // Step 10 to 11: 750ms
+      11: 750,  // Step 11 to 12: 750ms
+      12: 750,  // Step 12 to 13: 750ms
+      13: 3500,  // Step 13 to 14: 3000ms (longer for pullOutItem animation)
       // Add more steps as needed
     },
     // Add more sections as needed

@@ -7,7 +7,7 @@ import Item from './Item';
 export const EndeavorContainer = ({
   state,
 }: {
-  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree" | "catalogMatch";
+  state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree" | "catalogEmpty";
 }) => {
 
   // Endeavor variants for each state
@@ -25,14 +25,16 @@ export const EndeavorContainer = ({
     
     catalogShrunk: { opacity: 1, x: 310, y: 400, transition: { duration: 0.2, ease: "easeOut" } },
     
-    catalogMatch: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogMatch2: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogMatch3: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogMatch4: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogMatch5: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogEmpty: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogSelectingOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogSelectingTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogSelectingThree: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogSelectedOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogSelectedTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+    catalogSelectedThree: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogMatch";
+  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogEmpty";
   
   // Rectangle coords for each state (defined by x1, x2, y1, y2)
   const rectangleCoordsByState = {
@@ -47,14 +49,16 @@ export const EndeavorContainer = ({
     extractedThree: { x1: -265, x2: 265, y1: -155, y2: 155 },
 
 
-
-
     catalogShrunk: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogMatch: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogMatch2: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogMatch3: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogMatch4: { x1: -150, x2: 150, y1: -108, y2: 95 },
-    catalogMatch5: { x1: -150, x2: 150, y1: -108, y2: 95 },
+
+
+    catalogEmpty: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogSelectingOne: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogSelectingTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogSelectingThree: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogSelectedOne: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogSelectedTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
+    catalogSelectedThree: { x1: -150, x2: 150, y1: -108, y2: 95 },
   };
 
 
@@ -71,12 +75,19 @@ export const EndeavorContainer = ({
     extractedOne: { x: -515, y: -820, scale: 0.6 },
     extractedTwo: { x: -515, y: -860, scale: 0.6 },
     extractedThree: { x: -515, y: -890, scale: 0.6 },
+
+
     catalogShrunk: { x: -437, y: -860, scale: 0.3 },
-    catalogMatch: { x: -437, y: -860, scale: 0.3 },
-    catalogMatch2: { x: -437, y: -860, scale: 0.3 },
-    catalogMatch3: { x: -437, y: -860, scale: 0.3 },
-    catalogMatch4: { x: -437, y: -860, scale: 0.3 },
-    catalogMatch5: { x: -437, y: -860, scale: 0.3 },
+
+
+    catalogEmpty: { x: -437, y: -860, scale: 0.3 },
+    catalogSelectingOne: { x: -437, y: -860, scale: 0.3 },
+    catalogSelectingTwo: { x: -437, y: -860, scale: 0.3 },
+    catalogSelectingThree: { x: -437, y: -860, scale: 0.3 },
+    catalogSelectedOne: { x: -437, y: -860, scale: 0.3 },
+    catalogSelectedTwo: { x: -437, y: -860, scale: 0.3 },
+    catalogSelectedThree: { x: -437, y: -860, scale: 0.3 },
+
   }[state] ?? { x: -317.5, y: -785, scale: 1 };
 
   const logoX = logoByState.x;
@@ -91,18 +102,17 @@ export const EndeavorContainer = ({
     itemExtractionState: { x: currentCoords.x1 + 110, y: 0, textSize: 32, text: "Extracting Data..." },
     extractedOne: { x: currentCoords.x1 + 110, y: -30, textSize: 32, text: "Extracting Data..." },
     extractedTwo: { x: currentCoords.x1 + 110, y: -70, textSize: 32, text: "Extracting Data..." },
-    
-    
-    
     extractedThree: { x: currentCoords.x1 + 110, y: -100, textSize: 32, text: "Extracting Data..." },
     
     
     catalogShrunk: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogMatch: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogMatch2: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogMatch3: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogMatch4: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
-    catalogMatch5: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogEmpty: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogSelectingOne: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogSelectingTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogSelectingThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogSelectedOne: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogSelectedTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+    catalogSelectedThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
   }[state] ?? { x: currentCoords.x1 - 10, y: 0, textSize: 40, text: "" };
 
 
@@ -151,41 +161,36 @@ export const EndeavorContainer = ({
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
     ),
-    catalogMatch: createItemState(
+    catalogSelectingOne: createItemState(
       {...catalog, x: 10, y: -30, state: "focused" }, 
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
     ),
-    catalogMatch2: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.8, iconX: -105, iconY: 0, textX: -77 }, 
+    catalogSelectedOne: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
     ),
-    catalogMatch3: createItemState(
-      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.8, iconX: -105, iconY: 0, textX: -77 }, 
+    catalogSelectingTwo: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 10, state: "focused" }, 
       {...catalog, x: 10, y: 50 }
     ),
-    // catalogMatch2: createItemState(
-    //   {...catalog, x: 10, y: -30 }, 
-    //   {...catalog, x: 10, y: 10, state: "focused"  }, 
-    //   {...catalog, x: 10, y: 50 }
-    // ),
-    // catalogMatch3: createItemState(
-    //   {...catalog, x: 10, y: -30 }, 
-    //   {...catalog, x: 10, y: 10 }, 
-    //   {...catalog, x: 10, y: 50, state: "focused" }
-    // ),
-    // catalogMatch4: createItemState(
-    //   {...catalog, x: 10, y: -30 }, 
-    //   {...catalog, x: 10, y: 10 }, 
-    //   {...catalog, x: 10, y: 50 }
-    // ),
-    // catalogMatch5: createItemState(
-    //   {...catalog, x: 10, y: -30 }, 
-    //   {...catalog, x: 10, y: 10 }, 
-    //   {...catalog, x: 10, y: 50 }
-    // ),
+    catalogSelectedTwo: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 50 }
+    ),
+    catalogSelectingThree: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 50, state: "focused" }
+    ),
+    catalogSelectedThree: createItemState(
+      {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
+      {...catalog, x: 10, y: 50, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }
+    )
   };
   
   const itemByState = itemStates[state] ?? createItemState();
@@ -298,30 +303,32 @@ export const EndeavorContainer = ({
         textX={itemOne.textX}
         rx={itemOne.rx}
         ry={itemOne.ry}
+        stateChangeDelay={state === "catalogSelectedOne" ? 3.4 : 0} // Add 3.4s delay when transitioning to catalogMatch2
       />
       
       <Item 
         state={itemTwo.state}
         x={itemTwo.x}
         y={itemTwo.y}
-        text="ITEM TEXT"
-        icon="rectangle"
+        text='60" x 36" Polycarbonate ...'
+        icon={<SheetMetalIcon/>}
         rectWidth={itemTwo.rectWidth} 
         rectHeight={itemTwo.rectHeight} 
         iconX={itemTwo.iconX}
         iconY={itemTwo.iconY}
         iconScale={itemTwo.iconScale}
-        scale={1}
+        textX={itemTwo.textX}
         rx={itemTwo.rx}
         ry={itemTwo.ry}
+        stateChangeDelay={state === "catalogSelectedTwo" ? 3.4 : 0}// Add 3.4s delay when transitioning to catalogMatch2
       />
 
       <Item 
         state={itemThree.state}
         x={itemThree.x}
         y={itemThree.y}
-        text="ITEM TEXT"
-        icon="rectangle"
+        text='3" x 1 1/2" x 0.188" Stainle..'
+        icon={<SheetMetalIcon/>}
         rectWidth={itemThree.rectWidth} 
         rectHeight={itemThree.rectHeight} 
         iconX={itemThree.iconX}
@@ -330,16 +337,10 @@ export const EndeavorContainer = ({
         scale={1}
         rx={itemThree.rx}
         ry={itemThree.ry}
+        textX={itemThree.textX}
+        stateChangeDelay={state === "catalogSelectedThree" ? 3.4 : 0} // Add 3.4s delay when transitioning to catalogMatch2
       />
       
-
-      
-      {/* <motion.rect 
-      initial = {{x: -5, y: -5, width: 10, height: 10}}
-      animate = {{x: -5, y: -5, width: 10, height: 10}}
-      fill="red"
-      rx={10}
-      ></motion.rect> */}
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
@@ -353,5 +354,15 @@ export const EndeavorContainer = ({
 const Pipes = () => (
   <g transform="translate(-24, -24) scale(0.8)">
     <path fill="#636363" stroke="#636363" d="M 4.90625 3.96875 C 4.863281 3.976563 4.820313 3.988281 4.78125 4 C 4.316406 4.105469 3.988281 4.523438 4 5 L 4 16 C 3.996094 16.359375 4.183594 16.695313 4.496094 16.878906 C 4.808594 17.058594 5.191406 17.058594 5.503906 16.878906 C 5.816406 16.695313 6.003906 16.359375 6 16 L 6 15 L 21 15 L 21 16 C 20.996094 16.359375 21.183594 16.695313 21.496094 16.878906 C 21.808594 17.058594 22.191406 17.058594 22.503906 16.878906 C 22.816406 16.695313 23.003906 16.359375 23 16 L 23 15 L 24 15 C 30.054688 15 35 19.945313 35 26 L 35 28 L 34 28 C 33.96875 28 33.9375 28 33.90625 28 C 33.355469 28.027344 32.925781 28.496094 32.953125 29.046875 C 32.980469 29.597656 33.449219 30.027344 34 30 L 35 30 L 35 44 L 34 44 C 33.96875 44 33.9375 44 33.90625 44 C 33.875 44 33.84375 44 33.8125 44 C 33.261719 44.050781 32.855469 44.542969 32.90625 45.09375 C 32.957031 45.644531 33.449219 46.050781 34 46 L 45 46 C 45.359375 46.003906 45.695313 45.816406 45.878906 45.503906 C 46.058594 45.191406 46.058594 44.808594 45.878906 44.496094 C 45.695313 44.183594 45.359375 43.996094 45 44 L 44 44 L 44 30 L 45 30 C 45.359375 30.003906 45.695313 29.816406 45.878906 29.503906 C 46.058594 29.191406 46.058594 28.808594 45.878906 28.496094 C 45.695313 28.183594 45.359375 27.996094 45 28 L 44 28 L 44 26 C 44 14.964844 35.035156 6 24 6 L 23 6 L 23 5 C 23.007813 4.691406 22.871094 4.398438 22.632813 4.203125 C 22.398438 4.007813 22.082031 3.933594 21.78125 4 C 21.316406 4.105469 20.988281 4.523438 21 5 L 21 6 L 6 6 L 6 5 C 6.011719 4.710938 5.894531 4.433594 5.6875 4.238281 C 5.476563 4.039063 5.191406 3.941406 4.90625 3.96875 Z M 6 8 L 21 8 L 21 13 L 6 13 Z M 23 8 L 24 8 C 33.953125 8 42 16.046875 42 26 L 42 28 L 37 28 L 37 26 C 37 18.855469 31.144531 13 24 13 L 23 13 Z M 4.90625 18.96875 C 4.863281 18.976563 4.820313 18.988281 4.78125 19 C 4.316406 19.105469 3.988281 19.523438 4 20 L 4 31 C 3.996094 31.359375 4.183594 31.695313 4.496094 31.878906 C 4.808594 32.058594 5.191406 32.058594 5.503906 31.878906 C 5.816406 31.695313 6.003906 31.359375 6 31 L 6 30 L 19 30 C 19.554688 30 20 30.445313 20 31 L 20 44 L 19 44 C 18.96875 44 18.9375 44 18.90625 44 C 18.875 44 18.84375 44 18.8125 44 C 18.261719 44.050781 17.855469 44.542969 17.90625 45.09375 C 17.957031 45.644531 18.449219 46.050781 19 46 L 30 46 C 30.359375 46.003906 30.695313 45.816406 30.878906 45.503906 C 31.058594 45.191406 31.058594 44.808594 30.878906 44.496094 C 30.695313 44.183594 30.359375 43.996094 30 44 L 29 44 L 29 31 C 29 25.488281 24.511719 21 19 21 L 6 21 L 6 20 C 6.011719 19.710938 5.894531 19.433594 5.6875 19.238281 C 5.476563 19.039063 5.191406 18.941406 4.90625 18.96875 Z M 6 23 L 19 23 C 23.429688 23 27 26.570313 27 31 L 27 44 L 22 44 L 22 31 C 22 29.355469 20.644531 28 19 28 L 6 28 Z M 37 30 L 42 30 L 42 44 L 37 44 Z"></path>
+  </g>
+);
+
+
+const SheetMetalIcon = () => (
+  <g transform="translate(-24, -24) scale(0.85)">
+    <g>
+      <path fill="none" stroke="#636363" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M7.5,20.304v15.247"></path>
+      <path fill="none" stroke="#636363" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M31.304,11.551H38.5c1.105,0,2,0.895,2,2v26c0,1.105-0.895,2-2,2H15c-2.499,0-7.5-1.3-7.5-6.501 c0-3.039,3.751-5.2,7.5-5.2c1.61,0,4.209,0.338,5.886,1.75c0.637,0.536,1.614,0.047,1.614-0.786V11.649 c0.002-3.039-3.325-5.2-7.5-5.2s-7.5,2.161-7.5,5.2v1.482"></path>
+    </g>
   </g>
 );

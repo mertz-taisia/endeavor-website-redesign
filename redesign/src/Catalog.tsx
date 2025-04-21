@@ -5,12 +5,12 @@ import { useAnimationStore } from "./AnimationStore";
 import Item from './Item';
 
 
-
 export const Catalog = ({
   state,
+  selecting,
   activeItem = 3, // Index of the item to scroll to (0 to 6)
 }: {
-  state: "hidden" | "basicState" | "scrollToItem" | "pullOutItem"; // Added a new state
+  state: "hidden" | "basicState" | "scrollToItemOne" | "scrollToItemTwo" | "scrollToItemThree" | "pullOutItem1" | "pullOutItem2" | "pullOutItem3"; // Added a new state
   activeItem?: number;
 }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -117,6 +117,10 @@ export const Catalog = ({
       text: '39.75" x 60" Clear 3/4" (12m...',
       icon: SheetMetalIcon,
     },
+    {
+      text: '39.75" x 60" Clear 3/4" (12m...',
+      icon: SheetMetalIcon,
+    }
   ];
 
   const centerPosition = 3;
@@ -126,25 +130,33 @@ export const Catalog = ({
   const endIndex = Math.min(items.length, startIndex + visibleItems);
 
 
-  const endeavorVariants = {
+  const catalogVariants = {
     hidden: { opacity: 0, x: 480, y: 372, },
     basicState: { opacity: 1, x: 480, y: 372, transition: { duration: 0.6, ease: "easeOut" } },
-    scrollToItem: { opacity: 1, x: 480, y: 372, transition: { duration: 0.6, ease: "easeOut" } },
-    pullOutItem: { opacity: 1, x: 480, y: 372, transition: { duration: 0.6, ease: "easeOut" } }
+    scrollToItemOne: { opacity: 1, x: 480, y: 372, transition: { duration: 0.6, ease: "easeOut" } },
+    pullOutItemOne: { opacity: 1, x: 480, y: 372, transition: { duration: 0.6, ease: "easeOut" } },
+    scrollToItemTwo: { opacity: 1, x: 480, y: 415, transition: { duration: 0.6, ease: "easeOut" } },
+    pullOutItemTwo: { opacity: 1, x: 480, y: 415, transition: { duration: 0.6, ease: "easeOut" } },
+    scrollToItemThree: { opacity: 1, x: 480, y: 455, transition: { duration: 0.6, ease: "easeOut" } },
+    pullOutItemThree: { opacity: 1, x: 480, y: 455, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
   const rectangleCoordsByState = {
     hidden: { x1: -150, x2: 150, y1: -190, y2: 190 },
     basicState: { x1: -150, x2: 150, y1: -190, y2: 190 },
-    scrollToItem: { x1: -150, x2: 150, y1: -190, y2: 190 },
-    pullOutItem: { x1: -150, x2: 150, y1: -190, y2: 190 }
+    scrollToItemOne: { x1: -150, x2: 150, y1: -190, y2: 190 },
+    pullOutItemOne: { x1: -150, x2: 150, y1: -190, y2: 190 },
+    scrollToItemTwo: { x1: -150, x2: 150, y1: -190, y2: 190 },
+    pullOutItemTwo: { x1: -150, x2: 150, y1: -190, y2: 190 },
+    scrollToItemThree: { x1: -150, x2: 150, y1: -190, y2: 190 },
+    pullOutItemThree: { x1: -150, x2: 150, y1: -190, y2: 190 }
   };
 
   const currentCoords = rectangleCoordsByState[state] || rectangleCoordsByState.hidden;
 
   // Highlight the active item
   const getItemStyle = (index) => {
-    if (state === "scrollToItem" && index === activeItem) {
+    if ((state === "scrollToItemOne" || state === "scrollToItemTwo" || state === "scrollToItemThree") && index === activeItem) {
       return {
         opacity: 1,
         scale: 1.05,
@@ -162,7 +174,7 @@ export const Catalog = ({
     <motion.g
       initial="hidden"
       animate={state}
-      variants={endeavorVariants}
+      variants={catalogVariants}
     >
       <motion.rect
         initial={{
@@ -216,7 +228,7 @@ export const Catalog = ({
             }
 
             // When in pullOutItem state, we want to keep the active item visible
-            if (state === "pullOutItem" && actualIndex === activeItem) {
+            if ((state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree") && actualIndex === activeItem) {
               itemState = "populated";
             }
 
@@ -240,7 +252,7 @@ export const Catalog = ({
                 }}
                 transition={{
                   // For the pullOutItem state, make the x transition longer and with a different easing
-                  x: state === "pullOutItem" && actualIndex === activeItem
+                  x: (state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree") && actualIndex === activeItem
                     ? { duration: 0.8, ease: "easeInOut" }
                     : { duration: 0.4, ease: "easeOut" },
                   y: { duration: 0.5, ease: "backOut" },  // Using backOut for a more pronounced slide effect
@@ -270,7 +282,7 @@ export const Catalog = ({
       </motion.g>
 
       {/* Render the duplicate active item with white container outside the clipping path when in pullOutItem state */}
-      {state === "pullOutItem" && (
+      {(state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree") && (
         <motion.g>
           {items.map((item, index) => {
             if (index !== activeItem) return null;
@@ -321,14 +333,14 @@ export const Catalog = ({
               >
                 {/* White container/background for the extracted item */}
                 <motion.rect
-                  width={280}
+                  width={245}
                   height={45}
-                  x={-140}
+                  x={-130}
                   y={-26}
                   rx={10}
                   ry={10}
                   fill="white"
-                  stroke="red"
+                  // stroke="red"
                   initial={{
                     opacity: 0,
                     scale: 1.05
@@ -386,8 +398,10 @@ const Pipes = () => (
 
 
 const SheetMetalIcon = () => (
-  <g transform="translate(-24, -24) scale(1.3)">
-    <path fill="#636363" stroke="#636363" d="M 10.613281 4 C 9.164063 4 7.828125 4.351563 6.792969 5.039063 C 5.757813 5.726563 5 6.828125 5 8.109375 L 5 22.109375 C 5 23.996094 6.03125 25.359375 7.210938 26.078125 C 8.394531 26.792969 9.675781 27 10.613281 27 L 27 27 L 27 7.109375 L 15.941406 7.109375 C 15.660156 6.28125 15.179688 5.53125 14.4375 5.039063 C 13.402344 4.351563 12.066406 4 10.613281 4 Z M 10.613281 6 C 11.730469 6 12.707031 6.292969 13.332031 6.707031 C 13.960938 7.121094 14.230469 7.578125 14.230469 8.109375 L 14.230469 18.933594 C 14.109375 18.863281 14.023438 18.726563 13.902344 18.667969 C 12.734375 18.117188 11.488281 18 10.613281 18 C 9.3125 18 8.039063 18.351563 7 18.988281 L 7 8.109375 C 7 7.578125 7.269531 7.121094 7.898438 6.707031 C 8.523438 6.292969 9.5 6 10.613281 6 Z M 16.230469 9.109375 L 25 9.109375 L 25 25 L 10.613281 25 C 10.015625 25 8.992188 24.816406 8.25 24.367188 C 7.507813 23.917969 7 23.335938 7 22.109375 C 7 21.625 7.304688 21.144531 7.976563 20.71875 C 8.652344 20.289063 9.648438 20 10.613281 20 C 11.277344 20 12.308594 20.128906 13.046875 20.476563 C 13.78125 20.824219 14.207031 21.207031 14.230469 22.140625 L 16.230469 22.109375 Z"></path>
+  <g transform="translate(-24, -24) scale(0.85)">
+    <g>
+      <path fill="none" stroke="#636363" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M7.5,20.304v15.247"></path>
+      <path fill="none" stroke="#636363" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M31.304,11.551H38.5c1.105,0,2,0.895,2,2v26c0,1.105-0.895,2-2,2H15c-2.499,0-7.5-1.3-7.5-6.501 c0-3.039,3.751-5.2,7.5-5.2c1.61,0,4.209,0.338,5.886,1.75c0.637,0.536,1.614,0.047,1.614-0.786V11.649 c0.002-3.039-3.325-5.2-7.5-5.2s-7.5,2.161-7.5,5.2v1.482"></path>
+    </g>
   </g>
 );
-

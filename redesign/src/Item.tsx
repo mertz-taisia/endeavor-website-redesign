@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { motion, AnimatePresence } from 'framer-motion';
-import { JSX, useEffect } from 'react';
+import { JSX, useEffect, useState } from 'react';
 
 interface ItemProps {
     state?: string;
@@ -33,7 +33,11 @@ interface ItemProps {
     // Other props
     focus?: boolean;
     children?: React.ReactNode;
+    
+    // Delay prop for state changes (in seconds)
+    stateChangeDelay?: number;
 }
+
 
 export default function Item({
     state = 'hidden',
@@ -63,12 +67,41 @@ export default function Item({
 
     // Other props
     focus = false,
+    stateChangeDelay = 0,
 
     children = null
 }: ItemProps) {
+    // Track the actual state to display with delay
+    const [displayState, setDisplayState] = useState(state);
+    // Track delayed icon properties
+    const [delayedIconX, setDelayedIconX] = useState(iconX);
+    const [delayedIconY, setDelayedIconY] = useState(iconY);
+    const [delayedIconScale, setDelayedIconScale] = useState(iconScale);
+    const [delayedTextX, setDelayedTextX] = useState(textX);
+
     useEffect(() => {
         console.log("ItemContainer state:", state);
-    }, [state]);
+        
+        // If there's a delay, set a timeout to change the display state and icon properties
+        if (stateChangeDelay > 0) {
+            const timer = setTimeout(() => {
+                setDisplayState(state);
+                setDelayedIconX(iconX);
+                setDelayedIconY(iconY);
+                setDelayedIconScale(iconScale);
+                setDelayedTextX(textX);
+            }, stateChangeDelay * 1000); // Convert to milliseconds
+            
+            return () => clearTimeout(timer);
+        } else {
+            // No delay, update immediately
+            setDisplayState(state);
+            setDelayedIconX(iconX);
+            setDelayedIconY(iconY);
+            setDelayedIconScale(iconScale);
+            setDelayedTextX(textX);
+        }
+    }, [state, stateChangeDelay, iconX, iconY, iconScale, textX]);
 
     // Define state-specific animations including exit animations
     const variants = {
@@ -80,17 +113,18 @@ export default function Item({
         // Add more states as needed
     };
 
-    const color = variants[state].color;
+    // Use displayState instead of state for the color and animations
+    const color = variants[displayState]?.color;
 
     // Render the icon
     const renderIcon = () => {
         if (icon === null) return null;
 
-        if (state === "base" || state === "focused") {
+        if (displayState === "base" || displayState === "focused") {
             return (
                 <motion.rect
-                    initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}
-                    animate={{ opacity: 1,  x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale, rx: rx, ry: ry }}
+                    initial={{ opacity: 0, x: delayedIconX, y: delayedIconY, scaleX: delayedIconScale, scaleY: delayedIconScale, rx: rx, ry: ry }}
+                    animate={{ opacity: 1,  x: delayedIconX, y: delayedIconY, scaleX: delayedIconScale, scaleY: delayedIconScale, rx: rx, ry: ry }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{
                         opacity: { duration: 0.6, ease: "easeInOut" },
@@ -135,7 +169,7 @@ export default function Item({
     // Render the text or rectangle
     const renderContent = () => {
         // For base or focused states, render a rectangle
-        if (state === "base" || state === "focused") {
+        if (displayState === "base" || displayState === "focused") {
             return (
                 <motion.rect
                     fill={color}
@@ -181,10 +215,10 @@ export default function Item({
             
             return (
                 <motion.text
-                    initial={{ opacity: 0, x: textX, y: 0 }}
+                    initial={{ opacity: 0, x: delayedTextX, y: 0 }}
                     animate={{ 
-                        opacity: state === "populated" ? 1 : 0,
-                        x: textX, 
+                        opacity: displayState === "populated" ? 1 : 0,
+                        x: delayedTextX, 
                         y: 0 
                     }}
                     exit={{ 
@@ -209,12 +243,12 @@ export default function Item({
         }
     };
 
-    // Get the animation variants based on state
+    // Get the animation variants based on displayState
 
     return (
         <motion.g
             initial={{ x, y, opacity: 0, scale }}
-            animate={variants[state]}
+            animate={variants[displayState]}
             exit={variants.exit}
             transition={{
                 opacity: { duration: 0.6, ease: "easeInOut" },
