@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { EndeavorContainer } from './EndeavorContainer';
 import { Catalog } from './Catalog';
 import { Logo } from './Logo';
+import { CustomLogicItem } from './CustomLogicItem';
+
 
 
 const Animation = ({
@@ -123,19 +125,74 @@ const Animation = ({
       },
       15: {
         endeavorLogo: { state: "allSelected" },
-        catalog: { state: "hideen", activeItem: 13 }
+        catalog: { state: "hidden", activeItem: 13 }
       }
+    },
+    section3: {
+      1: {
+        endeavorLogo: { state: "hidden" },
+        customBusinessLogicOne: { state: "hidden" },
+        customBusinessLogicTwo: { state: "hidden" },
+        customBusinessLogicThree: { state: "hidden" },
+        customBusinessLogicFour: { state: "hidden" }
+      },
+      2: {
+        endeavorLogo: { state: "logicTwo" },
+        customBusinessLogicOne: { state: "visible" },
+        customBusinessLogicTwo: { state: "visible" },
+        customBusinessLogicThree: { state: "visible" },
+        customBusinessLogicFour: { state: "visible" }
+      },
+      3: {
+        endeavorLogo: { state: "logicThree" },
+        customBusinessLogicOne: { state: "processing" },
+        customBusinessLogicTwo: { state: "visible" },
+        customBusinessLogicThree: { state: "visible" },
+        customBusinessLogicFour: { state: "visible" }
+      },
+      4: {
+        endeavorLogo: { state: "logicFour" },
+        customBusinessLogicOne: { state: "complete" },
+        customBusinessLogicTwo: { state: "processing" },
+        customBusinessLogicThree: { state: "visible" },
+        customBusinessLogicFour: { state: "visible" }
+      },
+      5: {
+        endeavorLogo: { state: "logicFour" },
+        customBusinessLogicOne: { state: "complete" },
+        customBusinessLogicTwo: { state: "complete" },
+        customBusinessLogicThree: { state: "processing" },
+        customBusinessLogicFour: { state: "visible" }
+      },
+      6: {
+        endeavorLogo: { state: "logicFour" },
+        customBusinessLogicOne: { state: "complete" },
+        customBusinessLogicTwo: { state: "complete" },
+        customBusinessLogicThree: { state: "complete" },
+        customBusinessLogicFour: { state: "processing" }
+      },
+      7: {
+        endeavorLogo: { state: "logicFour" },
+        customBusinessLogicOne: { state: "complete" },
+        customBusinessLogicTwo: { state: "complete" },
+        customBusinessLogicThree: { state: "complete" },
+        customBusinessLogicFour: { state: "complete" }
+      },
+      // 1: {
+      //   endeavorLogo: { state: "basicShrunkState" }
+      // },
+      // 2: {
+      //   endeavorLogo: { state: "catalogShrunk" }
+      // }
     }
   };
-
-  // sectionStepThresholds removed. Now using only activeIndex from props to control animation state.
 
   const sectionMap = {
     0: "section0",
     1: "section1",
     2: "section2",
-    3: "section2",
-    4: "section2",
+    3: "section3",
+    4: "section3",
   };
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -184,7 +241,16 @@ const Animation = ({
       14: 2000,  // Step 14 to 15: 3000ms (longer for pullOutItem animation)
       // Add more steps as needed
     },
-    // Add more sections as needed
+    section3: {
+      1: 1500,
+      2: 1500,
+      3: 1500,
+      4: 1500,
+      5: 1500,
+      6: 1500,
+      7: 1500,
+      8: 1500
+    }
   };
 
   useEffect(() => {
@@ -298,6 +364,37 @@ const Animation = ({
     }
   };
 
+  
+  const businessLogicVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      scale: 1,
+      x: 0,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }),
+    oscillate: (custom: number) => ({
+      y: [0, -10, 0],
+      transition: {
+        y: {
+          delay: 0.6,
+          duration: 2,
+          ease: "easeInOut",
+          repeat: Infinity,
+          repeatType: "loop"
+        }
+      }
+    }),
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      transition: { duration: 0.4 }
+    }
+  };
 
   return (
     <svg viewBox="0 0 639 886" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -386,6 +483,34 @@ const Animation = ({
         state={getState("endeavorLogo")}
         activeItem={getActiveItem("catalog")}
         catalogState={getState("catalog")}
+      />
+
+      <CustomLogicItem
+        state={getState("customBusinessLogicOne")}
+        x={600}
+        y={300}
+        text='Priority Shipping'
+      />
+
+      <CustomLogicItem
+        state={getState("customBusinessLogicTwo")}
+        x={600}
+        y={400}
+        text='Order Splitting'
+      />
+
+      <CustomLogicItem
+        state={getState("customBusinessLogicThree")}
+        x={600}
+        y={500}
+        text='Applying Discounts'
+      />
+
+      <CustomLogicItem
+        state={getState("customBusinessLogicFour")}
+        x={600}
+        y={600}
+        text='Backorder handling'
       />
 
 

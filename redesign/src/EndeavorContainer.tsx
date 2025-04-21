@@ -8,6 +8,7 @@ export const EndeavorContainer = ({
   state,
   activeItem = 3, // Index of the active item in catalog
   catalogState = "hidden", // State of the catalog to determine when to show sliding item
+  
 }: {
   state: "hidden" | "startState" | "basicState" | "basicShrunkState" | "itemExtractionState" | "extractedOne" | "extractedTwo" | "extractedThree" | "catalogEmpty" | "pullOutItemOne" | "pullOutItemTwo" | "pullOutItemThree" | "catalogSelectingOne" | "catalogSelectingTwo" | "catalogSelectingThree" | "allSelected";
   activeItem?: number;
@@ -38,6 +39,8 @@ export const EndeavorContainer = ({
     pullOutItemTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     pullOutItemThree: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     allSelected: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
+
+    customBusinessLogic: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogEmpty" || state === "catalogShrunk" || state === "catalogSelectingOne" || state === "catalogSelectingTwo" || state === "catalogSelectingThree" || state === "catalogSelectingThree" || state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree" || state === "allSelected" ;
@@ -66,6 +69,8 @@ export const EndeavorContainer = ({
     pullOutItemTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
     pullOutItemThree: { x1: -150, x2: 150, y1: -108, y2: 95 },
     allSelected: { x1: -150, x2: 150, y1: -108, y2: 95 },
+
+    customBusinessLogic: { x1: -265, x2: 265, y1: -55, y2: 55 },
   };
 
 
@@ -95,6 +100,7 @@ export const EndeavorContainer = ({
     pullOutItemTwo: { x: -437, y: -860, scale: 0.3 },
     pullOutItemThree: { x: -437, y: -860, scale: 0.3 },
     allSelected: { x: -437, y: -860, scale: 0.3 },
+    customBusinessLogic: { x: -515, y: -785, scale: 0.6 },
 
   }[state] ?? { x: -317.5, y: -785, scale: 1 };
 
@@ -122,6 +128,8 @@ export const EndeavorContainer = ({
     pullOutItemTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     pullOutItemThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     allSelected: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
+
+    customBusinessLogic: { x: currentCoords.x1 + 110, y: 0, textSize: 32, text: "Extracting Data..." },
   }[state] ?? { x: currentCoords.x1 - 10, y: 0, textSize: 40, text: "" };
 
 
@@ -204,7 +212,8 @@ export const EndeavorContainer = ({
       {...catalog, x: 10, y: -30, state: "populated", iconScale: 0.79, iconX: -118, iconY: 3, textX: -89 }, 
       {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 50, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }
-    )
+    ),
+    customBusinessLogic: createItemState(),
   };
   
   const itemByState = itemStates[state] ?? createItemState();
@@ -506,6 +515,7 @@ export const EndeavorContainer = ({
           )}
         </motion.g>
       )}
+
 
       <defs>
         <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">

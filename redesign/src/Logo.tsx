@@ -8,6 +8,7 @@ export const Logo = ({
 }: {
   state: "hidden" | "excel" | "phone" | "email" | "pdf";
   icon?: React.ReactNode | ((scale: number, iconX: number, iconY: number) => React.ReactNode);
+  item?: number;
   isVisible?: boolean;
 }) => {
   // Rectangle dimensions for the background - centered at 0,0
