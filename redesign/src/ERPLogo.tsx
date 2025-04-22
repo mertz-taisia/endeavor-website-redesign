@@ -2,27 +2,19 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-// Import all ERP logo images
-import epicorEclipse from './assets/erp/epicor_eclipse.png';
-import epicorProphet21 from './assets/erp/epicor_prophet_21.png';
-import infor from './assets/erp/infor.png';
-import microsoftDynamics from './assets/erp/microsoft_dynamics_365.png';
-import oracleNetsuite from './assets/erp/oracle_netsuite.png';
-import sapLogo from './assets/erp/sap_logo.png';
-
 export const ERPLogo = ({
   state,
 }: {
   state: "hidden" | "visible";
 }) => {
-  // Array of all ERP logo images
+  // Array of all ERP logo images from public directory
   const erpLogos = [
-    epicorEclipse,
-    epicorProphet21,
-    infor,
-    microsoftDynamics,
-    oracleNetsuite,
-    sapLogo
+    '/erp/epicor_eclipse.png',
+    '/erp/epicor_prophet_21.png',
+    '/erp/infor.png',
+    '/erp/microsoft_dynamics_365.png',
+    '/erp/oracle_netsuite.png',
+    '/erp/sap_logo.png'
   ];
 
   // State to track the current logo index

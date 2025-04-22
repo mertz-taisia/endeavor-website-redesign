@@ -2,6 +2,7 @@
 import { useRef, useEffect, useState } from 'react';
 import Animation from './Animation';
 import { motion } from 'framer-motion'
+
 const visibilityByIndex = {
   0: { showIcons: true, showLines: false, showEndeavor: false },
   1: { showIcons: true, showLines: true, showEndeavor: true },
@@ -73,26 +74,7 @@ function App() {
   ];
 
   return (
-      <div className="flex flex-col justify-center items-center w-full bg-[#222222] relative">
-        {/* Gradient overlay with higher opacity */}
-        <div 
-          style={{
-            backgroundImage: `url('/gradient.png')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            opacity: 0.275,
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 1,
-            pointerEvents: 'none'
-          }}
-        />
-        {/* Make sure content is above the gradient with higher z-index */}
-        <div className="relative z-10 w-full flex flex-col items-center">
+      <div className="flex flex-col justify-center items-center w-full bg-[#222222]">
         <div className="w-full h-[100vh] bg-[#0D0D0D] text-4xl font-bold text-center items-center justify-center">hero section</div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
           {/* Scrollable text column */}
@@ -149,7 +131,7 @@ function App() {
           </div>
 
           {/* Sticky/fixed animation on the right */}
-          <div className="w-1/2 sticky top-8 my-5 self-start">
+          <div className="w-1/2 sticky top-8 mt-3 mb-3 self-start">
             {/* Animated border using Framer Motion */}
             <motion.div 
               className="absolute inset-0 rounded-lg pointer-events-none overflow-hidden"
@@ -298,7 +280,6 @@ function App() {
           </div>
         </div>
         <div className="w-full h-[100vh] bg-[#0D0D0D] text-4xl font-bold text-center items-center justify-center">footer section</div>
-        </div>
       </div>
   );
 }
