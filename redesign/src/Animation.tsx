@@ -5,7 +5,7 @@ import { EndeavorContainer } from './EndeavorContainer';
 import { Catalog } from './Catalog';
 import { Logo } from './Logo';
 import { CustomLogicItem } from './CustomLogicItem';
-
+import { ERPLogo } from './ERPLogo';
 
 
 const Animation = ({
@@ -204,13 +204,22 @@ const Animation = ({
       },
       12: {
         endeavorLogo: { state: "customBusinessLogicComplete" },
-        customBusinessLogicOne: { state: "complete", x: 1000, y: 100 },
-        customBusinessLogicTwo: { state: "complete", x: 1000, y: 200 },
-        customBusinessLogicThree: { state: "complete", x: 1000, y: 300 },
-        customBusinessLogicFour: { state: "complete", x: 1000, y: 400 }
+        customBusinessLogicOne: { state: "hidden", x: 1000, y: 100 },
+        customBusinessLogicTwo: { state: "hidden", x: 1000, y: 200 },
+        customBusinessLogicThree: { state: "hidden", x: 1000, y: 300 },
+        customBusinessLogicFour: { state: "hidden", x: 1000, y: 400 }
+      },
+      13: {
+        endeavorLogo: { state: "customBusinessLogicCompleteLarge" },
       }
+
     },
-    section4: {}
+    section4: {
+      1: {
+        endeavorLogo: { state: "erpState" },
+        ERPLogo: { state: "visible" }
+      }
+    }
 
   };
 
@@ -240,7 +249,6 @@ const Animation = ({
       1: 750,  // Step 1 to 2: 750ms
       2: 750,  // Step 2 to 3: 750ms
       3: 750,  // Step 3 to 4: 750ms
-      // Add more steps as needed
     },
     section1: {
       1: 750,  // Step 1 to 2: 750ms
@@ -276,7 +284,25 @@ const Animation = ({
       5: 1000,
       6: 1000,
       7: 1000,
-      8: 1000
+      8: 1000,
+      9: 1000,
+      10: 1000,
+      11: 1000,
+      12: 1000
+    },
+    section4: {
+      1: 1000,
+      2: 1000,
+      3: 1000,
+      4: 1000,
+      5: 1000,
+      6: 1000,
+      7: 1000,
+      8: 1000,
+      9: 1000,
+      10: 1000,
+      11: 1000,
+      12: 1000
     }
   };
 
@@ -577,6 +603,10 @@ const Animation = ({
         previousY={prevPositions.customBusinessLogicFour}
         previousState={prevStates.customBusinessLogicFour}
         text='Backorder Handling'
+      />
+
+      <ERPLogo
+        state={getState("ERPLogo")}
       />
 
 

@@ -101,6 +101,7 @@ function App() {
             />
           </div>
         </div>
+        <div className="w-full h-[100vh] bg-[#ffffff] text-4xl font-bold text-center items-center justify-center">footer section</div>
       </div>
   );
 }
