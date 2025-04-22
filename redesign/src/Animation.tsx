@@ -123,67 +123,96 @@ const Animation = ({
         endeavorLogo: { state: "pullOutItemThree" },
         catalog: { state: "pullOutItemThree", activeItem: 12 }
       },
-      15: {
-        endeavorLogo: { state: "allSelected" },
-        catalog: { state: "hidden", activeItem: 13 }
-      }
+      // 15: {
+      //   endeavorLogo: { state: "allSelected" },
+      //   catalog: { state: "hidden", activeItem: 13 }
+      // }
     },
     section3: {
       1: {
-        endeavorLogo: { state: "hidden" },
-        customBusinessLogicOne: { state: "hidden" },
-        customBusinessLogicTwo: { state: "hidden" },
-        customBusinessLogicThree: { state: "hidden" },
-        customBusinessLogicFour: { state: "hidden" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "hidden", x: 480, y: 400 },
+        customBusinessLogicTwo: { state: "hidden", x: 480, y: 500 },
+        customBusinessLogicThree: { state: "hidden", x: 480, y: 600 },
+        customBusinessLogicFour: { state: "hidden", x: 480, y: 700 }
       },
       2: {
-        endeavorLogo: { state: "logicTwo" },
-        customBusinessLogicOne: { state: "visible" },
-        customBusinessLogicTwo: { state: "visible" },
-        customBusinessLogicThree: { state: "visible" },
-        customBusinessLogicFour: { state: "visible" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "visible", x: 480, y: 400 },
+        customBusinessLogicTwo: { state: "visible", x: 480, y: 500 },
+        customBusinessLogicThree: { state: "visible", x: 480, y: 600 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 700 }
       },
       3: {
-        endeavorLogo: { state: "logicThree" },
-        customBusinessLogicOne: { state: "processing" },
-        customBusinessLogicTwo: { state: "visible" },
-        customBusinessLogicThree: { state: "visible" },
-        customBusinessLogicFour: { state: "visible" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "processing", x: 480, y: 400 },
+        customBusinessLogicTwo: { state: "visible", x: 480, y: 500 },
+        customBusinessLogicThree: { state: "visible", x: 480, y: 600 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 700 }
       },
       4: {
-        endeavorLogo: { state: "logicFour" },
-        customBusinessLogicOne: { state: "complete" },
-        customBusinessLogicTwo: { state: "processing" },
-        customBusinessLogicThree: { state: "visible" },
-        customBusinessLogicFour: { state: "visible" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 480, y: 400 },
+        customBusinessLogicTwo: { state: "visible", x: 480, y: 500 },
+        customBusinessLogicThree: { state: "visible", x: 480, y: 600 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 700 }
       },
       5: {
-        endeavorLogo: { state: "logicFour" },
-        customBusinessLogicOne: { state: "complete" },
-        customBusinessLogicTwo: { state: "complete" },
-        customBusinessLogicThree: { state: "processing" },
-        customBusinessLogicFour: { state: "visible" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 480, y: 300 },
+        customBusinessLogicTwo: { state: "processing", x: 480, y: 400 },
+        customBusinessLogicThree: { state: "visible", x: 480, y: 500 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 600 }
       },
       6: {
-        endeavorLogo: { state: "logicFour" },
-        customBusinessLogicOne: { state: "complete" },
-        customBusinessLogicTwo: { state: "complete" },
-        customBusinessLogicThree: { state: "complete" },
-        customBusinessLogicFour: { state: "processing" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 300 },
+        customBusinessLogicTwo: { state: "complete", x: 480, y: 400 },
+        customBusinessLogicThree: { state: "visible", x: 480, y: 500 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 600 }
       },
       7: {
-        endeavorLogo: { state: "logicFour" },
-        customBusinessLogicOne: { state: "complete" },
-        customBusinessLogicTwo: { state: "complete" },
-        customBusinessLogicThree: { state: "complete" },
-        customBusinessLogicFour: { state: "complete" }
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 200 },
+        customBusinessLogicTwo: { state: "complete", x: 480, y: 300 },
+        customBusinessLogicThree: { state: "visible", x: 480, y: 400 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 500 }
       },
-      // 1: {
-      //   endeavorLogo: { state: "basicShrunkState" }
+      8: {
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 200 },
+        customBusinessLogicTwo: { state: "complete", x: 1000, y: 300 },
+        customBusinessLogicThree: { state: "processing", x: 480, y: 400 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 500 }
+      },
+      9: {
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 200 },
+        customBusinessLogicTwo: { state: "complete", x: 1000, y: 300 },
+        customBusinessLogicThree: { state: "complete", x: 480, y: 400 },
+        customBusinessLogicFour: { state: "visible", x: 480, y: 500 }
+      },
+      // 10: {
+      //   endeavorLogo: { state: "customBusinessLogic" },
+      //   customBusinessLogicOne: { state: "complete", x: 480, y: 100 },
+      //   customBusinessLogicTwo: { state: "complete", x: 480, y: 200 },
+      //   customBusinessLogicThree: { state: "complete", x: 480, y: 300 },
+      //   customBusinessLogicFour: { state: "visible", x: 480, y: 400 }
       // },
-      // 2: {
-      //   endeavorLogo: { state: "catalogShrunk" }
-      // }
+      10: {
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 100 },
+        customBusinessLogicTwo: { state: "complete", x: 1000, y: 200 },
+        customBusinessLogicThree: { state: "complete", x: 480, y: 300 },
+        customBusinessLogicFour: { state: "processing", x: 480, y: 400 }
+      },
+      11: {
+        endeavorLogo: { state: "customBusinessLogic" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 100 },
+        customBusinessLogicTwo: { state: "complete", x: 1000, y: 200 },
+        customBusinessLogicThree: { state: "complete", x: 1000, y: 300 },
+        customBusinessLogicFour: { state: "complete", x: 480, y: 400 }
+      }
     }
   };
 
@@ -242,14 +271,14 @@ const Animation = ({
       // Add more steps as needed
     },
     section3: {
-      1: 1500,
-      2: 1500,
-      3: 1500,
-      4: 1500,
-      5: 1500,
-      6: 1500,
-      7: 1500,
-      8: 1500
+      1: 1000,
+      2: 1000,
+      3: 1000,
+      4: 1000,
+      5: 1000,
+      6: 1000,
+      7: 1000,
+      8: 1000
     }
   };
 
@@ -277,13 +306,28 @@ const Animation = ({
     return () => clearTimeout(timeoutId);
   }, [sectionKey, currentStep]);
   
-
-
+  // Track previous Y positions for slide animations
+  const [prevPositions, setPrevPositions] = useState({
+    customBusinessLogicOne: 0,
+    customBusinessLogicTwo: 0,
+    customBusinessLogicThree: 0,
+    customBusinessLogicFour: 0
+  });
+  
+  // Track previous states for slide animations
+  const [prevStates, setPrevStates] = useState({
+    customBusinessLogicOne: "hidden",
+    customBusinessLogicTwo: "hidden",
+    customBusinessLogicThree: "hidden",
+    customBusinessLogicFour: "hidden"
+  });
 
   const currentVisibility = visibility[sectionKey ?? "section1"]?.[currentStep] || {};
 
 
   const getState = (id: string) => currentVisibility[id]?.state;
+  const getX = (id: string) => currentVisibility[id]?.x;
+  const getY = (id: string) => currentVisibility[id]?.y;
   const getActiveItem = (id: string) => currentVisibility[id]?.activeItem;
 
   function getScrollProgress(sectionEl) {
@@ -317,9 +361,50 @@ const Animation = ({
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeIndex]);
+  
+  // Update previous positions and states when current positions change
+  useEffect(() => {
+    setPrevPositions(prev => ({
+      customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.y || prev.customBusinessLogicOne,
+      customBusinessLogicTwo: currentVisibility.customBusinessLogicTwo?.y || prev.customBusinessLogicTwo,
+      customBusinessLogicThree: currentVisibility.customBusinessLogicThree?.y || prev.customBusinessLogicThree,
+      customBusinessLogicFour: currentVisibility.customBusinessLogicFour?.y || prev.customBusinessLogicFour
+    }));
+    
+    setPrevStates(prev => ({
+      customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.state || prev.customBusinessLogicOne,
+      customBusinessLogicTwo: currentVisibility.customBusinessLogicTwo?.state || prev.customBusinessLogicTwo,
+      customBusinessLogicThree: currentVisibility.customBusinessLogicThree?.state || prev.customBusinessLogicThree,
+      customBusinessLogicFour: currentVisibility.customBusinessLogicFour?.state || prev.customBusinessLogicFour
+    }));
+  }, [currentVisibility]);
 
-
-
+  // const customBusinessLogicStates = {
+  //   customBusinessLogicOne: { 
+  //     itemOne:{state: "visible", x: 480, y: 400},
+  //     itemTwo:{state: "visible", x: 480, y: 400},
+  //     itemThree:{state: "visible", x: 480, y: 400},
+  //     itemFour:{state: "visible", x: 480, y: 400},
+  //    },
+  //   customBusinessLogicTwo: { 
+  //     itemOne:{state: "visible", x: 480, y: 400},
+  //     itemTwo:{state: "visible", x: 480, y: 400},
+  //     itemThree:{state: "visible", x: 480, y: 400},
+  //     itemFour:{state: "visible", x: 480, y: 400},
+  //    },,
+  //   customBusinessLogicThree: { 
+  //     itemOne:{state: "visible", x: 480, y: 400},
+  //     itemTwo:{state: "visible", x: 480, y: 400},
+  //     itemThree:{state: "visible", x: 480, y: 400},
+  //     itemFour:{state: "visible", x: 480, y: 400},
+  //    },
+  //   customBusinessLogicFour: { 
+  //     itemOne:{state: "visible", x: 480, y: 400},
+  //     itemTwo:{state: "visible", x: 480, y: 400},
+  //     itemThree:{state: "visible", x: 480, y: 400},
+  //     itemFour:{state: "visible", x: 480, y: 400},
+  //    },
+  // };
 
   // Line animation variants
   const lineVariants = {
@@ -485,32 +570,41 @@ const Animation = ({
         catalogState={getState("catalog")}
       />
 
+
       <CustomLogicItem
         state={getState("customBusinessLogicOne")}
-        x={600}
-        y={300}
+        x={getX("customBusinessLogicOne") || 480}
+        y={getY("customBusinessLogicOne")}
+        previousY={prevPositions.customBusinessLogicOne}
+        previousState={prevStates.customBusinessLogicOne}
         text='Priority Shipping'
       />
 
       <CustomLogicItem
         state={getState("customBusinessLogicTwo")}
-        x={600}
-        y={400}
+        x={getX("customBusinessLogicTwo") || 480}
+        y={getY("customBusinessLogicTwo")}
+        previousY={prevPositions.customBusinessLogicTwo}
+        previousState={prevStates.customBusinessLogicTwo}
         text='Order Splitting'
       />
 
       <CustomLogicItem
         state={getState("customBusinessLogicThree")}
-        x={600}
-        y={500}
-        text='Applying Discounts'
+        x={getX("customBusinessLogicThree") || 480}
+        y={getY("customBusinessLogicThree")}
+        previousY={prevPositions.customBusinessLogicThree}
+        previousState={prevStates.customBusinessLogicThree}
+        text='Discounts'
       />
 
       <CustomLogicItem
         state={getState("customBusinessLogicFour")}
-        x={600}
-        y={600}
-        text='Backorder handling'
+        x={getX("customBusinessLogicFour") || 480}
+        y={getY("customBusinessLogicFour")}
+        previousY={prevPositions.customBusinessLogicFour}
+        previousState={prevStates.customBusinessLogicFour}
+        text='Backorder Handling'
       />
 
 

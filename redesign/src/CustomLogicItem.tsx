@@ -5,22 +5,37 @@ export const CustomLogicItem = ({
   state,
   x,
   y,
-  text
+  text,
+  previousY,
+  previousState
 }: {
   state: "hidden" | "visible" | "processing" | "complete";
   x: number;
   y: number;
   text: string;
+  previousY?: number;
+  previousState?: "hidden" | "visible" | "processing" | "complete";
 }) => {
-  // Rectangle dimensions for the background - centered at 0,0
+  // Track previous y position to detect when item moves up
+  const isMovingUp = previousY !== undefined && y < previousY && state === "complete";
+  
+  // Track when an item has been completed and moved up
+  const wasCompletedAndMovedUp = previousState === "complete" && state === "complete" && previousY !== undefined && y < previousY;
+  // Rectangle dimensions for the background - similar to Catalog structure
   const rectangleCoordsByState = {
-    hidden: { width: 350, height: 70, x: -336, y: -86.5 },
-    visible: { width: 350, height: 70, x: -336, y: -86.5 },
-    processing: { width: 350, height: 70, x: -336, y: -86.5 },
-    complete: { width: 350, height: 70, x: -336, y: -86.5 },
+    hidden: { x1: -150, x2: 150, y1: -35, y2: 35 },
+    visible: { x1: -150, x2: 150, y1: -35, y2: 35 },
+    processing: { x1: -150, x2: 150, y1: -35, y2: 35 },
+    complete: { x1: -150, x2: 150, y1: -35, y2: 35 },
   };
 
   const currentCoords = rectangleCoordsByState[state] || rectangleCoordsByState.hidden;
+  
+  // Calculate width and height from x1, x2, y1, y2
+  const width = currentCoords.x2 - currentCoords.x1;
+  const height = currentCoords.y2 - currentCoords.y1;
+  const rectX = currentCoords.x1;
+  const rectY = currentCoords.y1;
   
   // Position for the logo container - these control where each logo appears on the screen
   const loadingStateVariants = {
@@ -36,13 +51,20 @@ export const CustomLogicItem = ({
       // Show checkmark when completed
       return (
         <motion.g initial={{
-          x: -30,
-          y: -50
+          x: 120,
+          y: 0,
+          opacity: 0
         }}
          animate={{
-          x: -30,
-          y: -50
+          x: 120,
+          y: 0,
+          opacity: 1
          }} 
+         transition={{
+           x: { duration: 0.6, ease: "easeInOut" },
+           y: { duration: 0.6, ease: "easeInOut" },
+           opacity: { duration: 0.6, ease: "easeInOut" }
+         }}
          >
           <circle cx="0" cy="0" r="15" fill="#4CAF50" />
           <path 
@@ -59,13 +81,20 @@ export const CustomLogicItem = ({
       // Show moving loading spinner
       return (
         <motion.g initial={{
-          x: -30,
-          y: -50
+          x: 120,
+          y: 0,
+          opacity: 0
         }}
          animate={{
-          x: -30,
-          y: -50
+          x: 120,
+          y: 0,
+          opacity: 1
          }} 
+         transition={{
+          x: { duration: 0.6, ease: "easeInOut" },
+          y: { duration: 0.6, ease: "easeInOut" },
+          opacity: { duration: 0.6, ease: "easeInOut" }
+        }}
          >
           <motion.g
             initial={{ rotate: 0 }}
@@ -92,13 +121,20 @@ export const CustomLogicItem = ({
       // Show static loading state
       return (
         <motion.g initial={{
-          x: -30,
-          y: -50
+          x: 120,
+          y: 0,
+          opacity: 0
         }}
          animate={{
-          x: -30,
-          y: -50
+          x: 120,
+          y: 0,
+          opacity: 1
          }} 
+         transition={{
+          x: { duration: 0.6, ease: "easeInOut" },
+          y: { duration: 0.6, ease: "easeInOut" },
+          opacity: { duration: 0.6, ease: "easeInOut" }
+        }}
          >
           <circle cx="0" cy="0" r="15" fill="#2196F3" opacity="0.3" />
           <path
@@ -119,24 +155,35 @@ export const CustomLogicItem = ({
 
   return (
     <motion.g
-      initial="hidden"
-      animate={state}
-      variants={loadingStateVariants}
-      style={{ x, y }}
+      initial={{
+        opacity: 0,
+        x: x,
+        y: y
+      }}
+      animate={{
+        opacity: state === "hidden" ? 0 : 1,
+        x: wasCompletedAndMovedUp ? x + 100 : isMovingUp ? x - 50 : x, // Slide right after being moved up and completed
+        y: y
+      }}
+      transition={{
+        x: { type: "spring", stiffness: 100, damping: 15 },
+        y: { type: "spring", stiffness: 100, damping: 15 },
+        opacity: { duration: 0.4 }
+      }}
     >
       <motion.rect
         initial={{
-          width: currentCoords.width,
-          height: currentCoords.height,
-          x: currentCoords.x,
-          y: currentCoords.y,
+          width: width,
+          height: height,
+          x: rectX,
+          y: rectY,
           opacity: state === "hidden" ? 0 : 1
         }}
         animate={{
-          width: currentCoords.width,
-          height: currentCoords.height,
-          x: currentCoords.x,
-          y: currentCoords.y,
+          width: width,
+          height: height,
+          x: rectX,
+          y: rectY,
           opacity: state === "hidden" ? 0 : 1
         }}
         transition={{
@@ -157,20 +204,26 @@ export const CustomLogicItem = ({
       {/* Render the text */}
       {state !== "hidden" && text && (
           <motion.text 
-          initial={{
-            x: -300,
-            y: -50
-          }}
-          animate={{
-            x: -300,
-            y: -50
-           }} 
-          textAnchor="left"
+            initial={{
+              x: -120,
+              y: 0,
+              opacity: 0
+            }}
+            animate={{
+              x: -120,
+              y: 0,
+              opacity: 1
+            }} 
+            transition={{
+              x: { duration: 0.6, ease: "easeInOut" },
+              y: { duration: 0.6, ease: "easeInOut" },
+              opacity: { duration: 0.6, ease: "easeInOut" }
+            }}
+            textAnchor="left"
             dominantBaseline="middle"
-          fill="#333333"
-          fontSize="22"
-          fontWeight="bold"
-
+            fill="#333333"
+            fontSize="22"
+            fontWeight="bold"
             fontFamily="Arial, sans-serif"
           >
           {text}
