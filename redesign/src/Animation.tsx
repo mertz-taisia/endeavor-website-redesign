@@ -122,11 +122,7 @@ const Animation = ({
       14: {
         endeavorLogo: { state: "pullOutItemThree" },
         catalog: { state: "pullOutItemThree", activeItem: 12 }
-      },
-      // 15: {
-      //   endeavorLogo: { state: "allSelected" },
-      //   catalog: { state: "hidden", activeItem: 13 }
-      // }
+      }
     },
     section3: {
       1: {
@@ -192,13 +188,6 @@ const Animation = ({
         customBusinessLogicThree: { state: "complete", x: 480, y: 400 },
         customBusinessLogicFour: { state: "visible", x: 480, y: 500 }
       },
-      // 10: {
-      //   endeavorLogo: { state: "customBusinessLogic" },
-      //   customBusinessLogicOne: { state: "complete", x: 480, y: 100 },
-      //   customBusinessLogicTwo: { state: "complete", x: 480, y: 200 },
-      //   customBusinessLogicThree: { state: "complete", x: 480, y: 300 },
-      //   customBusinessLogicFour: { state: "visible", x: 480, y: 400 }
-      // },
       10: {
         endeavorLogo: { state: "customBusinessLogic" },
         customBusinessLogicOne: { state: "complete", x: 1000, y: 100 },
@@ -212,8 +201,17 @@ const Animation = ({
         customBusinessLogicTwo: { state: "complete", x: 1000, y: 200 },
         customBusinessLogicThree: { state: "complete", x: 1000, y: 300 },
         customBusinessLogicFour: { state: "complete", x: 480, y: 400 }
+      },
+      12: {
+        endeavorLogo: { state: "customBusinessLogicComplete" },
+        customBusinessLogicOne: { state: "complete", x: 1000, y: 100 },
+        customBusinessLogicTwo: { state: "complete", x: 1000, y: 200 },
+        customBusinessLogicThree: { state: "complete", x: 1000, y: 300 },
+        customBusinessLogicFour: { state: "complete", x: 1000, y: 400 }
       }
-    }
+    },
+    section4: {}
+
   };
 
   const sectionMap = {
@@ -221,7 +219,7 @@ const Animation = ({
     1: "section1",
     2: "section2",
     3: "section3",
-    4: "section3",
+    4: "section4",
   };
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -379,32 +377,6 @@ const Animation = ({
     }));
   }, [currentVisibility]);
 
-  // const customBusinessLogicStates = {
-  //   customBusinessLogicOne: { 
-  //     itemOne:{state: "visible", x: 480, y: 400},
-  //     itemTwo:{state: "visible", x: 480, y: 400},
-  //     itemThree:{state: "visible", x: 480, y: 400},
-  //     itemFour:{state: "visible", x: 480, y: 400},
-  //    },
-  //   customBusinessLogicTwo: { 
-  //     itemOne:{state: "visible", x: 480, y: 400},
-  //     itemTwo:{state: "visible", x: 480, y: 400},
-  //     itemThree:{state: "visible", x: 480, y: 400},
-  //     itemFour:{state: "visible", x: 480, y: 400},
-  //    },,
-  //   customBusinessLogicThree: { 
-  //     itemOne:{state: "visible", x: 480, y: 400},
-  //     itemTwo:{state: "visible", x: 480, y: 400},
-  //     itemThree:{state: "visible", x: 480, y: 400},
-  //     itemFour:{state: "visible", x: 480, y: 400},
-  //    },
-  //   customBusinessLogicFour: { 
-  //     itemOne:{state: "visible", x: 480, y: 400},
-  //     itemTwo:{state: "visible", x: 480, y: 400},
-  //     itemThree:{state: "visible", x: 480, y: 400},
-  //     itemFour:{state: "visible", x: 480, y: 400},
-  //    },
-  // };
 
   // Line animation variants
   const lineVariants = {
@@ -573,7 +545,7 @@ const Animation = ({
 
       <CustomLogicItem
         state={getState("customBusinessLogicOne")}
-        x={getX("customBusinessLogicOne") || 480}
+        x={getX("customBusinessLogicOne")}
         y={getY("customBusinessLogicOne")}
         previousY={prevPositions.customBusinessLogicOne}
         previousState={prevStates.customBusinessLogicOne}
@@ -582,7 +554,7 @@ const Animation = ({
 
       <CustomLogicItem
         state={getState("customBusinessLogicTwo")}
-        x={getX("customBusinessLogicTwo") || 480}
+        x={getX("customBusinessLogicTwo")}
         y={getY("customBusinessLogicTwo")}
         previousY={prevPositions.customBusinessLogicTwo}
         previousState={prevStates.customBusinessLogicTwo}

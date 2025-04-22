@@ -49,7 +49,7 @@ function App() {
 
   return (
       <div className="flex flex-col justify-center items-center w-full bg-[#f4f6f8]">
-        <div className="w-full h-[100vh] bg-[#ffffff] text-center items-center justify-center">hero section</div>
+        <div className="w-full h-[100vh] bg-[#ffffff] text-4xl font-bold text-center items-center justify-center">hero section</div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">

@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 
 export const CustomLogicItem = ({
-  state,
+  state = "hidden",
   x,
   y,
   text,
@@ -27,6 +27,7 @@ export const CustomLogicItem = ({
     visible: { x1: -150, x2: 150, y1: -35, y2: 35 },
     processing: { x1: -150, x2: 150, y1: -35, y2: 35 },
     complete: { x1: -150, x2: 150, y1: -35, y2: 35 },
+    
   };
 
   const currentCoords = rectangleCoordsByState[state] || rectangleCoordsByState.hidden;
@@ -100,7 +101,7 @@ export const CustomLogicItem = ({
             initial={{ rotate: 0 }}
             animate={{ rotate: 360 }}
             transition={{
-              duration: 0.75,
+              duration: 0.4,
               repeat: Infinity,
               ease: "linear"
             }}
@@ -194,6 +195,7 @@ export const CustomLogicItem = ({
           opacity: { duration: 0.6, ease: "easeInOut" }
         }}
         rx={20}
+        ry={20}
         fill="white"
         filter="url(#softShadow)"
       />
