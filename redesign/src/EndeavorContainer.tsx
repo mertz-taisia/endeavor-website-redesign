@@ -166,7 +166,7 @@ export const EndeavorContainer = ({
         { ...baseItem, x: 20, y: 30}, 
         { ...baseItem, x: 20, y: 90}
         ),
-    catalogShrunk: createItemState(
+        Item: createItemState(
       {...catalog, x: 10, y: -30 }, 
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }

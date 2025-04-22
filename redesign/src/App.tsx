@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useRef, useEffect, useState } from 'react';
 import Animation from './Animation';
-
+import { motion } from 'framer-motion'
 const visibilityByIndex = {
   0: { showIcons: true, showLines: false, showEndeavor: false },
   1: { showIcons: true, showLines: true, showEndeavor: true },
@@ -40,16 +40,60 @@ function App() {
   }, []);
 
   const sectionText = [
-    ["Order Intake", "Receive and process purchase orders efficiently", "Eliminate manual data entry with Endeavor's AI assistant that handles purchase orders from all channels - Excel, PDFs, emails, and more. Configurable for any file format, our solution reduces errors and saves your team valuable time.", "Start with Order Intake"],
-    ["Format Recognition & Extraction", "Automate data capture from any document format", "Our AI Agent identifies and learns each client's unique purchase order (PO) format, automatically extracting the relevant data.", "Start with Format Recognition"],
-    ["Validation", "Ensure accuracy with intelligent data verification", "The AI Agent validates the extracted items against a comprehensive knowledge base of part numbers and product descriptions, also cross-referencing the customer's historical sales data for accuracy.", "Start with Validation"],
-    ["Custom Business Logic", "Apply tailored business rules to every order", "Tailored to your operations, the AI Agent applies custom business rules such as volume-based discounts, order splitting, and other specialized workflows.", "Start with Custom Business Logic"],
-    ["ERP Integration", "Connect seamlessly with your existing systems", "The AI Agent seamlessly enters the processed order into your ERP system or flags discrepancies for human review when needed.", "Start with ERP Integration"],
+    [
+      "01 | ORDER INTAKE", 
+      "Transform Purchase Order Processing", 
+      "Eliminate tedious manual entry with Endeavor's intelligent AI assistant. Seamlessly process all order formats—Excel, PDFs, emails—with unparalleled accuracy. Our advanced system adapts to any document structure, reducing critical errors by up to 92% while saving your team countless hours.", 
+      "Explore Order Intake"
+    ],
+    [
+      "02 | FORMAT RECOGNITION", 
+      "Instant Document Intelligence", 
+      "Our proprietary AI technology rapidly identifies and adapts to your clients' unique purchase order formats. The system continuously learns and evolves, extracting critical data with precision that surpasses conventional OCR solutions by orders of magnitude.", 
+      "Discover Format Recognition"
+    ],
+    [
+      "03 | VALIDATION", 
+      "Precision Through Intelligent Verification", 
+      "Endeavor's validation engine cross-references extracted data against comprehensive knowledge bases containing millions of part numbers and product descriptions. The system integrates seamlessly with your historical sales data, ensuring unmatched accuracy through multi-layered verification processes.", 
+      "Learn About Validation"
+    ],
+    [
+      "04 | BUSINESS LOGIC", 
+      "Custom Rules Engine for Maximum Efficiency", 
+      "Deploy sophisticated business logic precisely calibrated to your operational needs. Our platform enables complex rule implementation—from tiered pricing structures to inventory-based prioritization—all executed with millisecond precision and zero human intervention.", 
+      "Explore Business Logic"
+    ],
+    [
+      "05 | ERP INTEGRATION", 
+      "Frictionless System Connection", 
+      "Achieve true end-to-end automation with our enterprise-grade ERP integration. Endeavor seamlessly interfaces with leading platforms including SAP, Oracle, and Netsuite. The system intelligently processes orders and applies sophisticated exception handling when human oversight is beneficial.", 
+      "Discover ERP Integration"
+    ],
   ];
 
   return (
-      <div className="flex flex-col justify-center items-center w-full bg-[#f4f6f8]">
-        <div className="w-full h-[100vh] bg-[#ffffff] text-4xl font-bold text-center items-center justify-center">hero section</div>
+      <div className="flex flex-col justify-center items-center w-full bg-[#222222] relative">
+        {/* Gradient overlay with higher opacity */}
+        <div 
+          style={{
+            backgroundImage: `url('/gradient.png')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: 0.275,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+            pointerEvents: 'none'
+          }}
+        />
+        {/* Make sure content is above the gradient with higher z-index */}
+        <div className="relative z-10 w-full flex flex-col items-center">
+        <div className="w-full h-[100vh] bg-[#0D0D0D] text-4xl font-bold text-center items-center justify-center">hero section</div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">
@@ -60,34 +104,44 @@ function App() {
                   ref={el => (sectionsRef.current[idx] = el!)}
                   data-index={idx}
                   className="min-h-[80vh] flex flex-col gap-8 justify-center w-5/6">
-                  <p className="text-xl font-semibold text-[#0682CC]">
-                    {text[0]}
-                  </p>
-                  <p className="text-4xl font-bold leading-[3rem] text-[var(--color-large-text)]">
+                  <div className="relative">
+                    <p className="text-sm tracking-widest font-medium text-[#00A3FF] uppercase mb-1 border-l-2 border-[#00A3FF] pl-3">
+                      {text[0]}
+                    </p>
+                    <div className="absolute -left-6 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#00A3FF] to-transparent opacity-40"></div>
+                  </div>
+                  
+                  <h2 className="text-4xl font-bold leading-tight text-white">
                     {text[1]}
-                  </p>
-                  <p className="text-lg leading-[1.75rem] text-[var(--color-small-text)]">
+                  </h2>
+                  
+                  <p className="text-base leading-relaxed text-[#B0B0B0] max-w-xl">
                     {text[2]}
                   </p>
+                  
                   <button 
                     type="button"
-                    className="flex items-center justify-center gap-2 w-fit bg-[var(--color-primary)] text-white text-base font-semibold px-4 py-2 rounded-4xl transition-all duration-300 hover:bg-[var(--color-primary-dark)] group cursor-pointer">
-                    {text[3]}
-                    <svg 
-                      width="10" 
-                      height="10" 
-                      viewBox="0 0 12 12" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      <path 
-                        d="M2 1L7 6L2 11" 
-                        stroke="currentColor" 
-                        strokeWidth="2.5" 
-                        strokeLinecap="square"
-                      />
-                    </svg>
+                    className="group flex items-center mt-4 w-fit bg-transparent border border-[#00A3FF] text-[#00A3FF] text-sm font-medium tracking-wide px-6 py-3 rounded-md transition-all duration-300 hover:bg-[#00A3FF10] relative overflow-hidden"
+                  >
+                    <span className="relative z-10">{text[3]}</span>
+                    <span className="ml-3 group-hover:translate-x-1 transition-transform duration-300">
+                      <svg 
+                        width="16" 
+                        height="16" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path 
+                          d="M5 12H19M19 12L12 5M19 12L12 19" 
+                          stroke="currentColor" 
+                          strokeWidth="1.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
                   </button>
                 </div>
               ))}
@@ -95,13 +149,156 @@ function App() {
           </div>
 
           {/* Sticky/fixed animation on the right */}
-          <div className="w-1/2 sticky top-8 self-start">
-            <Animation
-              activeIndex={activeIndex}
-            />
+          <div className="w-1/2 sticky top-8 my-5 self-start">
+            {/* Animated border using Framer Motion */}
+            <motion.div 
+              className="absolute inset-0 rounded-lg pointer-events-none overflow-hidden"
+              style={{ zIndex: -1 }}
+            >
+              {/* Top border */}
+              <motion.div 
+                className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent"
+                animate={{
+                  opacity: [0.2, 0.5, 0.2],
+                  backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'],
+                }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: 'linear',
+                }}
+              />
+              
+              {/* Right border */}
+              <motion.div 
+                className="absolute top-0 bottom-0 right-0 w-[1px] bg-gradient-to-b from-transparent via-[#00A3FF] to-transparent"
+                animate={{
+                  opacity: [0.2, 0.5, 0.2],
+                  backgroundPosition: ['0% 0%', '0% 100%', '0% 0%'],
+                }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: 'linear',
+                  delay: 2,
+                }}
+              />
+              
+              {/* Bottom border */}
+              <motion.div 
+                className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent"
+                animate={{
+                  opacity: [0.2, 0.5, 0.2],
+                  backgroundPosition: ['100% 0%', '0% 0%', '100% 0%'],
+                }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: 'linear',
+                  delay: 4,
+                }}
+              />
+              
+              {/* Left border */}
+              <motion.div 
+                className="absolute top-0 bottom-0 left-0 w-[1px] bg-gradient-to-b from-transparent via-[#00A3FF] to-transparent"
+                animate={{
+                  opacity: [0.2, 0.5, 0.2],
+                  backgroundPosition: ['0% 100%', '0% 0%', '0% 100%'],
+                }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: 'linear',
+                  delay: 6,
+                }}
+              />
+              
+              {/* Corner accents */}
+              <motion.div 
+                className="absolute top-0 left-0 w-6 h-6 border-t-[1px] border-l-[1px] border-[#00A3FF]"
+                initial={{ opacity: 0.3 }}
+                animate={{
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: activeIndex * 0.2, // Subtle reaction to activeIndex changes
+                }}
+              />
+              <motion.div 
+                className="absolute top-0 right-0 w-6 h-6 border-t-[1px] border-r-[1px] border-[#00A3FF]"
+                initial={{ opacity: 0.3 }}
+                animate={{
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: activeIndex * 0.2 + 1,
+                }}
+              />
+              <motion.div 
+                className="absolute bottom-0 right-0 w-6 h-6 border-b-[1px] border-r-[1px] border-[#00A3FF]"
+                initial={{ opacity: 0.3 }}
+                animate={{
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: activeIndex * 0.2 + 2,
+                }}
+              />
+              <motion.div 
+                className="absolute bottom-0 left-0 w-6 h-6 border-b-[1px] border-l-[1px] border-[#00A3FF]"
+                initial={{ opacity: 0.3 }}
+                animate={{
+                  opacity: [0.3, 0.8, 0.3],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: activeIndex * 0.2 + 3,
+                }}
+              />
+              
+              {/* Subtle glow effect that changes with activeIndex */}
+              <motion.div
+                className="absolute inset-0 opacity-0 bg-[#00A3FF]"
+                animate={{
+                  opacity: [0, 0.03, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                  delay: activeIndex * 0.1,
+                }}
+                style={{ filter: 'blur(20px)' }}
+              />
+            </motion.div>
+            
+            {/* Main container with subtle padding for the border effect */}
+            <div className="p-[30px] rounded-lg">
+              <Animation
+                activeIndex={activeIndex}
+              />
+            </div>
           </div>
         </div>
-        <div className="w-full h-[100vh] bg-[#ffffff] text-4xl font-bold text-center items-center justify-center">footer section</div>
+        <div className="w-full h-[100vh] bg-[#0D0D0D] text-4xl font-bold text-center items-center justify-center">footer section</div>
+        </div>
       </div>
   );
 }
