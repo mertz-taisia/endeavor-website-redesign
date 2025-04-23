@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const HeroSection: React.FC = () => {
+
   // Animation variants for subtle slide-in effect
   const slideUpVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -75,6 +76,11 @@ const HeroSection: React.FC = () => {
             backgroundImage: 'linear-gradient(#0D0D0D, #0D0D0D), linear-gradient(to right, #0082D3, #6CC7FF, #DBF1FF)',
             backgroundOrigin: 'border-box',
             backgroundClip: 'padding-box, border-box'
+          }}
+          onClick={() => {
+            console.log('Navigating to animation page');
+            // Use direct window location change instead of React Router
+            window.location.href = '/animation';
           }}
           variants={slideUpVariants}
           custom={4}
