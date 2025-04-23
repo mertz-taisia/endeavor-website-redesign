@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: process.env.VITE_BASE_URL || '/endeavor-website-redesign'
+  base: '/' // Using root path for Vercel deployment
 })
