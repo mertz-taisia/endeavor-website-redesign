@@ -246,8 +246,9 @@ const Animation = ({
 
     if (!newSection) return;
 
+    // Always reset animation when section changes
     setSectionKey(newSection);
-    setCurrentStep(1); // reset animation
+    setCurrentStep(1); // reset animation to first step
   }, [activeIndex]);
 
   // Define custom durations for each animation step (in milliseconds)
@@ -316,26 +317,30 @@ const Animation = ({
   useEffect(() => {
     if (!sectionKey) return;
 
+    // Get the maximum step for this section
     const maxStep = Object.keys(visibility[sectionKey]).length;
     let timeoutId: NodeJS.Timeout;
 
-    const scheduleNextStep = (currentStep: number) => {
-      if (currentStep >= maxStep) return;
-      
+    // Only schedule the next step if we're not already at the max step
+    // and if we're in a valid section
+    if (currentStep < maxStep) {
       // Get the duration for this step (or default to 750ms)
       const duration = stepDurations[sectionKey as keyof typeof stepDurations]?.[currentStep as keyof typeof stepDurations[keyof typeof stepDurations]] || 750;
       
+      console.log(`Section ${sectionKey}, scheduling step ${currentStep} -> ${currentStep + 1} with duration ${duration}ms`);
+      
       timeoutId = setTimeout(() => {
-        setCurrentStep(currentStep + 1);
-        scheduleNextStep(currentStep + 1);
+        setCurrentStep(prev => prev + 1);
       }, duration);
+    }
+
+    // Clean up the timeout when component unmounts or when dependencies change
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
-
-    // Start the sequence
-    scheduleNextStep(currentStep);
-
-    return () => clearTimeout(timeoutId);
-  }, [sectionKey, currentStep]);
+  }, [sectionKey, currentStep]); // This will run whenever the section or step changes
   
   // Track previous Y positions for slide animations
   const [prevPositions, setPrevPositions] = useState({
@@ -374,24 +379,8 @@ const Animation = ({
     return progress; // 0 (top), 1 (bottom)
   }
 
-  useEffect(() => {
-    function handleScroll() {
-      const sectionEl = sectionsRef.current[activeIndex];
-      if (!sectionEl) return;
-      const progress = getScrollProgress(sectionEl);
-      const thresholds = sectionStepThresholds[`section${activeIndex}`] || [];
-
-      // Find the highest step whose threshold is <= progress
-      let step = 1;
-      for (let i = 0; i < thresholds.length; i++) {
-        if (progress >= thresholds[i]) step = i + 1;
-      }
-      setCurrentStep(step);
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeIndex]);
+  // We're no longer using scroll position to control animations
+  // Instead, we'll rely solely on the timeout-based animation system
   
   // Update previous positions and states when current positions change
   useEffect(() => {
