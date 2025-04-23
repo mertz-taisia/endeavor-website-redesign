@@ -48,7 +48,7 @@ function LogoAnimation() {
   }
 
   return (
-    <div className="relative flex items-center justify-center h-screen">
+    <div className="relative flex items-center justify-center min-h-screen bg-white">
       {/* Black Endeavor logo at the top for navigation */}
       {showNavLogo && (
         <div className="absolute top-8 left-8 cursor-pointer">
@@ -131,9 +131,9 @@ function LogoAnimation() {
             autoPlay
             muted
             playsInline
-            className="w-18"
+            className="w-[100px] h-auto"
           >
-            <source src="../public/logo_animation.webm" type="video/mp4" />
+            <source src="/logo_animation.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
         </motion.div>

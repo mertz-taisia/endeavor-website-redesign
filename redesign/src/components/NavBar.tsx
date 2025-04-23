@@ -2,7 +2,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import './NavBar.css';
 
 interface NavBarProps {
   logoSize?: string; // CSS responsive sizing, e.g. 'w-40' or 'w-[175px]'
@@ -62,7 +61,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
         </div>
 
         {/* Navigation Links */}
-        <div className="flex items-center space-x-15">
+        <div className="flex items-center gap-10">
           {/* Solutions Dropdown */}
           <div 
             className="relative" 
@@ -71,7 +70,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             onMouseLeave={handleSolutionsMouseLeave}
           >
             <button 
-              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:bg-transparent cursor-[url('/cursor.svg')_12_12,_auto]"
+              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
             >
               Solutions
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -79,10 +78,10 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
               </svg>
             </button>
             {solutionsOpen && (
-              <div className="dropdown-menu absolute mt-2 w-48 z-50 border border-[#333] rounded-md overflow-hidden">
-                <a href="" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Solution 1</a>
-                <a href="" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Solution 2</a>
-                <a href="" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Solution 3</a>
+              <div className="absolute mt-2 w-48 z-50 border border-[rgba(68,68,68,0.3)] rounded-md overflow-hidden bg-[rgba(17,17,24,0.9)] backdrop-blur-md origin-top-center animate-fadeIn">
+                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Solution 1</a>
+                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Solution 2</a>
+                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Solution 3</a>
               </div>
             )}
           </div>
@@ -101,7 +100,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             onMouseLeave={handleCompanyMouseLeave}
           >
             <button 
-              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:bg-transparent cursor-[url('/cursor.svg')_12_12,_auto]"
+              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
             >
               Company
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -109,10 +108,10 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
               </svg>
             </button>
             {companyOpen && (
-              <div className="dropdown-menu absolute mt-2 w-48 z-50 border border-[#333] rounded-md overflow-hidden">
-                <a href="" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">About Us</a>
-                <a href="" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Careers</a>
-                <a href="" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Team</a>
+              <div className="absolute mt-2 w-48 z-50 border border-[rgba(68,68,68,0.3)] rounded-md overflow-hidden bg-[rgba(17,17,24,0.9)] backdrop-blur-md origin-top-center animate-fadeIn">
+                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">About Us</a>
+                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Careers</a>
+                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Team</a>
               </div>
             )}
           </div>
@@ -121,7 +120,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
         {/* Contact Us Button */}
         <div>
           <motion.button 
-            className="px-8 py-4 text-white rounded-4xl bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity border border-[#444444] cursor-[url('/cursor.svg')_12_12,_auto]"
+            className="px-8 py-4 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity cursor-[url('/cursor.svg')_12_12,_auto]"
+            style={{ border: '1px solid #444444' }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >

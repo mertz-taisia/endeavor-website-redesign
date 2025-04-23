@@ -72,7 +72,7 @@ const HeroSection: React.FC = () => {
         
         {/* Get Started Button with gradient */}
         <motion.button 
-          className="px-8 py-4 text-white font-medium rounded-4xl bg-[#0D0D0D] border-2 border-transparent bg-clip-padding relative shadow-[0_0_15px_rgba(108,199,255,0.3)]"
+          className="px-8 py-4 text-white font-medium rounded-full bg-[#0D0D0D] border-2 border-transparent bg-clip-padding relative shadow-[0_0_15px_rgba(108,199,255,0.3)]"
           style={{
             backgroundImage: 'linear-gradient(#0D0D0D, #0D0D0D), linear-gradient(to right, #0082D3, #6CC7FF, #DBF1FF)',
             backgroundOrigin: 'border-box',

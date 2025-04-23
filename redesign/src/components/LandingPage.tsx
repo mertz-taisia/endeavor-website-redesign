@@ -199,7 +199,7 @@ function App() {
                   
                   <motion.button 
                     type="button"
-                    className="group flex items-center mt-4 w-fit bg-[#222222] text-white text-sm font-medium tracking-wide px-6 py-3 rounded-4xl border-2 border-transparent bg-clip-padding relative"
+                    className="group flex items-center mt-4 w-fit bg-[#222222] text-white text-sm font-medium tracking-wide px-6 py-3 rounded-full border-2 border-transparent bg-clip-padding relative"
                     style={{
                       backgroundImage: 'linear-gradient(#222222, #222222), linear-gradient(to right, #0082D3, #6CC7FF, #DBF1FF)',
                       backgroundOrigin: 'border-box',
