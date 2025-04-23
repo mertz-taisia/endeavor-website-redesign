@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import './NavBar.css';
 
 interface NavBarProps {
@@ -118,9 +119,13 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
 
         {/* Contact Us Button */}
         <div>
-          <button className="px-8 py-4 text-white rounded-4xl bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity border border-[#444444] cursor-[url('/cursor.svg')_12_12,_auto]">
+          <motion.button 
+            className="px-8 py-4 text-white rounded-4xl bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity border border-[#444444] cursor-[url('/cursor.svg')_12_12,_auto]"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+          >
             Contact Us
-          </button>
+          </motion.button>
         </div>
       </div>
     </nav>
