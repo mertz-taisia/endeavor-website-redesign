@@ -54,6 +54,18 @@ function App() {
 
 
   useEffect(() => {
+    // Check if we're already scrolled down on page load
+    const checkInitialScroll = () => {
+      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      // If we're already scrolled down, make the animation visible
+      if (scrollPosition > 100) {
+        setAnimationVisible(true);
+      }
+    };
+    
+    // Run the check immediately
+    checkInitialScroll();
+    
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -62,8 +74,8 @@ function App() {
             console.log("Setting active index to:", index); // Add logging
             setActiveIndex(index);
             
-            // Set animation visible when first section comes into view
-            if (index === 0 && !animationVisible) {
+            // Set animation visible when any section comes into view
+            if (!animationVisible) {
               setAnimationVisible(true);
             }
             
