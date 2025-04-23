@@ -25,7 +25,6 @@ export const EndeavorContainer = ({
     extractedOne: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedTwo: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     extractedThree: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
-    catalogShrunk: { opacity: 1, x: 310, y: 400, transition: { duration: 0.2, ease: "easeOut" } },
     catalogEmpty: { opacity: 1, x: 310, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogSelectingOne: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
     catalogSelectingTwo: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
@@ -40,7 +39,7 @@ export const EndeavorContainer = ({
     erpState: { opacity: 1, x: 160, y: 400, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
-  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogEmpty" || state === "catalogShrunk" || state === "catalogSelectingOne" || state === "catalogSelectingTwo" || state === "catalogSelectingThree" || state === "catalogSelectingThree" || state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree" || state === "allSelected" ;
+  const logoLoading = state === "itemExtractionState" || state === "extractedOne" || state === "extractedTwo" || state === "extractedThree" || state === "catalogEmpty" || state === "catalogSelectingOne" || state === "catalogSelectingTwo" || state === "catalogSelectingThree" || state === "catalogSelectingThree" || state === "pullOutItemOne" || state === "pullOutItemTwo" || state === "pullOutItemThree" || state === "allSelected" ;
   
   // Rectangle coords for each state (defined by x1, x2, y1, y2)
   const rectangleCoordsByState = {
@@ -52,7 +51,6 @@ export const EndeavorContainer = ({
     extractedOne: { x1: -265, x2: 265, y1: -89, y2: 89 },
     extractedTwo: { x1: -265, x2: 265, y1: -122, y2: 122 },
     extractedThree: { x1: -265, x2: 265, y1: -155, y2: 155 },
-    catalogShrunk: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogEmpty: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogSelectingOne: { x1: -150, x2: 150, y1: -108, y2: 95 },
     catalogSelectingTwo: { x1: -150, x2: 150, y1: -108, y2: 95 },
@@ -81,7 +79,6 @@ export const EndeavorContainer = ({
     extractedOne: { x: -515, y: -820, scale: 0.6 },
     extractedTwo: { x: -515, y: -860, scale: 0.6 },
     extractedThree: { x: -515, y: -890, scale: 0.6 },
-    catalogShrunk: { x: -437, y: -860, scale: 0.3 },
     catalogEmpty: { x: -437, y: -860, scale: 0.3 },
     catalogSelectingOne: { x: -437, y: -860, scale: 0.3 },
     catalogSelectingTwo: { x: -437, y: -860, scale: 0.3 },
@@ -109,7 +106,6 @@ export const EndeavorContainer = ({
     extractedOne: { x: currentCoords.x1 + 110, y: -30, textSize: 32, text: "Extracting Data..." },
     extractedTwo: { x: currentCoords.x1 + 110, y: -70, textSize: 32, text: "Extracting Data..." },
     extractedThree: { x: currentCoords.x1 + 110, y: -100, textSize: 32, text: "Extracting Data..." },
-    catalogShrunk: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogEmpty: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogSelectingOne: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     catalogSelectingTwo: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
@@ -140,10 +136,26 @@ export const EndeavorContainer = ({
   });
 
   const itemStates = {
-    hidden: createItemState(),
-    startState: createItemState(),
-    basicState: createItemState(),
-    basicShrunkState: createItemState(),
+    hidden: createItemState(
+      {...defaultItem, x: 20, y: 30 },
+      {...defaultItem, x: 20, y: 70 },
+      {...defaultItem, x: 20, y: 90 }
+    ),
+    startState: createItemState(
+      {...defaultItem, x: 20, y: 30 },
+      {...defaultItem, x: 20, y: 70 },
+      {...defaultItem, x: 20, y: 90 }
+    ),
+    basicState: createItemState(
+      {...defaultItem, x: 20, y: 30 },
+      {...defaultItem, x: 20, y: 70 },
+      {...defaultItem, x: 20, y: 90 }
+    ),
+    basicShrunkState: createItemState(
+      {...defaultItem, x: 20, y: 30 },
+      {...defaultItem, x: 20, y: 70 },
+      {...defaultItem, x: 20, y: 90 }
+    ),
     itemExtractionState: createItemState(
       {...defaultItem, x: 20, y: 30 },
       {...defaultItem, x: 20, y: 70 },
@@ -163,8 +175,8 @@ export const EndeavorContainer = ({
         { ...baseItem, x: 20, y: -30}, 
         { ...baseItem, x: 20, y: 30}, 
         { ...baseItem, x: 20, y: 90}
-        ),
-        Item: createItemState(
+      ),
+    catalogEmpty: createItemState(
       {...catalog, x: 10, y: -30 }, 
       {...catalog, x: 10, y: 10 }, 
       {...catalog, x: 10, y: 50 }
@@ -204,7 +216,11 @@ export const EndeavorContainer = ({
       {...catalog, x: 10, y: 10, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }, 
       {...catalog, x: 10, y: 50, state: "populated", iconScale: 0.75, iconX: -115, iconY: 3, textX: -86 }
     ),
-    customBusinessLogic: createItemState(),
+    customBusinessLogic: createItemState(
+      {...defaultItem, x: 20, y: 30 },
+      {...defaultItem, x: 20, y: 70 },
+      {...defaultItem, x: 20, y: 90 }
+    ),
     customBusinessLogicComplete: createItemState(),
     erpState: createItemState(),
   };

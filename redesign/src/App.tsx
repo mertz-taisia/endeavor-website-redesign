@@ -137,7 +137,7 @@ function App() {
           <NavBar logoSize="w-44 md:w-48 lg:w-52" />
           <HeroSection />
           <div className="w-full relative overflow-hidden">
-            <VideoPlayer videoSrc="/test.mp4" height="700px" />
+            <VideoPlayer videoSrc="/endeavor_demo.mp4" height="700px" />
           </div>
         </div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
@@ -188,9 +188,16 @@ function App() {
                   
                   <motion.button 
                     type="button"
-                    className="group flex items-center mt-4 w-fit bg-transparent border border-[#00A3FF] text-[#00A3FF] text-sm font-medium tracking-wide px-6 py-3 rounded-md transition-all duration-300 hover:bg-[#00A3FF10] relative overflow-hidden"
+                    className="group flex items-center mt-4 w-fit bg-[#222222] text-white text-sm font-medium tracking-wide px-6 py-3 rounded-4xl border-2 border-transparent bg-clip-padding relative"
+                    style={{
+                      backgroundImage: 'linear-gradient(#222222, #222222), linear-gradient(to right, #0082D3, #6CC7FF, #DBF1FF)',
+                      backgroundOrigin: 'border-box',
+                      backgroundClip: 'padding-box, border-box'
+                    }}
                     variants={slideUpVariants}
                     custom={4}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <span className="relative z-10">{text[3]}</span>
                     <span className="ml-3 group-hover:translate-x-1 transition-transform duration-300">
@@ -210,7 +217,6 @@ function App() {
                         />
                       </svg>
                     </span>
-                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></span>
                   </motion.button>
                 </motion.div>
               ))}

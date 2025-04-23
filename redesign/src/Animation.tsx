@@ -45,7 +45,8 @@ const Animation = ({
     },
     section1: {
       1: {
-        endeavorLogo: { state: "basicState" }
+        endeavorLogo: { state: "basicState" },
+        catalog: { state: "hidden" }
       },
       // Shrink logo
       2: {
@@ -69,7 +70,11 @@ const Animation = ({
     section2: {
       1: {
         endeavorLogo: { state: "catalogEmpty" },
-        catalog: { state: "hidden" }
+        catalog: { state: "hidden" },
+        customBusinessLogicOne: { state: "hidden", x: 480, y: 400 },
+        customBusinessLogicTwo: { state: "hidden", x: 480, y: 500 },
+        customBusinessLogicThree: { state: "hidden", x: 480, y: 600 },
+        customBusinessLogicFour: { state: "hidden", x: 480, y: 700 }
       },
       2: {
         endeavorLogo: { state: "catalogSelectingOne" },
@@ -126,11 +131,13 @@ const Animation = ({
     },
     section3: {
       1: {
+        catalog: { state: "hidden" },
         endeavorLogo: { state: "customBusinessLogic" },
         customBusinessLogicOne: { state: "hidden", x: 480, y: 400 },
         customBusinessLogicTwo: { state: "hidden", x: 480, y: 500 },
         customBusinessLogicThree: { state: "hidden", x: 480, y: 600 },
-        customBusinessLogicFour: { state: "hidden", x: 480, y: 700 }
+        customBusinessLogicFour: { state: "hidden", x: 480, y: 700 },
+        ERPLogo: { state: "hidden" }
       },
       2: {
         endeavorLogo: { state: "customBusinessLogic" },
@@ -485,8 +492,8 @@ const Animation = ({
       <motion.path
         id="emailLine"
         d="M185 450V510H271V734"
-        stroke="#DFDFDF"
-        strokeWidth="2.5"
+        stroke="#A4A4A4"
+        strokeWidth="1.5"
         initial="hidden"
         animate={getState("emailLine")}
         variants={lineVariants}
@@ -496,8 +503,8 @@ const Animation = ({
       <motion.path
         id="phoneLine"
         d="M470 549V590H357V734"
-        stroke="#DFDFDF"
-        strokeWidth="2.5"
+        stroke="#A4A4A4"
+        strokeWidth="1.5"
         initial="hidden"
         animate={getState("phoneLine")}
         variants={lineVariants}
@@ -507,8 +514,8 @@ const Animation = ({
       <motion.path
         id="excelLine"
         d="M230 200V270H301V734"
-        stroke="#DFDFDF"
-        strokeWidth="2.5"
+        stroke="#A4A4A4"
+        strokeWidth="1.5"
         initial="hidden"
         animate={getState("excelLine")}
         variants={lineVariants}
@@ -518,8 +525,8 @@ const Animation = ({
       <motion.path
         id="pdfLine"
         d="M430 278V340H329V734"
-        stroke="#DFDFDF"
-        strokeWidth="2.5"
+        stroke="#A4A4A4"
+        strokeWidth="1.5"
         initial="hidden"
         animate={getState("pdfLine")}
         variants={lineVariants}

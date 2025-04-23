@@ -119,6 +119,9 @@ export default function Item({
     // Render the icon
     const renderIcon = () => {
         if (icon === null) return null;
+        
+        // Don't render anything if the state is hidden
+        if (displayState === "hidden") return null;
 
         if (displayState === "base" || displayState === "focused") {
             return (
@@ -148,8 +151,8 @@ export default function Item({
 
         return (
             <motion.g
-                initial={{ opacity: 0, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
-                animate={{ opacity: 1, x: iconX, y: iconY, scaleX: iconScale, scaleY: iconScale }}
+                initial={{ opacity: 0, x: delayedIconX, y: delayedIconY, scaleX: delayedIconScale, scaleY: delayedIconScale }}
+                animate={{ opacity: 1, x: delayedIconX, y: delayedIconY, scaleX: delayedIconScale, scaleY: delayedIconScale }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{
                     opacity: { duration: 0.6, ease: "easeInOut" },
