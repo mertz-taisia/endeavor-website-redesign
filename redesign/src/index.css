@@ -1,6 +1,5 @@
 @import "tailwindcss/preflight";
-@tailwind utilities;
-
+@import "tailwindcss";
 
 @layer base {
   :root {
@@ -14,8 +13,6 @@
     scroll-behavior: smooth;
   }
 }
-
-@import "tailwindcss";
 
 body {
   margin: 0;
