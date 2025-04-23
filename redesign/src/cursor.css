@@ -1,0 +1,9 @@
+/* Custom cursor styles using encoded data URI */
+* {
+  cursor: url('/cursor.svg') 12 12, auto;
+}
+
+/* Custom cursor for clickable elements */
+a, button, [role='button'], input[type='submit'], input[type='button'], .clickable {
+  cursor: url('/cursor.svg') 12 12, pointer;
+}

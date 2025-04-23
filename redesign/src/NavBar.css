@@ -1,0 +1,57 @@
+/* Remove hover effect box/highlight from dropdown buttons */
+button {
+  background-color: transparent !important;
+  outline: none !important;
+  transition: color 0.2s ease;
+}
+
+button:hover, 
+button:focus, 
+button:active {
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* This ensures the dropdown container doesn't get a hover highlight either */
+.relative:hover,
+.relative:focus {
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Elegant dropdown styling */
+.dropdown-menu {
+  background-color: rgba(17, 17, 24, 0.9);
+  backdrop-filter: blur(8px);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(68, 68, 68, 0.3);
+  transform-origin: top center;
+  transform: translateY(10px);
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  position: relative;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px solid rgba(68, 68, 68, 0.2);
+}
