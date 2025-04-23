@@ -69,7 +69,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             onMouseLeave={handleSolutionsMouseLeave}
           >
             <button 
-              className="bg-transparent text-[#c7c7c7] flex items-center focus:outline-none hover:bg-transparent"
+              className="bg-transparent text-[#c7c7c7] flex items-center focus:outline-none hover:bg-transparent cursor-[url('/cursor.svg')_12_12,_auto]"
             >
               Solutions
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -78,18 +78,18 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             </button>
             {solutionsOpen && (
               <div className="dropdown-menu absolute mt-2 w-48 z-50 border border-[#333] rounded-md overflow-hidden">
-                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white">Solution 1</a>
-                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white">Solution 2</a>
-                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white">Solution 3</a>
+                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Solution 1</a>
+                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Solution 2</a>
+                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Solution 3</a>
               </div>
             )}
           </div>
 
           {/* AI Platform */}
-          <a href="#" className="text-[#c7c7c7]">AI Platform</a>
+          <a href="#" className="text-[#c7c7c7] cursor-[url('/cursor.svg')_12_12,_auto]">AI Platform</a>
 
           {/* Customers */}
-          <a href="#" className="text-[#c7c7c7]">Customers</a>
+          <a href="#" className="text-[#c7c7c7] cursor-[url('/cursor.svg')_12_12,_auto]">Customers</a>
 
           {/* Company Dropdown */}
           <div 
@@ -99,7 +99,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             onMouseLeave={handleCompanyMouseLeave}
           >
             <button 
-              className="bg-transparent text-[#c7c7c7] flex items-center focus:outline-none hover:bg-transparent"
+              className="bg-transparent text-[#c7c7c7] flex items-center focus:outline-none hover:bg-transparent cursor-[url('/cursor.svg')_12_12,_auto]"
             >
               Company
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -108,9 +108,9 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             </button>
             {companyOpen && (
               <div className="dropdown-menu absolute mt-2 w-48 z-50 border border-[#333] rounded-md overflow-hidden">
-                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white">About Us</a>
-                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white">Careers</a>
-                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white">Team</a>
+                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">About Us</a>
+                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Careers</a>
+                <a href="#" className="dropdown-item block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto]">Team</a>
               </div>
             )}
           </div>
@@ -118,7 +118,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
 
         {/* Contact Us Button */}
         <div>
-          <button className="px-8 py-4 text-white rounded-4xl bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity border border-[#444444]">
+          <button className="px-8 py-4 text-white rounded-4xl bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity border border-[#444444] cursor-[url('/cursor.svg')_12_12,_auto]">
             Contact Us
           </button>
         </div>

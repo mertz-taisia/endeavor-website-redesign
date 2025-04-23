@@ -18,6 +18,7 @@ const Animation = ({
     section0: {
       // Initial hidden
       1: {
+        endeavorLogo: { state: "hidden" },
         excelLogo: { state: "hidden" },
         phoneLogo: { state: "hidden" },
         emailLogo: { state: "hidden" },
@@ -223,6 +224,10 @@ const Animation = ({
     },
     section4: {
       1: {
+        customBusinessLogicOne: { state: "hidden", x: 1000, y: 100 },
+        customBusinessLogicTwo: { state: "hidden", x: 1000, y: 200 },
+        customBusinessLogicThree: { state: "hidden", x: 1000, y: 300 },
+        customBusinessLogicFour: { state: "hidden", x: 1000, y: 400 },
         endeavorLogo: { state: "erpState" },
         ERPLogo: { state: "visible" }
       }
