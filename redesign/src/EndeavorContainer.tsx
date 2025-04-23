@@ -89,7 +89,7 @@ export const EndeavorContainer = ({
     allSelected: { x: -437, y: -860, scale: 0.3 },
     customBusinessLogic: { x: -437, y: -785, scale: 0.3 },
     customBusinessLogicComplete: { x: -437, y: -785, scale: 0.3 },
-    customBusinessLogicCompleteLarge: { x: -515, y: -785, scale: 0.6 },
+    customBusinessLogicCompleteLarge: { x: -520, y: -785, scale: 0.6 },
     erpState: { x: -317.5, y: -785, scale: 0.6 },
   }[state] ?? { x: -317.5, y: -785, scale: 1 };
 
@@ -115,7 +115,7 @@ export const EndeavorContainer = ({
     pullOutItemThree: { x: currentCoords.x1 + 55, y: -72, textSize: 18, text: "Matching to catalog..." },
     customBusinessLogic: { x: currentCoords.x1 + 55, y: 0, textSize: 22, text: "Applying..." },
     customBusinessLogicComplete: { x: currentCoords.x1 + 55, y: 0, textSize: 22, text: "Applied Logic" },
-    customBusinessLogicCompleteLarge: { x: currentCoords.x1 + 110, y: 0, textSize: 32, text: "Applied Logic" },
+    customBusinessLogicCompleteLarge: { x: currentCoords.x1 + 55 + 60, y: 0, textSize: 32, text: "Applied Logic" },
     erpState: { x: currentCoords.x1 + 110, y: 0, textSize: 40, text: "" },
   }[state] ?? { x: currentCoords.x1 - 10, y: 0, textSize: 40, text: "" };
 
@@ -237,12 +237,12 @@ export const EndeavorContainer = ({
   const renderCheckmark = () => {
     // Only render for these states
     if (state === "customBusinessLogicComplete" || state === "customBusinessLogicCompleteLarge") {
-      // Define size properties based on state
+      // Define size properties based on state - keep same relative positions
       const checkmarkProps = state === "customBusinessLogicCompleteLarge" 
         ? {
-            circleX: 170,
+            circleX: 200,
             circleRadius: 25,
-            pathData: "M 158,0 166,8 182,-8",
+            pathData: "M 188,0 196,8 212,-8",
             strokeWidth: 4
           }
         : {
@@ -258,21 +258,22 @@ export const EndeavorContainer = ({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
+          
           <motion.circle 
-            cx={checkmarkProps.circleX}
+            cx={0}
             cy={0}
             r={checkmarkProps.circleRadius}
             fill="#4CAF50"
             initial={{ 
-              cx: state === "customBusinessLogicCompleteLarge" ? 120 : checkmarkProps.circleX,
+              x: state === "customBusinessLogicCompleteLarge" ? 120 : checkmarkProps.circleX,
               r: state === "customBusinessLogicCompleteLarge" ? 15 : checkmarkProps.circleRadius 
             }}
             animate={{ 
-              cx: checkmarkProps.circleX,
+              x: checkmarkProps.circleX,
               r: checkmarkProps.circleRadius 
             }}
             transition={{ 
-              duration: 0.8, 
+              duration: 0.6, 
               ease: "easeInOut" 
             }}
           />
@@ -292,8 +293,8 @@ export const EndeavorContainer = ({
               strokeWidth: checkmarkProps.strokeWidth 
             }}
             transition={{ 
-              duration: 0.8, 
-              ease: "easeInOut" 
+              d: { duration: 0.6, ease: "easeInOut" },
+              strokeWidth: { duration: 0.6, ease: "easeInOut" }
             }}
           />
         </motion.g>
@@ -381,7 +382,7 @@ export const EndeavorContainer = ({
             y: textY,
             fontSize: textSize
           }}
-          transition={{ x: { duration: 0.5, ease: "easeInOut" }, y: { duration: 0.6, ease: "easeInOut" }, opacity: { duration: 0.6, ease: "easeInOut" }, fontSize: { duration: 0.6, ease: "easeInOut" } }}
+          transition={{ x: { duration: 0.6, ease: "easeInOut" }, y: { duration: 0.6, ease: "easeInOut" }, opacity: { duration: 0.6, ease: "easeInOut" }, fontSize: { duration: 0.6, ease: "easeInOut" } }}
           fill="black"
           fontWeight="bold"
           alignmentBaseline="middle"

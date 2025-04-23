@@ -379,10 +379,6 @@ const Animation = ({
     return progress; // 0 (top), 1 (bottom)
   }
 
-  // We're no longer using scroll position to control animations
-  // Instead, we'll rely solely on the timeout-based animation system
-  
-  // Update previous positions and states when current positions change
   useEffect(() => {
     setPrevPositions(prev => ({
       customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.y || prev.customBusinessLogicOne,
