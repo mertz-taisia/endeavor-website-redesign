@@ -1,12 +1,5 @@
 {
-    "routes":  [
-        {
-            "src": "/",
-            "dest": "/"
-        },
-        {
-            "src": "/animation",
-            "dest": "/animation"
-        }
-    ]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
