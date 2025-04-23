@@ -54,37 +54,37 @@ export const Catalog = ({
       icon: SheetMetalIcon,
     },
     {
-      text: '1 1/2" Schedule 80 Black ...',
+      text: '1 1/2" Sch. 80 Steel Tube...',
       icon: SheetMetalIcon,
     },
     {
-      text: '3" x 3" x 0.25" Aluminum...',
+      text: '3" x 3" x 0.25" Alum. She...',
       icon: SheetMetalIcon,
     },
     {
-      text: '1 1/2" x 3/4" x 1" Stain...',
+      text: '1 1/2" x 3/4" x 1" Alum. ...',
       icon: SheetMetalIcon,
     },
     {
-      text: '2" x 1" x 0.125" Stainless S...',
+      text: '2" x 1" x 0.125" Conc. Slab...',
       icon: Concrete,
     },
     {
-      text: '3" x 1 1/2" x 0.188" Stainle...',
+      text: '3" x 1 1/2" x 0.188" Conc...',
       icon: Concrete,
     },
     {
-      text: '3" x 1 1/2" x 0.188" Stainle...',
+      text: '3" x 1 1/2" x 0.188" Conc...',
       icon: Concrete,
     },
     {
-      text: '3" x 1 1/2" x 0.188" Stainle...',
+      text: '3" x 1 1/2" x 0.188" Conc...',
       icon: Concrete,
     },
     {
-      text: '3" x 1 1/2" x 0.188" Stainle...',
+      text: '3" x 1 1/2" x 0.188" Conc...',
       icon: Concrete,
-    }
+    },
   ];
 
   const centerPosition = 3;
