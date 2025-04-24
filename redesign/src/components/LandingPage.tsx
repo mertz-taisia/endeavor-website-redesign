@@ -147,7 +147,7 @@ function App() {
             </svg>
           </div>
           
-          <NavBar logoSize="w-32 md:w-48 lg:w-52" />
+          <NavBar />
           <HeroSection />
           <div className="w-full relative overflow-hidden">
           <div data-scroll data-scroll-speed="0.2">
