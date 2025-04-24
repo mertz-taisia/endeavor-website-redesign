@@ -80,8 +80,6 @@ export default function Item({
     const [delayedTextX, setDelayedTextX] = useState(textX);
 
     useEffect(() => {
-        console.log("ItemContainer state:", state);
-        
         // If there's a delay, set a timeout to change the display state and icon properties
         if (stateChangeDelay > 0) {
             const timer = setTimeout(() => {

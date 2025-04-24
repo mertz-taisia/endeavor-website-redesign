@@ -70,7 +70,6 @@ function App() {
         entries.forEach(entry => {
           const index = Number(entry.target.getAttribute('data-index'));
           if (entry.isIntersecting) {
-            console.log("Setting active index to:", index); // Add logging
             setActiveIndex(index);
             
             // Set animation visible when any section comes into view

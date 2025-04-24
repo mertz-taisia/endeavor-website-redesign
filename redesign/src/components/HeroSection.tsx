@@ -79,7 +79,6 @@ const HeroSection: React.FC = () => {
             backgroundClip: 'padding-box, border-box'
           }}
           onClick={() => {
-            console.log('Navigating to animation page');
             // Use direct window location change instead of React Router
             window.location.href = '/animation';
           }}

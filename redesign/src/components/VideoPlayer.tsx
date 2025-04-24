@@ -17,7 +17,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, height = "500px" })
     // Function to force the video to play
     const forcePlay = () => {
       video.play().catch(err => {
-        console.error("Error playing video:", err);
         // Retry play after a short delay if it fails
         setTimeout(forcePlay, 1000);
       });

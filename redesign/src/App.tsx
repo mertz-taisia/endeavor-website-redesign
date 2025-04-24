@@ -8,10 +8,6 @@ import LogoAnimation from './components/LogoAnimation.tsx';
 function RouteLogger() {
   const location = useLocation();
   
-  useEffect(() => {
-    console.log('Current route:', location.pathname);
-  }, [location]);
-  
   return null;
 }
 

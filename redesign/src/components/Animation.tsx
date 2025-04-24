@@ -332,8 +332,6 @@ const Animation = ({
       // Get the duration for this step (or default to 750ms)
       const duration = stepDurations[sectionKey as keyof typeof stepDurations]?.[currentStep as keyof typeof stepDurations[keyof typeof stepDurations]] || 750;
       
-      console.log(`Section ${sectionKey}, scheduling step ${currentStep} -> ${currentStep + 1} with duration ${duration}ms`);
-      
       timeoutId = setTimeout(() => {
         setCurrentStep(prev => prev + 1);
       }, duration);
