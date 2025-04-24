@@ -23,9 +23,15 @@ const visibilityByIndex = {
 function App() {
 
   const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileSectionsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(1);
   const activatedElements = useRef<Set<string>>(new Set());
   const [animationVisible, setAnimationVisible] = useState(false);
+  const [mobileVisibleSections, setMobileVisibleSections] = useState<{[key: number]: boolean}>({});
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  
+  // Define the breakpoint between mobile and desktop views to match Animation component
+  const MOBILE_BREAKPOINT = 970; // Using 970px as the breakpoint
   
   // Animation variants for subtle slide-in effect
   const slideUpVariants = {
@@ -56,6 +62,24 @@ function App() {
 
 
   useEffect(() => {
+    // Debounce function to limit how often the resize handler fires
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+      }, 100); // 100ms debounce
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+    };
+  }, []);
+
+  useEffect(() => {
     // Check if we're already scrolled down on page load
     const checkInitialScroll = () => {
       const scrollPosition = window.scrollY || document.documentElement.scrollTop;
@@ -68,6 +92,7 @@ function App() {
     // Run the check immediately
     checkInitialScroll();
     
+    // Observer for desktop sections
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -93,8 +118,33 @@ function App() {
       }
     );
 
+    // Observer for mobile sections
+    const mobileObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          const index = Number(entry.target.getAttribute('data-index'));
+          if (index !== undefined) {
+            // Update the visibility state for this section
+            setMobileVisibleSections(prev => ({
+              ...prev,
+              [index]: entry.isIntersecting
+            }));
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of the element is in view
+        rootMargin: '-10% 0px' // Slightly offset to ensure animation starts when properly in view
+      }
+    );
+
     sectionsRef.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    mobileSectionsRef.current.forEach(el => el && mobileObserver.observe(el));
+    
+    return () => {
+      observer.disconnect();
+      mobileObserver.disconnect();
+    };
   }, [animationVisible]);
 
   const sectionText = [
@@ -156,7 +206,280 @@ function App() {
             />
           </div>
         </div>
-        <div className="flex flex-row w-7/10 items-start justify-between relative">
+
+        
+
+        
+        {/* Mobile layout (stacked) - using 970px breakpoint to match Animation component */}
+        <div className={`${windowWidth >= MOBILE_BREAKPOINT ? 'hidden' : 'flex'} flex-col w-full px-4 py-8 space-y-16`}>
+          {sectionText.map((text, idx) => (
+            <div 
+              key={idx} 
+              className="space-y-6"
+              ref={el => (mobileSectionsRef.current[idx] = el)}
+              data-index={idx}
+            >
+              <div className="relative">
+                <p className="text-sm tracking-widest font-medium text-[#00A3FF] uppercase mb-1 border-l-2 border-[#00A3FF] pl-3">
+                  {text[0]}
+                </p>
+                <div className="absolute -left-1 top-0 h-full w-1 bg-gradient-to-b from-[#00A3FF] to-transparent opacity-40"></div>
+              </div>
+              
+              <h2 className="text-2xl font-bold leading-tight text-white">
+                {text[1]}
+              </h2>
+              
+              <p className="text-base leading-relaxed text-[#B0B0B0]">
+                {text[2]}
+              </p>
+              
+              <button 
+                type="button"
+                className="group flex items-center mt-4 w-fit bg-[#222222] text-white text-sm font-medium tracking-wide px-5 py-2.5 rounded-full border-2 border-transparent bg-clip-padding relative"
+                style={{
+                  backgroundImage: 'linear-gradient(#222222, #222222), linear-gradient(to right, #0082D3, #6CC7FF, #DBF1FF)',
+                  backgroundOrigin: 'border-box',
+                  backgroundClip: 'padding-box, border-box'
+                }}
+              >
+                <span className="relative z-10">{text[3]}</span>
+                <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
+                  <svg 
+                    width="14" 
+                    height="14" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path 
+                      d="M5 12H19M19 12L12 5M19 12L12 19" 
+                      stroke="currentColor" 
+                      strokeWidth="1.5" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </button>
+              
+              {/* Animation container with animated border */}
+              <div className="w-full h-[400px] mt-8 rounded-lg p-[15px] relative flex justify-center items-center">
+                {/* Animated border using Framer Motion */}
+                <motion.div 
+                  className="absolute inset-0 rounded-lg pointer-events-none overflow-hidden"
+                  style={{ zIndex: 0 }}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: false, margin: "-100px" }}
+                  variants={{
+                    hidden: {},
+                    visible: {}
+                  }}
+                >
+                  {/* Top border */}
+                  <motion.div 
+                    className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent"
+                    initial={{ width: 0, left: '50%', opacity: 0 }}
+                    whileInView={{
+                      width: '100%',
+                      left: 0,
+                      opacity: [0.2, 0.5, 0.2],
+                      backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'],
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ 
+                      width: { duration: 0.8, ease: 'easeOut' },
+                      left: { duration: 0.8, ease: 'easeOut' },
+                      opacity: { duration: 8, repeat: Infinity, ease: 'linear', delay: 0.8 },
+                      backgroundPosition: { duration: 8, repeat: Infinity, ease: 'linear', delay: 0.8 },
+                    }}
+                  />
+                  
+                  {/* Right border */}
+                  <motion.div 
+                    className="absolute top-0 bottom-0 right-0 w-[1px] bg-gradient-to-b from-transparent via-[#00A3FF] to-transparent"
+                    initial={{ height: 0, top: '50%', opacity: 0 }}
+                    whileInView={{
+                      height: '100%',
+                      top: 0,
+                      opacity: [0.2, 0.5, 0.2],
+                      backgroundPosition: ['0% 0%', '0% 100%', '0% 0%'],
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ 
+                      height: { duration: 0.8, ease: 'easeOut', delay: 0.6 },
+                      top: { duration: 0.8, ease: 'easeOut', delay: 0.6 },
+                      opacity: { duration: 8, repeat: Infinity, ease: 'linear', delay: 1.4 },
+                      backgroundPosition: { duration: 8, repeat: Infinity, ease: 'linear', delay: 1.4 },
+                    }}
+                  />
+                  
+                  {/* Bottom border */}
+                  <motion.div 
+                    className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent"
+                    initial={{ width: 0, right: '50%', opacity: 0 }}
+                    whileInView={{
+                      width: '100%',
+                      right: 0,
+                      opacity: [0.2, 0.5, 0.2],
+                      backgroundPosition: ['100% 0%', '0% 0%', '100% 0%'],
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ 
+                      width: { duration: 0.8, ease: 'easeOut', delay: 1.2 },
+                      right: { duration: 0.8, ease: 'easeOut', delay: 1.2 },
+                      opacity: { duration: 8, repeat: Infinity, ease: 'linear', delay: 2 },
+                      backgroundPosition: { duration: 8, repeat: Infinity, ease: 'linear', delay: 2 },
+                    }}
+                  />
+                  
+                  {/* Left border */}
+                  <motion.div 
+                    className="absolute top-0 bottom-0 left-0 w-[1px] bg-gradient-to-b from-transparent via-[#00A3FF] to-transparent"
+                    initial={{ height: 0, bottom: '50%', opacity: 0 }}
+                    whileInView={{
+                      height: '100%',
+                      bottom: 0,
+                      opacity: [0.2, 0.5, 0.2],
+                      backgroundPosition: ['0% 100%', '0% 0%', '0% 100%'],
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{ 
+                      height: { duration: 0.8, ease: 'easeOut', delay: 1.8 },
+                      bottom: { duration: 0.8, ease: 'easeOut', delay: 1.8 },
+                      opacity: { duration: 8, repeat: Infinity, ease: 'linear', delay: 2.6 },
+                      backgroundPosition: { duration: 8, repeat: Infinity, ease: 'linear', delay: 2.6 },
+                    }}
+                  />
+                  
+                  {/* Corner accents */}
+                  <motion.div 
+                    className="absolute top-0 left-0 w-4 h-4 border-t-[1px] border-l-[1px] border-[#00A3FF]"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{
+                      opacity: [0.3, 0.8, 0.3],
+                      scale: 1
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{
+                      opacity: {
+                        duration: 4,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut",
+                        delay: 2.4 + (idx * 0.2)
+                      },
+                      scale: {
+                        duration: 0.6,
+                        ease: "easeOut",
+                        delay: 2.4
+                      }
+                    }}
+                  />
+                  <motion.div 
+                    className="absolute top-0 right-0 w-4 h-4 border-t-[1px] border-r-[1px] border-[#00A3FF]"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{
+                      opacity: [0.3, 0.8, 0.3],
+                      scale: 1
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{
+                      opacity: {
+                        duration: 4,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut",
+                        delay: 2.6 + (idx * 0.2)
+                      },
+                      scale: {
+                        duration: 0.6,
+                        ease: "easeOut",
+                        delay: 2.6
+                      }
+                    }}
+                  />
+                  <motion.div 
+                    className="absolute bottom-0 right-0 w-4 h-4 border-b-[1px] border-r-[1px] border-[#00A3FF]"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{
+                      opacity: [0.3, 0.8, 0.3],
+                      scale: 1
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{
+                      opacity: {
+                        duration: 4,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut",
+                        delay: 2.8 + (idx * 0.2)
+                      },
+                      scale: {
+                        duration: 0.6,
+                        ease: "easeOut",
+                        delay: 2.8
+                      }
+                    }}
+                  />
+                  <motion.div 
+                    className="absolute bottom-0 left-0 w-4 h-4 border-b-[1px] border-l-[1px] border-[#00A3FF]"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{
+                      opacity: [0.3, 0.8, 0.3],
+                      scale: 1
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{
+                      opacity: {
+                        duration: 4,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut",
+                        delay: 3.0 + (idx * 0.2)
+                      },
+                      scale: {
+                        duration: 0.6,
+                        ease: "easeOut",
+                        delay: 3.0
+                      }
+                    }}
+                  />
+                  
+                  {/* Subtle glow effect that changes with section index */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 bg-[#00A3FF]"
+                    initial={{ opacity: 0 }}
+                    whileInView={{
+                      opacity: [0, 0.03, 0],
+                    }}
+                    viewport={{ once: false, margin: "-100px" }}
+                    transition={{
+                      opacity: {
+                        duration: 2,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                        ease: "easeInOut",
+                        delay: 3.2 + (idx * 0.1),
+                      }
+                    }}
+                    style={{ filter: 'blur(20px)' }}
+                  />
+                </motion.div>
+                
+                <Animation 
+                  activeIndex={idx} 
+                  isMobile={true} 
+                  shouldAnimate={mobileVisibleSections[idx] === true}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Desktop layout (side-by-side) - using 970px breakpoint to match Animation component */}
+        <div className={`${windowWidth < MOBILE_BREAKPOINT ? 'hidden' : 'flex'} flex-row w-7/10 items-start justify-between relative`}>
           {/* Scrollable text column */}
           <div className="w-1/2 pr-8 z-10">
             <div className="space-y-20">
@@ -244,7 +567,7 @@ function App() {
             {/* Animated border using Framer Motion */}
             <motion.div 
               className="absolute inset-0 rounded-lg pointer-events-none overflow-hidden"
-              style={{ zIndex: -1 }}
+              style={{ zIndex: 0 }}
               initial="hidden"
               animate={animationVisible ? "visible" : "hidden"}
               variants={{
@@ -438,6 +761,8 @@ function App() {
             <div className="p-[30px] rounded-lg">
               <Animation
                 activeIndex={activeIndex}
+                isMobile={false}
+                shouldAnimate={animationVisible}
               />
             </div>
           </div>

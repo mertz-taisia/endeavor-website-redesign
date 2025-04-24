@@ -8,18 +8,30 @@ interface NavBarProps {}
 const NavBar: React.FC<NavBarProps> = () => {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
   
-  // Update window width on resize
+  // Define the breakpoint between mobile and desktop views to match Animation component
+  const MOBILE_BREAKPOINT = 1000; // Using 970px as the breakpoint
+  
+  // Update window width on resize with debouncing
   useEffect(() => {
+    // Debounce function to limit how often the resize handler fires
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+      }, 100); // 100ms debounce
     };
     
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+    };
   }, []);
   
-  // Determine logo size based on window width
-  const logoSize = windowWidth < 768 ? 'w-48' : windowWidth < 1024 ? 'w-48' : 'w-52';
+  // Determine logo size based on window width using the new breakpoint
+  const logoSize = windowWidth < MOBILE_BREAKPOINT ? 'w-48' : 'w-52';
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const [solutionsTimeout, setSolutionsTimeout] = useState<number | null>(null);
@@ -31,41 +43,79 @@ const NavBar: React.FC<NavBarProps> = () => {
   const solutionsRef = useRef<HTMLDivElement>(null);
   const companyRef = useRef<HTMLDivElement>(null);
   
+  // Desktop dropdown handlers - hover behavior
   const handleSolutionsMouseEnter = () => {
-    if (solutionsTimeout) {
-      clearTimeout(solutionsTimeout);
-      setSolutionsTimeout(null);
+    if (windowWidth >= MOBILE_BREAKPOINT) {
+      if (solutionsTimeout) {
+        clearTimeout(solutionsTimeout);
+        setSolutionsTimeout(null);
+      }
+      setSolutionsOpen(true);
     }
-    setSolutionsOpen(true);
   };
 
   const handleSolutionsMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setSolutionsOpen(false);
-    }, 300);
-    setSolutionsTimeout(timeout);
+    if (windowWidth >= MOBILE_BREAKPOINT) {
+      const timeout = setTimeout(() => {
+        setSolutionsOpen(false);
+      }, 500);
+      setSolutionsTimeout(timeout);
+    }
   };
 
   const handleCompanyMouseEnter = () => {
-    if (companyTimeout) {
-      clearTimeout(companyTimeout);
-      setCompanyTimeout(null);
+    if (windowWidth >= MOBILE_BREAKPOINT) {
+      if (companyTimeout) {
+        clearTimeout(companyTimeout);
+        setCompanyTimeout(null);
+      }
+      setCompanyOpen(true);
     }
-    setCompanyOpen(true);
   };
 
   const handleCompanyMouseLeave = () => {
-    const timeout = setTimeout(() => {
-      setCompanyOpen(false);
-    }, 300);
-    setCompanyTimeout(timeout);
+    if (windowWidth >= MOBILE_BREAKPOINT) {
+      const timeout = setTimeout(() => {
+        setCompanyOpen(false);
+      }, 500);
+      setCompanyTimeout(timeout);
+    }
+  };
+  
+  // Desktop dropdown click handlers - for accessibility
+  const handleSolutionsClick = () => {
+    if (windowWidth >= MOBILE_BREAKPOINT) {
+      setSolutionsOpen(!solutionsOpen);
+    }
+  };
+  
+  const handleCompanyClick = () => {
+    if (windowWidth >= MOBILE_BREAKPOINT) {
+      setCompanyOpen(!companyOpen);
+    }
+  };
+  
+  // Mobile dropdown handlers - click only behavior
+  const handleMobileSolutionsClick = () => {
+    setMobileSolutionsOpen(!mobileSolutionsOpen);
+    if (!mobileSolutionsOpen) {
+      setMobileCompanyOpen(false);
+    }
+  };
+  
+  const handleMobileCompanyClick = () => {
+    setMobileCompanyOpen(!mobileCompanyOpen);
+    if (!mobileCompanyOpen) {
+      setMobileSolutionsOpen(false);
+    }
   };
 
   return (
-    <nav className="bg-transparent w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 absolute top-0 left-0 z-10">
+    <nav className="bg-transparent w-full px-4 py-4 absolute top-0 left-0 z-10">
+      {/* Using consistent px values based on the MOBILE_BREAKPOINT */}
       <div className="flex justify-between items-center max-w-[1400px] mx-auto">
         {/* Logo area - with responsive positioning */}
-        <div className={`flex-shrink-0 ${logoSize} ml-4 lg:ml-0`}>
+        <div className={`flex-shrink-0 ${logoSize} ml-4 ${windowWidth >= MOBILE_BREAKPOINT ? 'ml-0' : ''}`}>
 
           {/* Endeavor Logo SVG - responsive sizing */}
           <svg width="70%" height="100%" viewBox="0 0 265 58" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +127,7 @@ const NavBar: React.FC<NavBarProps> = () => {
         </div>
         
         {/* Hamburger for mobile - moved to the right side */}
-        <div className="lg:hidden flex items-center">
+        <div className={`${windowWidth >= MOBILE_BREAKPOINT ? 'hidden' : 'flex'} items-center`}>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-white bg-transparent p-2 focus:bg-transparent focus:outline-none focus:ring-0 cursor-[url('/cursor.svg')_12_12,_auto]"
@@ -96,7 +146,7 @@ const NavBar: React.FC<NavBarProps> = () => {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden lg:flex items-center gap-10">
+        <div className={`${windowWidth < MOBILE_BREAKPOINT ? 'hidden' : 'flex'} items-center gap-10`}>
           {/* Solutions Dropdown */}
           <div 
             className="relative" 
@@ -106,6 +156,7 @@ const NavBar: React.FC<NavBarProps> = () => {
           >
             <button 
               className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:text-white hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
+              onClick={handleSolutionsClick}
             >
               Solutions
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -171,6 +222,7 @@ const NavBar: React.FC<NavBarProps> = () => {
           >
             <button 
               className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:text-white hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
+              onClick={handleCompanyClick}
             >
               Company
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -223,9 +275,9 @@ const NavBar: React.FC<NavBarProps> = () => {
         </div>
 
         {/* Contact Us Button */}
-        <div className="hidden lg:flex justify-end min-w-[120px]">
+        <div className={`${windowWidth < MOBILE_BREAKPOINT ? 'hidden' : 'flex'} justify-end min-w-[120px]`}>
           <motion.button 
-            className="px-8 lg:px-6 py-2 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-all cursor-[url('/cursor.svg')_12_12,_auto] border border-[#444444] whitespace-nowrap text-sm lg:text-base"
+            className={`px-8 ${windowWidth >= MOBILE_BREAKPOINT ? 'px-6' : 'px-8'} py-2 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-all cursor-[url('/cursor.svg')_12_12,_auto] border border-[#444444] whitespace-nowrap ${windowWidth >= MOBILE_BREAKPOINT ? 'text-base' : 'text-sm'}`}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -233,9 +285,9 @@ const NavBar: React.FC<NavBarProps> = () => {
           </motion.button>
         </div>
       </div>
-      {/* Mobile Menu */}
+      {/* Mobile Menu - only shown below MOBILE_BREAKPOINT */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {mobileMenuOpen && windowWidth < MOBILE_BREAKPOINT && (
           <motion.div 
             className="lg:hidden fixed inset-0 top-0 left-0 right-0 bg-gradient-to-b from-[#111118] to-[#0a0a0f] z-50 flex flex-col w-full h-screen overflow-hidden"
             initial={{ opacity: 0 }}
@@ -269,12 +321,7 @@ const NavBar: React.FC<NavBarProps> = () => {
               <div className="w-full border-b border-[#2a2a33] py-5">
                 <button 
                   className="bg-transparent flex justify-between w-full items-center text-[#e0e0e0] hover:text-white hover:bg-transparent text-left text-[16px] font-medium transition-colors duration-200 cursor-[url('/cursor.svg')_12_12,_auto]"
-                  onClick={() => {
-                    setMobileSolutionsOpen(!mobileSolutionsOpen);
-                    if (!mobileSolutionsOpen) {
-                      setMobileCompanyOpen(false);
-                    }
-                  }}
+                  onClick={handleMobileSolutionsClick}
                 >
                   <span>Solutions</span>
                   <svg 
@@ -321,12 +368,7 @@ const NavBar: React.FC<NavBarProps> = () => {
               <div className="w-full border-b border-[#2a2a33] py-5">
                 <button 
                   className="bg-transparent flex justify-between w-full items-center text-[#e0e0e0] hover:text-white hover:bg-transparent text-left text-[16px] font-medium transition-colors duration-200 cursor-[url('/cursor.svg')_12_12,_auto]"
-                  onClick={() => {
-                    setMobileCompanyOpen(!mobileCompanyOpen);
-                    if (!mobileCompanyOpen) {
-                      setMobileSolutionsOpen(false);
-                    }
-                  }}
+                  onClick={handleMobileCompanyClick}
                 >
                   <span>Company</span>
                   <svg 

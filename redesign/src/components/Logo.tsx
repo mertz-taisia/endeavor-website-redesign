@@ -68,21 +68,24 @@ export const Logo = ({
           height: currentCoords.height,
           x: currentCoords.x,
           y: currentCoords.y,
-          opacity: isVisible ? 1 : 0
+          opacity: 0,
+          scale: 0
         }}
         animate={{
           width: currentCoords.width,
           height: currentCoords.height,
           x: currentCoords.x,
           y: currentCoords.y,
-          opacity: isVisible ? 1 : 0
+          opacity: isVisible ? 1 : 0,
+          scale: isVisible ? 1 : 0
         }}
         transition={{
           width: { duration: 0.6, ease: "easeInOut" },
           height: { duration: 0.6, ease: "easeInOut" },
           x: { duration: 0.6, ease: "easeInOut" },
           y: { duration: 0.6, ease: "easeInOut" },
-          opacity: { duration: 0.6, ease: "easeInOut" }
+          opacity: { duration: 0.6, ease: "easeInOut" },
+          scale: { duration: 0.6, ease: "easeInOut" }
         }}
         rx={20}
         fill="white"

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { EndeavorContainer } from './EndeavorContainer';
 import { Catalog } from './Catalog';
@@ -9,11 +9,43 @@ import { ERPLogo } from './ERPLogo';
 
 
 const Animation = ({
-  activeIndex
+  activeIndex,
+  isMobile = false,
+  shouldAnimate = true
 }: {
   activeIndex: number | null;
+  isMobile?: boolean;
+  shouldAnimate?: boolean;
 }) => {
-  const sectionsRef = useRef<HTMLElement[]>([]);
+  // Add conditional rendering based on screen width and isMobile prop with debounce
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+  
+  useEffect(() => {
+    // Debounce function to limit how often the resize handler fires
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+      }, 100); // 100ms debounce
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimer);
+    };
+  }, []);
+  
+  // Define the breakpoint between mobile and desktop views
+  const MOBILE_BREAKPOINT = 970; // Using 970px as the breakpoint
+  
+  // Memoize the shouldRender value to prevent unnecessary re-renders
+  const shouldRender = React.useMemo(() => {
+    return !(isMobile && windowWidth >= MOBILE_BREAKPOINT) && !(!isMobile && windowWidth < MOBILE_BREAKPOINT);
+  }, [isMobile, windowWidth]);
+  
   const visibility = {
     section0: {
       // Initial hidden
@@ -249,12 +281,18 @@ const Animation = ({
   useEffect(() => {
     const newSection = sectionMap[activeIndex ?? -1];
 
-    if (!newSection) return;
+    if (!newSection || !shouldAnimate) {
+      if (!shouldAnimate) {
+        // If animation shouldn't run, reset section key to null
+        setSectionKey(null);
+      }
+      return;
+    }
 
-    // Always reset animation when section changes
+    // Always reset animation when section changes or animation is triggered
     setSectionKey(newSection);
     setCurrentStep(1); // reset animation to first step
-  }, [activeIndex]);
+  }, [activeIndex, shouldAnimate]);
 
   // Define custom durations for each animation step (in milliseconds)
   const stepDurations = {
@@ -364,7 +402,7 @@ const Animation = ({
   const currentVisibility = visibility[sectionKey ?? "section1"]?.[currentStep] || {};
 
 
-  const getState = (id: string) => currentVisibility[id]?.state;
+  const getState = (id: string) => currentVisibility[id]?.state || "hidden";
   const getX = (id: string) => currentVisibility[id]?.x;
   const getY = (id: string) => currentVisibility[id]?.y;
   const getActiveItem = (id: string) => currentVisibility[id]?.activeItem;
@@ -441,6 +479,21 @@ const Animation = ({
       }
     }
   };
+  
+  // Circle animation variants
+  const circleVariants = {
+    hidden: {
+      opacity: 0,
+      r: 0
+    },
+    visible: {
+      opacity: 0.7,
+      r: 10,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
 
   // Logo animation variants
   const logoVariants = {
@@ -504,8 +557,11 @@ const Animation = ({
     }
   };
 
-  return (
-    <svg viewBox="0 0 639 886" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return shouldRender ? (
+    <div className="w-full h-full flex items-center justify-center">
+    <svg viewBox="0 0 639 886" fill="none" xmlns="http://www.w3.org/2000/svg" 
+      style={{ height: '100%', width: 'auto', maxWidth: '100%' }}>
+    
       {/* Email Line */}
       <motion.path
         id="emailLine"
@@ -692,7 +748,8 @@ const Animation = ({
         </linearGradient>
       </defs>
     </svg>
-  );
+    </div>
+  ) : null;
 };
 
 export default Animation;

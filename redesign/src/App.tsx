@@ -3,6 +3,7 @@ import { Suspense, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/LandingPage.tsx';
 import LogoAnimation from './components/LogoAnimation.tsx';
+import AnimationPage from './components/AnimationPage.tsx';
 
 // This component will log route changes
 function RouteLogger() {
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/animation" element={<LogoAnimation />} />
+          <Route path="/how-it-works" element={<AnimationPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
