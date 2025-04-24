@@ -4,9 +4,10 @@ import React, { useRef, useEffect } from 'react';
 type VideoPlayerProps = {
   videoSrc: string;
   height?: string;
+  className?: string;
 };
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, height = "500px" }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, height, className = "" }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Auto-play video on component mount and ensure it keeps playing
@@ -36,10 +37,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoSrc, height = "500px" })
   }, []);
 
   return (
-    <div className="relative overflow-hidden bg-black" style={{ height }}>
+    <div className={`relative overflow-hidden bg-black ${className}`} style={height ? { height } : {}}>
       <video
         ref={videoRef}
-        className="w-[220vw] h-full object-cover"
+        className="w-full md:w-full lg:w-full h-full object-cover"
         loop
         muted
         playsInline

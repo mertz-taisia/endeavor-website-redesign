@@ -31,7 +31,7 @@ const HeroSection: React.FC = () => {
   };
   return (
     <motion.div 
-      className="flex flex-col justify-center items-start min-h-[70vh] w-full px-4 sm:px-6 md:px-10 lg:px-20 pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-8 sm:pb-12 md:pb-16 bg-[#0D0D0D] overflow-hidden"
+      className="flex flex-col justify-center items-start min-h-[45vh] sm:min-h-[60vh] md:min-h-[70vh] w-full px-4 sm:px-6 md:px-10 lg:px-20 pt-32 sm:pt-16 md:pt-20 lg:pt-32 pb-6 sm:pb-8 md:pb-12 lg:pb-16 bg-[#0D0D0D] overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
@@ -42,7 +42,7 @@ const HeroSection: React.FC = () => {
       >
         {/* Main title text */}
         <motion.h1 
-          className="flex flex-col items-center text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-white leading-tight mb-4 sm:mb-6"
+          className="flex flex-col items-center text-center text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-medium text-white leading-tight mb-3 sm:mb-4 md:mb-6"
           variants={slideUpVariants}
           custom={0}
         >
@@ -64,7 +64,7 @@ const HeroSection: React.FC = () => {
         
         {/* Subtitle text */}
         <motion.p 
-          className="text-base sm:text-lg md:text-xl text-center text-[#898989] mb-6 sm:mb-8 md:mb-10 px-4"
+          className="text-sm sm:text-base md:text-lg lg:text-xl text-center text-[#898989] mb-4 sm:mb-6 md:mb-8 lg:mb-10 px-4"
           variants={slideUpVariants}
           custom={3}
         >
@@ -73,7 +73,7 @@ const HeroSection: React.FC = () => {
         
         {/* Get Started Button with gradient */}
         <motion.button 
-          className="px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base md:text-lg text-white font-medium rounded-full bg-[#0D0D0D] border-2 border-transparent bg-clip-padding relative shadow-[0_0_15px_rgba(108,199,255,0.3)]"
+          className="px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 md:py-3.5 lg:py-4 text-xs sm:text-sm md:text-base lg:text-lg text-white font-medium rounded-full bg-[#0D0D0D] border-2 border-transparent bg-clip-padding relative shadow-[0_0_15px_rgba(108,199,255,0.3)]"
           style={{
             backgroundImage: 'linear-gradient(#0D0D0D, #0D0D0D), linear-gradient(to right, #0082D3, #6CC7FF, #DBF1FF)',
             backgroundOrigin: 'border-box',

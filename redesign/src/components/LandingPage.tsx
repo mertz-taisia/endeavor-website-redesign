@@ -134,8 +134,8 @@ function App() {
       <div className="flex flex-col justify-center items-center w-full bg-[#222222]">
         <div className="relative w-full">
           {/* Blue gradient overlay */}
-          <div className="absolute z-0 w-full top-0 left-0 flex justify-center pointer-events-none" style={{ height: 'calc(70vh + 100px)' }}>
-            <svg width="100%" height="100%" viewBox="0 0 1393 569" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" style={{ position: 'absolute', top: '35vh' }}>
+          <div className="absolute z-0 w-full top-0 left-0 flex justify-center pointer-events-none h-[calc(50vh+50px)] sm:h-[calc(60vh+75px)] md:h-[calc(70vh+100px)]">
+            <svg className="absolute top-[17vh] sm:top-[30vh] md:top-[30vh] lg:top-[35vh] w-full h-full" viewBox="0 0 1393 569" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
               <ellipse cx="696.5" cy="284.5" rx="696.5" ry="284.5" fill="url(#paint0_radial_198_43)"/>
               <defs>
                 <radialGradient id="paint0_radial_198_43" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(696.5 284.5) rotate(90) scale(284.5 696.5)">
@@ -150,10 +150,10 @@ function App() {
           <NavBar />
           <HeroSection />
           <div className="w-full relative overflow-hidden">
-          <div data-scroll data-scroll-speed="0.2">
-            <VideoPlayer videoSrc="/endeavor_demo.mp4" height="700px" />
-          </div>
-
+            <VideoPlayer 
+              videoSrc="/endeavor_demo.mp4" 
+              className="h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] w-full" 
+            />
           </div>
         </div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
