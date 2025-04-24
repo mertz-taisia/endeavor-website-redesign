@@ -383,20 +383,50 @@ const Animation = ({
   }
 
   useEffect(() => {
-    setPrevPositions(prev => ({
-      customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.y || prev.customBusinessLogicOne,
-      customBusinessLogicTwo: currentVisibility.customBusinessLogicTwo?.y || prev.customBusinessLogicTwo,
-      customBusinessLogicThree: currentVisibility.customBusinessLogicThree?.y || prev.customBusinessLogicThree,
-      customBusinessLogicFour: currentVisibility.customBusinessLogicFour?.y || prev.customBusinessLogicFour
-    }));
+    // Only update if there are actual changes to prevent infinite loops
+    const newPositions = {
+      customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.y,
+      customBusinessLogicTwo: currentVisibility.customBusinessLogicTwo?.y,
+      customBusinessLogicThree: currentVisibility.customBusinessLogicThree?.y,
+      customBusinessLogicFour: currentVisibility.customBusinessLogicFour?.y
+    };
     
-    setPrevStates(prev => ({
-      customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.state || prev.customBusinessLogicOne,
-      customBusinessLogicTwo: currentVisibility.customBusinessLogicTwo?.state || prev.customBusinessLogicTwo,
-      customBusinessLogicThree: currentVisibility.customBusinessLogicThree?.state || prev.customBusinessLogicThree,
-      customBusinessLogicFour: currentVisibility.customBusinessLogicFour?.state || prev.customBusinessLogicFour
-    }));
-  }, [currentVisibility]);
+    const newStates = {
+      customBusinessLogicOne: currentVisibility.customBusinessLogicOne?.state,
+      customBusinessLogicTwo: currentVisibility.customBusinessLogicTwo?.state,
+      customBusinessLogicThree: currentVisibility.customBusinessLogicThree?.state,
+      customBusinessLogicFour: currentVisibility.customBusinessLogicFour?.state
+    };
+    
+    // Check if any position has changed
+    const hasPositionChanges = Object.entries(newPositions).some(
+      ([key, value]) => value !== undefined && value !== prevPositions[key as keyof typeof prevPositions]
+    );
+    
+    // Check if any state has changed
+    const hasStateChanges = Object.entries(newStates).some(
+      ([key, value]) => value !== undefined && value !== prevStates[key as keyof typeof prevStates]
+    );
+    
+    // Only update state if there are actual changes
+    if (hasPositionChanges) {
+      setPrevPositions(prev => ({
+        customBusinessLogicOne: newPositions.customBusinessLogicOne ?? prev.customBusinessLogicOne,
+        customBusinessLogicTwo: newPositions.customBusinessLogicTwo ?? prev.customBusinessLogicTwo,
+        customBusinessLogicThree: newPositions.customBusinessLogicThree ?? prev.customBusinessLogicThree,
+        customBusinessLogicFour: newPositions.customBusinessLogicFour ?? prev.customBusinessLogicFour
+      }));
+    }
+    
+    if (hasStateChanges) {
+      setPrevStates(prev => ({
+        customBusinessLogicOne: newStates.customBusinessLogicOne ?? prev.customBusinessLogicOne,
+        customBusinessLogicTwo: newStates.customBusinessLogicTwo ?? prev.customBusinessLogicTwo,
+        customBusinessLogicThree: newStates.customBusinessLogicThree ?? prev.customBusinessLogicThree,
+        customBusinessLogicFour: newStates.customBusinessLogicFour ?? prev.customBusinessLogicFour
+      }));
+    }
+  }, [currentVisibility, prevPositions, prevStates]);
 
 
   // Line animation variants

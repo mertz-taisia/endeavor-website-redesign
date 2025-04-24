@@ -174,7 +174,7 @@ function App() {
                       {text[0]}
                     </motion.p>
                     <motion.div 
-                      className="absolute -left-6 top-1/2 transform -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#00A3FF] to-transparent opacity-40"
+                      className="absolute -left-6 top-0 h-full w-1 bg-gradient-to-b from-[#00A3FF] to-transparent opacity-40"
                       variants={slideUpVariants}
                       custom={1}
                     ></motion.div>
