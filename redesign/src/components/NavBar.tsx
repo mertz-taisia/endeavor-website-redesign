@@ -7,7 +7,7 @@ interface NavBarProps {
   logoSize?: string; // CSS responsive sizing, e.g. 'w-40' or 'w-[175px]'
 }
 
-const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
+const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-32' }) => {
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [companyOpen, setCompanyOpen] = useState(false);
   const [solutionsTimeout, setSolutionsTimeout] = useState<number | null>(null);
@@ -70,27 +70,62 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             onMouseLeave={handleSolutionsMouseLeave}
           >
             <button 
-              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
+              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:text-white hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
             >
               Solutions
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {solutionsOpen && (
-              <div className="absolute mt-2 w-48 z-50 border border-[rgba(68,68,68,0.3)] rounded-md overflow-hidden bg-[rgba(17,17,24,0.9)] backdrop-blur-md origin-top-center animate-fadeIn">
-                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Solution 1</a>
-                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Solution 2</a>
-                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Solution 3</a>
+            <motion.div 
+              className="absolute left-1/2 transform -translate-x-1/2 z-50 overflow-hidden"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: solutionsOpen ? 'auto' : 0,
+                opacity: solutionsOpen ? 1 : 0,
+              }}
+              transition={{
+                height: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+              }}
+            >
+              <div className="mt-4 flex flex-col w-full items-start space-y-3 bg-transparent">
+                <motion.a 
+                  href="" 
+                  className="text-sm w-full text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] transition-colors duration-200 ease-in-out"
+                  initial={{ y: -5, opacity: 0 }}
+                  animate={{ y: solutionsOpen ? 0 : -5, opacity: solutionsOpen ? 1 : 0 }}
+                  transition={{ delay: 0.05 }}
+                >
+                  Solution 1
+                </motion.a>
+                <motion.a 
+                  href="" 
+                  className="text-sm w-full text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] transition-colors duration-200 ease-in-out"
+                  initial={{ y: -5, opacity: 0 }}
+                  animate={{ y: solutionsOpen ? 0 : -5, opacity: solutionsOpen ? 1 : 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  Solution 2
+                </motion.a>
+                <motion.a 
+                  href="" 
+                  className="text-sm w-full text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] transition-colors duration-200 ease-in-out"
+                  initial={{ y: -5, opacity: 0 }}
+                  animate={{ y: solutionsOpen ? 0 : -5, opacity: solutionsOpen ? 1 : 0 }}
+                  transition={{ delay: 0.15 }}
+                >
+                  Solution 3
+                </motion.a>
               </div>
-            )}
+            </motion.div>
           </div>
 
           {/* AI Platform */}
-          <a href="" className="text-[#c7c7c7] text-sm cursor-[url('/cursor.svg')_12_12,_auto]">AI Platform</a>
+          <a href="" className="text-[#c7c7c7] text-sm hover:text-white transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]">AI Platform</a>
 
           {/* Customers */}
-          <a href="" className="text-[#c7c7c7] text-sm cursor-[url('/cursor.svg')_12_12,_auto]">Customers</a>
+          <a href="" className="text-[#c7c7c7] text-sm hover:text-white transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]">Customers</a>
 
           {/* Company Dropdown */}
           <div 
@@ -100,27 +135,62 @@ const NavBar: React.FC<NavBarProps> = ({ logoSize = 'w-44' }) => {
             onMouseLeave={handleCompanyMouseLeave}
           >
             <button 
-              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
+              className="bg-transparent text-[#c7c7c7] text-sm flex items-center focus:outline-none hover:text-white hover:bg-transparent focus:bg-transparent active:bg-transparent focus:shadow-none active:shadow-none outline-none transition-colors duration-200 ease-in-out cursor-[url('/cursor.svg')_12_12,_auto]"
             >
               Company
               <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            {companyOpen && (
-              <div className="absolute mt-2 w-48 z-50 border border-[rgba(68,68,68,0.3)] rounded-md overflow-hidden bg-[rgba(17,17,24,0.9)] backdrop-blur-md origin-top-center animate-fadeIn">
-                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">About Us</a>
-                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Careers</a>
-                <a href="" className="block px-4 py-3 text-sm text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] relative transition-all duration-200 ease-in-out border-l-2 border-l-transparent hover:border-l-[rgba(255,255,255,0.3)] hover:bg-[rgba(255,255,255,0.05)] border-b border-b-[rgba(68,68,68,0.2)] last:border-b-0">Team</a>
+            <motion.div 
+              className="absolute left-1/2 transform -translate-x-1/2 z-50 overflow-hidden"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: companyOpen ? 'auto' : 0,
+                opacity: companyOpen ? 1 : 0,
+              }}
+              transition={{
+                height: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+              }}
+            >
+              <div className="mt-4 flex flex-col w-full items-start space-y-3 bg-transparent">
+                <motion.a 
+                  href="" 
+                  className="text-sm w-full text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] transition-colors duration-200 ease-in-out"
+                  initial={{ y: -5, opacity: 0 }}
+                  animate={{ y: companyOpen ? 0 : -5, opacity: companyOpen ? 1 : 0 }}
+                  transition={{ delay: 0.05 }}
+                >
+                  About Us
+                </motion.a>
+                <motion.a 
+                  href="" 
+                  className="text-sm w-full text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] transition-colors duration-200 ease-in-out"
+                  initial={{ y: -5, opacity: 0 }}
+                  animate={{ y: companyOpen ? 0 : -5, opacity: companyOpen ? 1 : 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  Careers
+                </motion.a>
+                <motion.a 
+                  href="" 
+                  className="text-sm w-full text-[#c7c7c7] hover:text-white cursor-[url('/cursor.svg')_12_12,_auto] transition-colors duration-200 ease-in-out"
+                  initial={{ y: -5, opacity: 0 }}
+                  animate={{ y: companyOpen ? 0 : -5, opacity: companyOpen ? 1 : 0 }}
+                  transition={{ delay: 0.15 }}
+                >
+                  Team
+                </motion.a>
               </div>
-            )}
+            </motion.div>
           </div>
         </div>
 
         {/* Contact Us Button */}
         <div>
           <motion.button 
-            className="px-8 py-4 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity cursor-[url('/cursor.svg')_12_12,_auto]"
+            className="px-6 py-2 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-opacity cursor-[url('/cursor.svg')_12_12,_auto]"
             style={{ border: '1px solid #444444' }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}

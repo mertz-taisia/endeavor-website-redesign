@@ -49,6 +49,7 @@ function LogoAnimation() {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-white">
+      
       {/* Black Endeavor logo at the top for navigation */}
       {showNavLogo && (
         <div className="absolute top-8 left-8 cursor-pointer">

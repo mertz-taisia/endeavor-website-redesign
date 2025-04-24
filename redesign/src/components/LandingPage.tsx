@@ -6,6 +6,8 @@ import NavBar from './NavBar';
 import HeroSection from './HeroSection';
 import VideoPlayer from './VideoPlayer';
 import Footer from './Footer';
+import LocomotiveScroll from "locomotive-scroll";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 
 const visibilityByIndex = {
   0: { showIcons: true, showLines: false, showEndeavor: false },
@@ -50,6 +52,7 @@ function App() {
       }
     }
   };
+  
 
 
   useEffect(() => {
@@ -144,10 +147,13 @@ function App() {
             </svg>
           </div>
           
-          <NavBar logoSize="w-44 md:w-48 lg:w-52" />
+          <NavBar logoSize="w-32 md:w-48 lg:w-52" />
           <HeroSection />
           <div className="w-full relative overflow-hidden">
+          <div data-scroll data-scroll-speed="0.2">
             <VideoPlayer videoSrc="/endeavor_demo.mp4" height="700px" />
+          </div>
+
           </div>
         </div>
         <div className="flex flex-row w-7/10 items-start justify-between relative">
@@ -234,7 +240,7 @@ function App() {
           </div>
 
           {/* Sticky/fixed animation on the right */}
-          <div className="w-1/2 sticky top-8 mt-3 mb-3 self-start">
+          <div className="w-1/2 sticky top-24 mt-3 mb-3 self-start">
             {/* Animated border using Framer Motion */}
             <motion.div 
               className="absolute inset-0 rounded-lg pointer-events-none overflow-hidden"
