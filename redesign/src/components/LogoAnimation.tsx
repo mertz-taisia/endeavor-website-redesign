@@ -108,7 +108,7 @@ function LogoAnimation() {
             </div>
           </motion.div>
         )}
-        {showReturnToMainPageNote && (
+        {/* {showReturnToMainPageNote && (
           <motion.div 
             className="absolute font-medium"
             style={{ left: '-340px', top: '-220px' }}
@@ -130,7 +130,7 @@ function LogoAnimation() {
               </svg>
             </div>
           </motion.div>
-        )}
+        )} */}
         {/* Logo with smooth animation */}
         <motion.div 
           className="absolute"
