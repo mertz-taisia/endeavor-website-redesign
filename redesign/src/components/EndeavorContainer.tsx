@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Item from './Item';
 
 
@@ -14,28 +14,6 @@ export const EndeavorContainer = ({
   activeItem?: number;
   catalogState?: "hidden" | "basicState" | "scrollToItemOne" | "scrollToItemTwo" | "scrollToItemThree" | "pullOutItemOne" | "pullOutItemTwo" | "pullOutItemThree";
 }) => {
-  // Add debugging tracking for window size
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
-  const [windowHeight, setWindowHeight] = useState(typeof window !== 'undefined' ? window.innerHeight : 0);
-  
-  // Track actual rendered position for debugging
-  const logoPosition = useRef({ x: 0, y: 0, scale: 1 });
-  
-  // Add resize listener for debugging
-  useEffect(() => {
-    let timeout;
-    const handleResize = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        setWindowWidth(window.innerWidth);
-        setWindowHeight(window.innerHeight);
-      }, 100); // 100ms debounce
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-  
-  
 
   // Endeavor variants for each state
   const endeavorVariants = {
@@ -118,33 +96,7 @@ export const EndeavorContainer = ({
   const logoX = logoByState.x;
   const logoY = logoByState.y;
   const logoScale = logoByState.scale;
-  
-  // Store values for reference
-  logoPosition.current = { x: logoX, y: logoY, scale: logoScale };
-  
-  // Console log logo position for debugging
-  useEffect(() => {
-    console.log('============== LOGO POSITION DEBUG ==============');
-    console.log(`Current state: ${state}`);
-    console.log(`Window size: ${windowWidth} x ${windowHeight}`);
-    console.log(`Logo position (from logoByState): x=${logoX}, y=${logoY}, scale=${logoScale}`);
-    
-    // Add DOM element position tracking
-    const logoElement = document.getElementById('endeavor-logo');
-    if (logoElement) {
-      const rect = logoElement.getBoundingClientRect();
-      console.log(`DOM position: top=${rect.top}, left=${rect.left}, width=${rect.width}, height=${rect.height}`);
-      
-      // Log the computed style to see if there are transforms being applied
-      const computedStyle = window.getComputedStyle(logoElement);
-      console.log(`Computed transform: ${computedStyle.transform}`);
-      console.log(`Transform origin: ${computedStyle.transformOrigin}`);
-    } else {
-      console.log('Logo element not found in DOM yet');
-    }
-    console.log('==================================================');
-  }, [state, logoX, logoY, logoScale, windowWidth, windowHeight]);
-  
+
   const textByState = {
     hidden: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
     startState: { x: currentCoords.x1 + 120, y: 0, textSize: 40, text: "" },
@@ -351,7 +303,6 @@ export const EndeavorContainer = ({
     return null;
   };
 
-  
   return (
     <motion.g
       initial="hidden"
@@ -389,8 +340,6 @@ export const EndeavorContainer = ({
 
       {/* Endeavor Logo */}
       <motion.g
-        id="endeavor-logo"
-        initial={{ x: logoX, y: logoY, scale: logoScale }}
         animate={{
           x: logoX,
           y: logoY,
@@ -445,15 +394,6 @@ export const EndeavorContainer = ({
       {/* Render checkmark for completed state */}
       {renderCheckmark()}
 
-      <motion.rect 
-        x="-5" 
-        y="-5" 
-        width="10" 
-        height="10" 
-        fill="red" 
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }}
-      />
 
 
       <Item 
