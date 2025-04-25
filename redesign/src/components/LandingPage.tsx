@@ -199,10 +199,10 @@ function App() {
           
           <NavBar />
           <HeroSection />
-          <div className="w-full relative overflow-hidden mb-8 sm:mb-12 md:mb-16 lg:mb-20">
+          <div className="w-full relative overflow-hidden">
             <VideoPlayer 
               videoSrc="/endeavor_demo.mp4" 
-              className="h-auto aspect-video max-h-[400px] sm:max-h-[500px] md:max-h-[600px] lg:max-h-[700px] w-full" 
+              className="h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] w-full" 
             />
           </div>
         </div>
@@ -215,7 +215,7 @@ function App() {
           {sectionText.map((text, idx) => (
             <div 
               key={idx} 
-              className="space-y-6 h-[80vh]"
+              className="space-y-6"
               ref={el => (mobileSectionsRef.current[idx] = el)}
               data-index={idx}
             >
@@ -226,13 +226,11 @@ function App() {
                 <div className="absolute -left-1 top-0 h-full w-1 bg-gradient-to-b from-[#00A3FF] to-transparent opacity-40"></div>
               </div>
               
-              {/* <h2 className="text-2xl font-bold leading-tight text-white"> */}
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight text-white">
+              <h2 className="text-2xl font-bold leading-tight text-white">
                 {text[1]}
               </h2>
               
-              {/* <p className="text-base leading-relaxed text-[#B0B0B0]"> */}
-              <p className="text-sm sm:text-base md:text-lg leading-relaxed text-[#B0B0B0]">
+              <p className="text-base leading-relaxed text-[#B0B0B0]">
                 {text[2]}
               </p>
               
