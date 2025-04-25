@@ -58,7 +58,7 @@ const NavBar: React.FC<NavBarProps> = () => {
     if (windowWidth >= MOBILE_BREAKPOINT) {
       const timeout = setTimeout(() => {
         setSolutionsOpen(false);
-      }, 500);
+      }, 300);
       setSolutionsTimeout(timeout);
     }
   };
@@ -77,7 +77,7 @@ const NavBar: React.FC<NavBarProps> = () => {
     if (windowWidth >= MOBILE_BREAKPOINT) {
       const timeout = setTimeout(() => {
         setCompanyOpen(false);
-      }, 500);
+      }, 300);
       setCompanyTimeout(timeout);
     }
   };
@@ -277,7 +277,8 @@ const NavBar: React.FC<NavBarProps> = () => {
         {/* Contact Us Button */}
         <div className={`${windowWidth < MOBILE_BREAKPOINT ? 'hidden' : 'flex'} justify-end min-w-[120px]`}>
           <motion.button 
-            className={`px-8 ${windowWidth >= MOBILE_BREAKPOINT ? 'px-6' : 'px-8'} py-2 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-all cursor-[url('/cursor.svg')_12_12,_auto] border border-[#444444] whitespace-nowrap ${windowWidth >= MOBILE_BREAKPOINT ? 'text-base' : 'text-sm'}`}
+            className={`px-6 ${windowWidth >= MOBILE_BREAKPOINT ? 'px-6' : 'px-8'} py-2 text-white rounded-full bg-gradient-to-r from-[#111118] to-[#404042] transition-all cursor-[url('/cursor.svg')_12_12,_auto] whitespace-nowrap ${windowWidth >= MOBILE_BREAKPOINT ? 'text-base' : 'text-sm'}`}
+            style={{ border: '1px solid #444444' }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >

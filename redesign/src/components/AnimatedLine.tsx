@@ -17,7 +17,7 @@ export const AnimatedLine = ({
       opacity: 1,
       transition: { 
         pathLength: { duration: 0.6, ease: "easeInOut" },
-        opacity: { duration: 0.3 }
+        opacity: { duration: 0.3 },
       }
     }
   };
